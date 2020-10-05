@@ -1,8 +1,20 @@
-#ifndef		LIBFT_H
-# define	LIBFT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/05 15:02:54 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/05 15:04:59 by sunmin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
+#ifndef LIBFT_H
+# define LIBFT_H
+
+# include <unistd.h>
+# include <stdlib.h>
 
 int	strlen(char *dest, char *src);
 
