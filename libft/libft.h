@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:02:54 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 16:09:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/05 16:42:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 
 typedef	struct	s_list
 {
