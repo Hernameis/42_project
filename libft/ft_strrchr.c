@@ -1,13 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/05 21:21:56 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/05 21:54:13 by sunmin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_strrchr(char *s, char c)
+char *ft_strrchr(const char *s, int c)
 {
-	while(*s)
-		s++;
-	while(*s != c)
-		s--;
-	s++;
-	if (*s == s[0])
-		return ('\0')
-	return (s);
+	char		*last;
+	char		find;
+	size_t		i;
+
+	last = (char *)s;
+	find = (char)c;
+	i = ft_strlen(s);
+	while (i > 0)
+	{
+		if (last[i] == find)
+			return ((char *)s + i);
+		i--;
+	}
+	return NULL;
 }
