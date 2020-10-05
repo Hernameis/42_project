@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/05 17:44:21 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/05 17:46:02 by sunmin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int i;
+	unsigned long i;
 
 	i = 0;
 	while(i < n)
 	{
-		dest[i] = src[i];
+		*(int *)dest = *(int *)src;
+		dest++;
+		src++;
 		i++;
 	}
-	dest[i] = '\0'
+	*(int *)dest = 0;
 	return (dest);
 }
