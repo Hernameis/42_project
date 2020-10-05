@@ -6,23 +6,25 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:21:52 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:21:57 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/05 20:12:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(void *src1, void *src2, size_t n)
+int		ft_memcmp(void const *src1, void const *src2, size_t n)
 {
-	int i;
-
+	unsigned long i;
+	
 	i = 0;
 	while (i < n)
 	{
-		if (src1[i] > src2[i])
+		if (*(int *)src1 > *(int *)src2)
 			return (1);
-		else if (src1[i] < src2[i])
+		else if (*(int *)src1 < *(int *)src2)
 			return (-1);
+		src1++;
+		src2++;
 		i++;
 	}
 	return (0);

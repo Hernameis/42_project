@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:02:54 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 17:27:19 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/05 20:11:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memchr(const void *b, int c, size_t n);
-int		ft_memcmp(const void *b1, const void *b2, size_t n);
+int		ft_memcmp(const void *src1, const void *src2, size_t n);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dest, const char *src, size_t dstsize);
