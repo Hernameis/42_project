@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:35:44 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:35:46 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/03 14:28:00 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/03 17:24:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+t_list	*ft_lstnew(void *content)
 {
-	char	*str;
-	int		len;
-	int		i;
 
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char * len + 1));
-	while (i < len)
-	{
-		str[i] = s[i]
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }

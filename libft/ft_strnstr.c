@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/03 16:13:42 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/03 16:15:05 by sunmin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_strnstr(char *str, char *s, size_t len)
+char	*ft_strnstr(char *str, char *s, size_t len)
 {
 	int i;
 	int j;
@@ -17,7 +29,7 @@ char *ft_strnstr(char *str, char *s, size_t len)
 			j++;
 		else
 		{
-			while(str[i + k] == s[j + k])
+			while (str[i + k] == s[j + k])
 				k++;
 		}
 	}

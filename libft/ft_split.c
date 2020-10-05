@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:35:44 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:35:46 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/03 12:25:05 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/03 16:30:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char		**ft_split(char const *s, char c)
 {
-	char	*str;
-	int		len;
 	int		i;
+	int		j;
+	int		count;
+	char	**split;
 
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char * len + 1));
-	while (i < len)
+	i = 0;
+	while (s[i] == c)
+		i++;
+	count = 1;
+	while (s[i])
 	{
-		str[i] = s[i]
+		if (s[i] == c)
+			count++;
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	if (!(split = (char **)malloc(sizeof(char *) * (count + 1))))
+		return (NULL);
+
+	return (split);
 }
