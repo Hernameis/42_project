@@ -6,18 +6,18 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:16:04 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:20:31 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/05 20:55:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlcpy(*str dest, *str src)
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
-	int i;
+	unsigned long i;
 
 	i = 0;
-	while(src[i])
+	while (i < dstsize)
 	{
 		dest[i] = src[i];
 		i++;
