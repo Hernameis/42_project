@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:13:42 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 10:02:31 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 16:36:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	char	*str;
 
 	str = (char *)big;
-	if (*s == '\0')
+	if (*little == '\0')
 		return (str);
 	i = 0;
 	j = 0;
 	k = 0;
-	while (s[j])
+	while (str[j])
 	{
-		if (str[i] != s[j])
+		if (str[i] != little[j])
 			j++;
 		else
 		{
-			while (str[i + k] == s[j + k])
+			while (str[i + k] == little[j + k])
 				k++;
 		}
 	}
-	if (str[i + k] == '\0' && s[j + k] == '\0')
+	if (str[i + k] == '\0' && little[j + k] == '\0')
 		return (&str[i]);
-	return ('\0');
+	return (NULL);
+	len = 0;
 }

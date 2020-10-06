@@ -5,12 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 13:07:59 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 13:13:23 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/06 13:52:52 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/06 14:32:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-t_list		*ft_lstlast(t_list *lst)
-{
+#include "libft.h"
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	while(lst->next)
+		lst = lst->next;
+	return (lst);
 }

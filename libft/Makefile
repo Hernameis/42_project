@@ -6,7 +6,7 @@
 #    By: daelee <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2020/10/05 20:58:18 by sunmin           ###   ########.fr        #
+#    Updated: 2020/10/06 17:33:11 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,8 @@ FILES = ft_memset \
 		ft_putchar_fd \
 		ft_putstr_fd \
 		ft_putendl_fd \
-		ft_putnbr_fd
-
-FILES_B = 	ft_lstnew \
+		ft_putnbr_fd \
+		ft_lstnew \
 	  		ft_lstadd_front \
 	  		ft_lstsize \
 	  		ft_lstlast \

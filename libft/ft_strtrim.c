@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:34:27 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:27:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 16:37:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	return (s1);
+	char *str = (char *)s1;
+	return (str);
+	set = 0;
 }

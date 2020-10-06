@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:27:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 16:38:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ char		**ft_split(char const *s, char c)
 		return (NULL);
 
 	return (split);
+	j = 0;
 }

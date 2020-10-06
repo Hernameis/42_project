@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:59:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 13:07:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 13:21:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_lstsize(t_list *lst)
 	if (lst == NULL)
 		return (0);
 	size = 0;
-	while(lst->next)
+	while(lst)
 	{
 		size++;
 		lst = lst->next;
