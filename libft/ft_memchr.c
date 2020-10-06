@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:30:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 20:05:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 11:23:16 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	*memchr(const void *ptr, int value, size_t n)
 
 	cp_ptr = (char *)ptr;
 	i = 0;
-	while(i < n)
+	while (i < n)
 	{
 		if (*(int *)cp_ptr != value)
 			cp_ptr++;
-		
+
 		else
 			return (cp_ptr);
 		i++;

@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:34:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:23:57 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/06 13:07:59 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/06 13:13:23 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
+t_list		*ft_lstlast(t_list *lst)
 {
-	char			*cp_dst;
-	char			*cp_src;
-	unsigned long	i;
 
-	cp_dst = (char *)dest;
-	cp_src = (char *)src;
-
-	i = 0;
-	while (i < n)
-	{
-		*(char *)cp_dst = *(char *)cp_src;
-		cp_dst++;
-		cp_src++;
-		i++;
-	}
-	return (dest);
 }

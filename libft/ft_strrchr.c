@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 21:21:56 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 21:54:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 11:22:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strrchr(const char *s, int c)
+char		*ft_strrchr(const char *s, int c)
 {
 	char		*last;
 	char		find;
@@ -27,5 +27,5 @@ char *ft_strrchr(const char *s, int c)
 			return ((char *)s + i);
 		i--;
 	}
-	return NULL;
+	return (NULL);
 }

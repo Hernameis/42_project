@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:32:28 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:32:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 11:25:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 	int i;
 	int j;
 
-	if(!(sub = (char *)malloc(sizeof(char) * (len - strat))))
+	if(!(sub = (char *)malloc(sizeof(char) * (len - start))))
 		return (NULL);
 	i = 0;
 	j = start;

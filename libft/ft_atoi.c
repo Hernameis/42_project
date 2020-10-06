@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 10:33:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:36:00 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 10:53:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int i;
 	int sign;
