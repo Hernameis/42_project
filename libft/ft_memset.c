@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:30:58 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 17:44:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/06 19:48:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void	*ft_memset(void *ptr, int value, size_t n)
 {
 	unsigned long i;
+	unsigned char cha;
+	unsigned char *str;
 
 	i = 0;
+	cha = value;
+	str = ptr;
 	while (i < n)
 	{
-		*(char *)ptr = value;
-		ptr++;
+		str[i] = cha;
 		i++;
 	}
-	return (ptr);
+	return (str);
 }
