@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:34:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:23:57 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 16:03:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char			*cp_dst;
-	char			*cp_src;
-	unsigned long	i;
+	unsigned char	*ddst;
+	unsigned char	*ssrc;
 
-	cp_dst = (char *)dest;
-	cp_src = (char *)src;
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	ddst = (unsigned char *)dest;
+	ssrc = (unsigned char *)src;
 
-	i = 0;
-	while (i < n)
+	if (ssrc > ddst)
 	{
-		*(char *)cp_dst = *(char *)cp_src;
-		cp_dst++;
-		cp_src++;
-		i++;
+		while (n--)
+			*(unsigned char *)ddst++ = *(unsigned char *)ssrc++;
+	}
+	else
+	{
+		ddst += n;
+		ssrc += n;
+		while (n--)
+			*(unsigned char *)--ddst = *(unsigned char *)--ssrc;
 	}
 	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:21:52 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:20:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 17:09:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 int		ft_memcmp(void const *src1, void const *src2, size_t n)
 {
-	unsigned long i;
+	unsigned char *s1;
+	unsigned char *s2;
 
-	i = 0;
-	while (i < n)
+	s1 = (unsigned char *)src1;
+	s2 = (unsigned char *)src2;
+	if (n == 0)
+		return (0);
+	n -= 1;
+	while (n--)
 	{
-		if (*(int *)src1 > *(int *)src2)
-			return (1);
-		else if (*(int *)src1 < *(int *)src2)
-			return (-1);
-		src1++;
-		src2++;
-		i++;
+		if (*s1 == *s2)
+		{
+			s1++;
+			s2++;
+		}
 	}
-	return (0);
+	return ((int)(*s1 - *s2));
 }

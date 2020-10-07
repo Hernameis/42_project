@@ -6,29 +6,25 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:30:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:23:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 16:13:51 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*memchr(const void *ptr, int value, size_t n)
+void	*ft_memchr(const void *ptr, int value, size_t n)
 {
-	char			*cp_ptr;
-	unsigned long	i;
+	unsigned char	*pptr;
+	size_t			i;
 
-	cp_ptr = (char *)ptr;
+	pptr = (unsigned char *)ptr;
 	i = 0;
-	while (i < n)
+	while (n--)
 	{
-		if (*(int *)cp_ptr != value)
-			cp_ptr++;
-
+		if (*(unsigned char *)pptr != (unsigned char)value)
+			pptr++;
 		else
-			return (cp_ptr);
-		i++;
+			return (pptr);
 	}
-	if (*(int *)cp_ptr == 0)
-		return (NULL);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:22:19 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 21:19:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 17:25:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 char	*ft_strchr(const char *s, int c)
 {
+	unsigned char	*
 	unsigned char	check;
 	int				i;
 
 	check = (unsigned char)c;
+	if (check == '\0')
+		return (s);
 	i = 0;
 	while (s[i])
 	{

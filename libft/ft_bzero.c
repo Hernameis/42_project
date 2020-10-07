@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:25:09 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/07 13:53:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 15:30:24 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_bzero(void *ptr, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		*(int *)ptr = 0;
+		*(unsigned char *)ptr = 0;
 		ptr++;
 		i++;
 	}

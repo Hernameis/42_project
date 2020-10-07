@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 17:44:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:21:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 14:12:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned long i;
+	unsigned long	i;
+	char 			*str;
 
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	str = dest;
 	i = 0;
 	while (i < n)
 	{
-		*(int *)dest = *(int *)src;
-		dest++;
-		src++;
+		*str++ = *(unsigned char *)src++;
 		i++;
 	}
-	*(int *)dest = 0;
 	return (dest);
 }
