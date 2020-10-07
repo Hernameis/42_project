@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 17:44:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/07 14:12:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/07 20:19:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned long	i;
-	char 			*str;
+	char			*str;
 
 	if (dest == NULL && src == NULL)
 		return (NULL);
