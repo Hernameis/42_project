@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/08 17:23:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 19:15:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,8 @@ char		**ft_split(char const *s, char c)
 	while (s[i] == c)
 		i++;
 	count = 1;
-	while (s[i])
-	{
-		if (s[i] == c)
-			count++;
-		i++;
-	}
-	if (!(split = (char **)malloc(sizeof(char *) * (count + 1))))
-		return (NULL);
 
+	split = NULL;
 	return (split);
 	j = 0;
 }

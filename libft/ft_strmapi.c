@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 14:02:03 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 16:34:09 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 19:47:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		str[i] = f(i, s[i]);
 		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
