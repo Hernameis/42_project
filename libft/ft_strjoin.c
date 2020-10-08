@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 13:49:33 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:26:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 16:29:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	int		len1;
-	int		len2;
-	int		i;
-	int		j;
+	char		*str;
+	size_t		len1;
+	size_t		len2;
+	size_t		i;
+	size_t		j;
 
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if(!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
@@ -30,13 +32,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i] = s1[i];
 		i++;
 	}
-	i = len1;
 	j = 0;
-	while (j < len2)
-	{
-		str[i] = s1[j];
-		i++;
-		j++;
-	}
+	while(i < len1 + len2)
+		str[i++] = s2[j++];
+	str[i] = '\0';
 	return (str);
 }
