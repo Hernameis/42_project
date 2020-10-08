@@ -1,12 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 10:33:37 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 18:09:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 15:38:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +12,9 @@
 
 int	ft_atoi(const char *str)
 {
-	int i;
-	int sign;
-	int num;
+	size_t	 i;
+	long	 sign;
+	long	 num;
 
 	i = 0;
 	sign = 1;
@@ -34,7 +32,11 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num = num * 10 + str[i] - '0';
+		if (num > 2147483647 && sign == 1)
+			return (-1);
+		else if (num > 2147483648 && sign == -1)
+			return (0);
 		i++;
 	}
-	return (sign * num);
+	return (num * sign);
 }
