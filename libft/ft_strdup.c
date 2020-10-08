@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:35:44 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 11:18:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 15:28:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strdup(const char *s)
 	int		i;
 
 	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * len + 1);
+	if(!(str = (char *)malloc(sizeof(char) * len + 1)))
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
