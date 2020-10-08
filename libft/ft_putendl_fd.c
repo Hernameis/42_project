@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 12:17:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/03 12:18:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 21:58:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	int i;
 
+	if (s == NULL)
+		return ;
 	if (fd < 0)
 		return ;
 	i = 0;
