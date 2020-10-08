@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:35:39 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/08 15:26:47 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/08 15:42:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void				*str;
 
-	if(!(str = (void *)malloc(size * count)))
-		return NULL;
+	if (!(str = (void *)malloc(size * count)))
+		return (NULL);
 	ft_bzero(str, count * size);
 	return (str);
 }
