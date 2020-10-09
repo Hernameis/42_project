@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:52:52 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 14:32:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/09 15:20:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	while(lst->next)
-		lst = lst->next;
+	if (lst == NULL)
+		return (NULL);
+	while(lst)
+	{
+		if (lst->next)
+			lst = lst->next;
+		else
+			break ;
+	}
 	return (lst);
 }

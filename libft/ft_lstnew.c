@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 14:28:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 12:36:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/09 14:37:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
 
-	new = (t_list *)malloc(sizeof(t_list));
+	if(!(new = (t_list *)malloc(sizeof(t_list))))
+			return (0);
 	new -> content = content;
 	new -> next = NULL;
 	return (new);

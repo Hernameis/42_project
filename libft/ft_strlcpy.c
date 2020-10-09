@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:16:04 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/09 14:16:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/09 14:41:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	len = ft_strlen(src);
 	if (dstsize == 0)
 		return (len);
-	i = 0;
-	while (i < dstsize - 1 && *ssrc)
+	i = 1;
+	while (i < dstsize && *ssrc)
 	{
 		*dest++ = *ssrc++;
 		i++;
