@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:05:46 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/09 16:09:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/09 23:23:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	t_list		*nex;
 
 	now = *lst;
-	while(now)
+	while (now)
 	{
 		nex = now->next;
 		ft_lstdelone(now, del);
