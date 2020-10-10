@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 17:55:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/10 18:05:58 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char			**ft_split(char const *s, char c)
 //	printf("%s\n", "split success");  ////////////////////////////
 	return (split);
 }
-/*
+
 int		main(void)
 {
 	char	**split;
@@ -117,7 +117,7 @@ int		main(void)
 
 	split = ft_split("abcdabcdab", 'a');
 	i = 0;
-	while (i < 5)
+	while (i < 10)
 	{
 		printf("%s\n", split[i]);
 		i++;
@@ -125,4 +125,3 @@ int		main(void)
 	printf("%s\n", "abcdabcdab");
 	return (0);
 }
-*/
