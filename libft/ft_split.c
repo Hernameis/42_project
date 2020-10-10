@@ -6,11 +6,12 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 20:50:27 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/10 21:36:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		ft_word_num(char *s, char c)
 {
@@ -35,6 +36,8 @@ static int		ft_word_num(char *s, char c)
 		}
 		if (check == 1)
 			count++;
+		if (count == 0)
+			return (1);
 	}
 	return (count);
 }
@@ -98,7 +101,7 @@ char			**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	word_num = ft_word_num(str, c);
-	if (!(split = (char **)malloc(sizeof(char *) * word_num)))
+	if (!(split = (char **)malloc(sizeof(char *) * word_num + 1)))
 		return (NULL);
 	split[word_num] = NULL;
 	i = 0;
@@ -114,4 +117,19 @@ char			**ft_split(char const *s, char c)
 	}
 	ft_push_split(str, split, word_num, c);
 	return (split);
+}
+
+int		main(void)
+{
+	char		**split;
+	int			i;
+
+	split = ft_split("", 'a');
+	i = 0;
+	while (i < 4)
+	{
+		printf("%s\n", split[i]);
+		i++;
+	}
+	return (0);
 }
