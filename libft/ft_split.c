@@ -6,14 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/11 01:32:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/11 03:02:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static int		ft_word_num(char *s, char c)
+static int			ft_word_num(char *s, char c)
 {
 	int		check;
 	int		i;
@@ -36,13 +35,11 @@ static int		ft_word_num(char *s, char c)
 		}
 		if (check == 1)
 			count++;
-//		if (count == 0)
-//			return (1);
 	}
 	return (count);
 }
 
-static int		chnum(char *s, int index, char c)
+static int			chnum(char *s, int index, char c)
 {
 	int		i;
 	int		j;
@@ -65,12 +62,11 @@ static int		chnum(char *s, int index, char c)
 	return (j);
 }
 
-static char		**ft_push_split(char *s, char **split, int num, char c)
+static char			**ft_push_split(char *s, char **split, int num, char c)
 {
 	int		i;
 	int		j;
 	int		k;
-
 	i = 0;
 	j = 0;
 	while (j < num)
@@ -78,7 +74,7 @@ static char		**ft_push_split(char *s, char **split, int num, char c)
 		k = 0;
 		while (s[i] == c)
 			i++;
-		while (s[i] != c)
+		while (s[i] && s[i] != c)
 		{
 			split[j][k] = s[i];
 			i++;
@@ -90,7 +86,7 @@ static char		**ft_push_split(char *s, char **split, int num, char c)
 	return (split);
 }
 
-char			**ft_split(char const *s, char c)
+char				**ft_split(char const *s, char c)
 {
 	int		word_num;
 	int		i;
@@ -101,14 +97,12 @@ char			**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	word_num = ft_word_num(str, c);
-	printf("%d\n", word_num); ///////////////////////////////////////////////
 	if (!(split = (char **)malloc(sizeof(char *) * word_num + 1)))
 		return (NULL);
 	split[word_num] = NULL;
 	i = 0;
 	while (i < word_num)
 	{
-		printf("%d\n", chnum(str, i, c)); ///////////////////////////////////////
 		if (!(split[i] = (char *)malloc(sizeof(char) * chnum(str, i, c) + 1)))
 		{
 			while (i-- > -1)
@@ -119,18 +113,4 @@ char			**ft_split(char const *s, char c)
 	}
 	ft_push_split(str, split, word_num, c);
 	return (split);
-}
-
-int		main(void)
-{
-	char **split;
-
-	split = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risu    s. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cr    as elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non,     mi.", 'z');
-	int i= 0;
-	while(split[i])
-	{
-		printf("%d %s %s\n", i, "번쨰", split[i]);
-		i++;
-	}
-	return (0);
 }
