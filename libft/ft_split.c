@@ -6,13 +6,14 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/11 03:02:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/11 03:27:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
-static int			ft_word_num(char *s, char c)
+static int		ft_word_num(char *s, char c)
 {
 	int		check;
 	int		i;
@@ -39,7 +40,7 @@ static int			ft_word_num(char *s, char c)
 	return (count);
 }
 
-static int			chnum(char *s, int index, char c)
+static int		chnum(char *s, int index, char c)
 {
 	int		i;
 	int		j;
@@ -62,11 +63,12 @@ static int			chnum(char *s, int index, char c)
 	return (j);
 }
 
-static char			**ft_push_split(char *s, char **split, int num, char c)
+static char		**ft_push_split(char *s, char **split, int num, char c)
 {
 	int		i;
 	int		j;
 	int		k;
+
 	i = 0;
 	j = 0;
 	while (j < num)
@@ -86,7 +88,7 @@ static char			**ft_push_split(char *s, char **split, int num, char c)
 	return (split);
 }
 
-char				**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	int		word_num;
 	int		i;
