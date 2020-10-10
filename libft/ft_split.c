@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 20:08:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/10 20:50:27 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		ft_word_num(char *s, char c)
 	return (count);
 }
 
-static int		ft_char_num(char *s, int index, char c)
+static int		chnum(char *s, int index, char c)
 {
 	int		i;
 	int		j;
@@ -104,9 +104,12 @@ char			**ft_split(char const *s, char c)
 	i = 0;
 	while (i < word_num)
 	{
-		if (!(split[i] = (char *)malloc(sizeof(char) *
-						ft_char_num(str, i, c) + 1)))
+		if (!(split[i] = (char *)malloc(sizeof(char) * chnum(str, i, c) + 1)))
+		{
+			while (i-- > -1)
+				free(split[i]);
 			return (NULL);
+		}
 		i++;
 	}
 	ft_push_split(str, split, word_num, c);
