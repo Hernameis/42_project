@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 11:27:36 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 21:36:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/11 01:32:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static int		ft_word_num(char *s, char c)
 		}
 		if (check == 1)
 			count++;
-		if (count == 0)
-			return (1);
+//		if (count == 0)
+//			return (1);
 	}
 	return (count);
 }
@@ -101,12 +101,14 @@ char			**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	word_num = ft_word_num(str, c);
+	printf("%d\n", word_num); ///////////////////////////////////////////////
 	if (!(split = (char **)malloc(sizeof(char *) * word_num + 1)))
 		return (NULL);
 	split[word_num] = NULL;
 	i = 0;
 	while (i < word_num)
 	{
+		printf("%d\n", chnum(str, i, c)); ///////////////////////////////////////
 		if (!(split[i] = (char *)malloc(sizeof(char) * chnum(str, i, c) + 1)))
 		{
 			while (i-- > -1)
@@ -121,14 +123,13 @@ char			**ft_split(char const *s, char c)
 
 int		main(void)
 {
-	char		**split;
-	int			i;
+	char **split;
 
-	split = ft_split("", 'a');
-	i = 0;
-	while (i < 4)
+	split = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risu    s. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cr    as elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non,     mi.", 'z');
+	int i= 0;
+	while(split[i])
 	{
-		printf("%s\n", split[i]);
+		printf("%d %s %s\n", i, "번쨰", split[i]);
 		i++;
 	}
 	return (0);
