@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/12 18:40:21 by sunmin            #+#    #+#              #
-#    Updated: 2020/10/12 21:22:41 by sunmin           ###   ########.fr        #
+#    Updated: 2020/10/13 14:19:14 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,19 +59,21 @@ BONUS = 	ft_lstnew.c \
 	  		ft_lstiter.c \
 	  		ft_lstmap.c
 
-# SRCS_O = 
-
-SRCS_O : $(SRCS)
-	$(CC) -c $(CFLAGS) $^
+SRCS_O = $(subst .c,.o, $(SRCS))
+BONUS_O = $(subst .c,.o, $(BONUS))
 
 .c.o : $(SRCS_O)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(NAME) : $(SRCS)
-	ar rcs $(NAME) $^
-	ranlib $(NAME)
+SRCS_O : $(SRCS)
+	$(CC) -c $(CFLAGS) $^
 
-bonus : BONUS
+$(NAME) : $(SRCS_O)
+	$(CC) $(CFLAGS) $@ $^
+	ar rcs $(NAME) $^
+
+bonus : $(BONUS_O)
+	ar rcs $(NAME) $^
 
 clean : $(SRCS_O)
 	rm -f $^
