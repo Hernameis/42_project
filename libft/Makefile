@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/12 18:40:21 by sunmin            #+#    #+#              #
-#    Updated: 2020/10/13 14:20:52 by sunmin           ###   ########.fr        #
+#    Updated: 2020/10/13 14:23:29 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,10 +66,9 @@ BONUS_O = $(subst .c,.o, $(BONUS))
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 SRCS_O : $(SRCS)
-	$(CC) -c $(CFLAGS) $^
+	$(CC) $(CFLAGS) -c $^
 
 $(NAME) : $(SRCS_O)
-	$(CC) $(CFLAGS) $@ $^
 	ar rcs $(NAME) $^
 
 bonus : $(BONUS_O)
