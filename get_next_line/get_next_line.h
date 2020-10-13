@@ -6,8 +6,10 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:57:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/13 15:57:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/13 16:47:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
+int		get_next_line(int fd, char **line);
