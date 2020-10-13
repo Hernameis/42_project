@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/12 18:40:21 by sunmin            #+#    #+#              #
-#    Updated: 2020/10/13 14:19:14 by sunmin           ###   ########.fr        #
+#    Updated: 2020/10/13 14:20:52 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ $(NAME) : $(SRCS_O)
 bonus : $(BONUS_O)
 	ar rcs $(NAME) $^
 
-clean : $(SRCS_O)
+clean : $(SRCS_O) $(BONUS_O)
 	rm -f $^
 
 fclean : clean
