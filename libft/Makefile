@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/12 18:40:21 by sunmin            #+#    #+#              #
-#    Updated: 2020/10/13 14:23:29 by sunmin           ###   ########.fr        #
+#    Updated: 2020/10/13 15:08:20 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,19 +63,19 @@ SRCS_O = $(subst .c,.o, $(SRCS))
 BONUS_O = $(subst .c,.o, $(BONUS))
 
 .c.o : $(SRCS_O)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-SRCS_O : $(SRCS)
-	$(CC) $(CFLAGS) -c $^
+	$(CC) $(CFLAGS) -c -o $@ $^
 
 $(NAME) : $(SRCS_O)
 	ar rcs $(NAME) $^
 
+SRCS_O : $(SRCS)
+	$(CC) $(CFLAGS) -c $^
+
 bonus : $(BONUS_O)
 	ar rcs $(NAME) $^
 
-clean : $(SRCS_O) $(BONUS_O)
-	rm -f $^
+clean :
+	rm -f $(SRCS_O) $(BONUS_O)
 
 fclean : clean
 	rm -f $(NAME)
