@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:19:58 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 15:04:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/14 18:12:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 			return (NULL);
 		}
 		ft_lstadd_back(&new, temp);
-		temp = temp->next;
 		lst = lst->next;
 	}
 	return (new);
