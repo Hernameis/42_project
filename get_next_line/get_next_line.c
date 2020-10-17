@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:53:28 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/17 20:20:47 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/17 21:23:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int		get_next_line(int fd, char **line)
 	char		*buff;
 	ssize_t		n;
 
-	if(!(buf = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
+	if(!(buff = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
 		return (-1);
 
-	n = read(fd, *buff, BUFFER_SIZE);			// ssize_t	read(int fd, void *buf, size_t count);
+	if((read(fd, *buff, BUFFER_SIZE)) == -1)
+		return (0);
 	return (0);
 }
