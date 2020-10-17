@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:53:28 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/17 21:23:02 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/17 23:04:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ int		get_next_line(int fd, char **line)
 
 	if(!(buff = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
 		return (-1);
+	while((read(fd, *buff, BUFFER_SIZE)) != -1)
+	{
+		if (strchr(buff, '\n'))
+		{
+			
+		}
+	}
 
-	if((read(fd, *buff, BUFFER_SIZE)) == -1)
-		return (0);
 	return (0);
 }
