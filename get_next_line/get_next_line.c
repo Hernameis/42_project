@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 15:53:28 by sunmin            #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2020/10/17 23:04:36 by sunmin           ###   ########.fr       */
-=======
-/*   Updated: 2020/10/18 13:21:27 by sunmin           ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Created: 2020/10/18 13:48:57 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/18 15:20:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +18,14 @@ int		get_next_line(int fd, char **line)
 	char		*buff;
 	ssize_t		n;
 
-	if(!(buff = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
+	if (!(buff = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
 		return (-1);
-	while((read(fd, *buff, BUFFER_SIZE)) != -1)
+	while ((read(fd, *buff, BUFFER_SIZE)) != -1)
 	{
+		
 		if (strchr(buff, '\n'))
 		{
-			
+
 		}
 	}
 
