@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/18 13:48:57 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/18 17:54:04 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
+/*   Updated: 2020/10/18 16:57:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		get_next_line(int fd, char **line)
+char	*ft_strchr(const char *s, int c)
 {
-	char		*fdfd[4096];
-	char		*buff;
-	ssize_t		n;
+	char *str;
 
-	if (!(buff = (char *)malloc(sizeof(char) * BUFFER_SIZE)))
-		return (-1);
-	while ((read(fd, buff, BUFFER_SIZE)) != -1)
+	str = (char *)s;
+	while (*str)
 	{
-		n = read(fd, buff, BUFFER_SIZE);
-		if (ft_strchr(buff, '\n'))
-		{
-
-		}
+		if (*str == c)
+			return (str);
+		str++;
 	}
-
-	return (0);
+	if (*str == c)
+		return (str);
+	return (NULL);
 }
