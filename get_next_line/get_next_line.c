@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 13:48:57 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/19 20:26:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/20 15:01:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,17 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	while ((n = read(fd, buff, BUFFER_SIZE)) != -1)
 	{
-		put_fdfd(fd, buff, BUFFER_SIZE);
-		put_line();
-		if (ft_strchr(buff, '\n'))
+		if (n == 0)
+			break ;
+		if (n > 0)
 		{
+			put_fdfd(fd, buff, BUFFER_SIZE);
 			put_line();		// 개행 전까지만 집어넣도록 ???
 		}
+		if (ft_strchr(buff, '\n'))				// 개행 있으면 1리턴?
+			return (1);
 	}
+	if (n == -1)
+		return (-1);
 	return (0);
 }
