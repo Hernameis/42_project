@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 15:56:16 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/18 16:49:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/20 20:38:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ int		main(void)
 {
 	int		fd;
 	char	*line;
-	char	*BUFFER_SIZE[50];
 
 	fd = open("./test", O_RDONLY);
-	printf("%d\n", fd);
-	printf("%zd\n", read(0, BUFFER_SIZE, 60));
-	printf("%d\n", get_next_line(fd, &line));
-	return (0);
-	line = "1";
+	while (printf("%s %d\n", "Get_next_line Result : ", get_next_line(fd, &line)))
+	{
+		printf("%s %s\n", "in the fd : ", line);
+	}
 }
