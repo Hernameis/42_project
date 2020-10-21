@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/20 18:37:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:19:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[i] = '\0';
 	return (str);
 }
+
+char	*ft_strdup
