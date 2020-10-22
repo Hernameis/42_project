@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:57:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/19 16:01:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/22 20:19:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # define BUFFER_SIZE 32
 
 int		get_next_line(int fd, char **line);
-int		ft_strchr(const char *s, int c);
+char	*nl_pointer(char *s);
+size_t	ft_strlen(char *str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(char *s);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 # endif

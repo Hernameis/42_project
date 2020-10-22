@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 15:56:16 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/22 14:21:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/22 15:22:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ int		main(void)
 {
 	int		fd;
 	char	*line;
+	int		a;
 
 	fd = open("./test", O_RDONLY);
-	while (printf("%s %d\n", "Get_next_line Result : ", get_next_line(fd, &line)))
+	while ((a = get_next_line(fd, &line)) > -1)
 	{
-		printf("%s %s\n", "in the fd : ", line);
+		printf("%s %d\n", "Get_next_line Result : ", a);
+		printf("%s %s\n", "in the line : ", line);
+		if (a == 0)
+			break ;
 	}
+	return (0);
 }

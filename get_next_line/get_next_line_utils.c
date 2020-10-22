@@ -6,29 +6,39 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/22 14:34:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/22 20:12:26 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+size_t	ft_strlen(char *str)
+{
+	unsigned int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*nl_pointer(char *s)
 {
 	char *str;
 
 	str = (char *)s;
 	while (*str)
 	{
-		if (*str == c)
+		if (*str == '\n')
 			return (str);
 		str++;
 	}
-	if (*str == c)
+	if (*str == '\n')
 		return (str);
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char		*str;
 	size_t		len1;
@@ -40,7 +50,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	if (!(str = (char *)malloc(sizeof(char) * (len + len2 + 1))))
+	if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
 		return (NULL);
 	i = 0;
 	while (i < len1)
@@ -55,7 +65,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*str;
 	int		len;
@@ -74,12 +84,24 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-size_t	ft_strlen(const char *str)
-{
-	unsigned int i;
 
+char		*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (s == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (!(sub = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (i < len)
+	{
+		sub[i] = s[start + i];
 		i++;
-	return (i);
+	}
+	sub[i] = '\0';
+	return (sub);
 }
