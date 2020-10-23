@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:57:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/22 20:19:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/23 14:54:04 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFFER_SIZE 32
+# define BUFFER_SIZE 1000
 
 int		get_next_line(int fd, char **line);
 char	*nl_pointer(char *s);
