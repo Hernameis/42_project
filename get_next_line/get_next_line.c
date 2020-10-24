@@ -6,30 +6,60 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/23 21:24:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 11:42:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int			get_next_line(int fd, char **line)
+static int		push_gnl(char **remain, char *temp, char **line)
+{
+	char		*next;
+
+	if (temp)
+	{
+		*temp = '\0';
+		*line = ft_strdup(*remain);
+		printf("%s %s\n", "lineline", *line);
+		next = ft_strdup(temp + 1);
+		free(*remain);
+		*remain = next;
+		return (1);
+	}
+	if (*remain)
+	{
+		*line = ft_strdup(*remain);
+		free(*remain);
+		*remain = NULL;
+	}
+	else
+		*remain = ft_strdup("");
+	return (0);
+}
+
+int				get_next_line(int fd, char **line)
 {
 	char		*remain[FILE_MAX];
-	char		buff[BUFFER_SIZE + 1];
-	size_t		nl;
+	char		*buff;
+	char		*temp;
 	ssize_t		n;
 
-	printf("%s\n", "aaa");
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FILE_MAX || !line)
 		return (-1);
-	if (!(remain[fd] = ft_strdup("")))
+	if (!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	printf("%s\n", "bbb");
-	while (n = read(fd, buff, BUFFER_SIZE) && !is_new(buff))
+	if (remain[fd] == NULL)
+		remain[fd] = ft_strdup("");
+	while (!(temp = is_new(buff)) && (n = read(fd, buff, BUFFER_SIZE) > 0))
 	{
 		buff[BUFFER_SIZE] = '\0';
-		remain[fd] = ft_strjoin(remain[fd], buff);
+		temp = ft_strjoin(remain[fd], buff);
+		free(remain[fd]);
+		remain[fd] = temp;
 	}
-	return (0);
+	free(buff);
+	if (n < 0)
+		return (-1);
+	return (push_gnl(&remain[fd], temp, line));
 }
