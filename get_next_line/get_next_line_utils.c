@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/23 19:21:09 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/23 21:06:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-int		is_new(char *s)
+char	*is_new(char *s)
 {
 	int			i;
 
 	i = 0;
-	while (s[i])
+	while (*s)
 	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
+		if (*s == '\n')
+			return (s);
+		s++;
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -81,7 +81,6 @@ char	*ft_strdup(char *s)
 	str[i] = '\0';
 	return (str);
 }
-
 
 char		*ft_substr(char *s, size_t start, size_t len)
 {
