@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 13:05:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 14:14:42 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*is_new(char *s)
+char	*is_new(char *s, char c)
 {
 	int			i;
 
 	i = 0;
 	while (*s)
 	{
-		if (*s == '\n')
+		if (*s == c)
 			return (s);
 		s++;
 	}
-	if (*s == '\n')
+	if (*s == c)
 		return (s);
 	return (NULL);
 }

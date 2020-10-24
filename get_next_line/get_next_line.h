@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:57:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 12:44:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 14:14:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 
 int		get_next_line(int fd, char **line);
-char	*is_new(char *s);
+char	*is_new(char *s, char c);
 size_t	ft_strlen(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char *s);
