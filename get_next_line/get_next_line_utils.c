@@ -6,15 +6,15 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 14:14:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 14:56:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
+size_t				ft_strlen(char *str)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (str[i])
@@ -22,9 +22,9 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*is_new(char *s, char c)
+char				*is_new(char *s, char c)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	while (*s)
@@ -38,13 +38,13 @@ char	*is_new(char *s, char c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char				*ft_strjoin(char *s1, char *s2)
 {
-	char		*str;
-	size_t		len1;
-	size_t		len2;
-	size_t		i;
-	size_t		j;
+	char			*str;
+	size_t			len1;
+	size_t			len2;
+	size_t			i;
+	size_t			j;
 
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
@@ -65,11 +65,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strdup(char *s)
+char				*ft_strdup(char *s)
 {
-	char	*str;
-	int		len;
-	int		i;
+	char			*str;
+	int				len;
+	int				i;
 
 	len = ft_strlen(s);
 	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
@@ -84,10 +84,10 @@ char	*ft_strdup(char *s)
 	return (str);
 }
 
-char		*ft_substr(char *s, size_t start, size_t len)
+char				*ft_substr(char *s, size_t start, size_t len)
 {
-	char	*sub;
-	size_t	i;
+	char			*sub;
+	size_t			i;
 
 	if (s == NULL)
 		return (NULL);
