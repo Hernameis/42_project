@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 18:31:38 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 21:11:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ static int		push_gnl(char **remain, char *temp, char **line)
 		*remain = NULL;
 	}
 	else
-	{
 		*remain = ft_strdup("");
-	}
 	return (0);
 }
 
@@ -52,7 +50,7 @@ int				get_next_line(int fd, char **line)
 	if (remain[fd] == NULL)
 		remain[fd] = ft_strdup("");
 	while (!(temp = is_new(remain[fd], '\n')) &&
-			(n = read(fd, buff, BUFFER_SIZE)))
+			(n = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[n] = '\0';
 		temp = ft_strjoin(remain[fd], buff);
