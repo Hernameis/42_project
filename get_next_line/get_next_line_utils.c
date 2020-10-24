@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:55:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 11:18:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 13:05:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t		i;
 	size_t		j;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
