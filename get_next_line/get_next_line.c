@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/24 11:42:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/10/24 12:26:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int		push_gnl(char **remain, char *temp, char **line)
 	{
 		*temp = '\0';
 		*line = ft_strdup(*remain);
-		printf("%s %s\n", "lineline", *line);
 		next = ft_strdup(temp + 1);
 		free(*remain);
 		*remain = next;
@@ -51,7 +50,7 @@ int				get_next_line(int fd, char **line)
 		return (-1);
 	if (remain[fd] == NULL)
 		remain[fd] = ft_strdup("");
-	while (!(temp = is_new(buff)) && (n = read(fd, buff, BUFFER_SIZE) > 0))
+	while (!(temp = is_new(remain[fd])) && (n = read(fd, buff, BUFFER_SIZE) > 0))
 	{
 		buff[BUFFER_SIZE] = '\0';
 		temp = ft_strjoin(remain[fd], buff);
