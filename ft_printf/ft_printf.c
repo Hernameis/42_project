@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/01 17:13:38 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/01 17:26:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,19 @@ typedef	struct		flags
 	int				precision;
 }					p_flags;
 
-
-int				ft_printf(const char *form, ...)
+void				ft_format(char *str)
 {
+
+}
+
+int					ft_printf(const char *form, ...)
+{
+
+	va_list			ar;
+	int				count;
+
+	count = 0;
+	va_start(ar, form);
 	while (*form)
 	{
 		if (*form == '%')
@@ -34,9 +44,10 @@ int				ft_printf(const char *form, ...)
 		}
 		form++;
 	}
+	return (count);
 }
 
-int				main(void)
+int					main(void)
 {
 	printf("==================\n");
 	printf("printf(\"print%%%%%%dta\\\\n\", 5);\n");
