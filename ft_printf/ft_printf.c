@@ -6,48 +6,97 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/31 15:54:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/01 15:55:27 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
 #include <stdio.h>
 
-char		*ft_format(const char *s)
+typedef	struct		flags
 {
-	char	*str;
+	char			flag;
+	char			*width;
+	char			*precision;
+}					p_flags;
 
-	str = NULL;
-	return (str);
-	str = (char *)s;
+void			ft_format(int n)
+{
+//	p_flags		fl;
+	char		*str;
+
+	str = ft_itoa(n);
+	write(1, str, ft_strlen(str));
+	return ;
 }
 
-int			ft_printf(const char *form, ...)
+int				ft_printf(const char *form, ...)
 {
-	char	*s;
+	va_list		ap;
 
-	s = (char *)form;
-	while (*s)
+	va_start(ap, form);
+	while (*form)
 	{
-		if (*s == '%')
-			ft_format(s);
+		if (*form == '%')
+		{
+			if (*form == '%' && *(form + 1) == '%')
+			{
+				write(1, "%", 1);
+			}
+			else if (*form == '%' && *(form + 1) == 'd')
+			{
+				ft_format(va_arg(ap, int));
+			}
+			form++;
+		}
+		else
+			write(1, form, 1);
 		form++;
 	}
-	return (ft_strlen(form));
-	form = NULL;
+	va_end(ap);
+	return (0);
 }
 
-int			main(void)
+int				main(void)
 {
-	int		i;
+	printf("==================\n");
+	printf("printf(\"print%%%%%%dta\\\\n\", 5);\n");
+	printf("prin%%%dta\n", 5);
+	ft_printf("prin%%%dta\n", 5);
+	printf("==================\n");
 
-	i = 0;
-	printf("Including %%  : ");
-	printf("%s %d\n", "printf ", i);
-	printf("Not including %%  : ");
-	ft_printf("%s %d\n", "ft_printf ", i);
+	printf("printf(\"%%%%\\n\");\n");
+	printf("%%\n");
+	ft_printf("%%\n");
+	printf("==================\n");
 
-	printf("abcdefg\n");
-	ft_printf("abcdefg\n");
+	printf("printf\"movemove\\n\");\n");
+	printf("movemove\n");
+	ft_printf("movemove\n");
+	printf("==================\n");
+
+	printf("printf(\"%%d\\n\", 5);\n");
+	printf("%d\n", 5);
+	ft_printf("%d\n", 5);
+	printf("==================\n");
+
+	printf("printf(\"%%+d\\n\", 5);\n");
+	printf("%+d\n", 5);
+	ft_printf("%+d\n", 5);
+	printf("==================\n");
+
+	printf("printf(\"%%+5d\\n\", 5);\n");
+	printf("%+5d\n", 5);
+	ft_printf("%+5d\n", 5);
+	printf("==================\n");
+
+	printf("printf(\"%%+7.2d\\n\", 5);\n");
+	printf("%+7.2d\n", 5);
+	ft_printf("%+7.2d\n", 5);
+	printf("==================\n");
+
 	return (0);
 }
