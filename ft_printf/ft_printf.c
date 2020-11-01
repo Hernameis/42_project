@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/01 15:55:27 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/01 17:13:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,45 +19,21 @@
 typedef	struct		flags
 {
 	char			flag;
-	char			*width;
-	char			*precision;
+	int				width;
+	int				precision;
 }					p_flags;
 
-void			ft_format(int n)
-{
-//	p_flags		fl;
-	char		*str;
-
-	str = ft_itoa(n);
-	write(1, str, ft_strlen(str));
-	return ;
-}
 
 int				ft_printf(const char *form, ...)
 {
-	va_list		ap;
-
-	va_start(ap, form);
 	while (*form)
 	{
 		if (*form == '%')
 		{
-			if (*form == '%' && *(form + 1) == '%')
-			{
-				write(1, "%", 1);
-			}
-			else if (*form == '%' && *(form + 1) == 'd')
-			{
-				ft_format(va_arg(ap, int));
-			}
-			form++;
+			ft_format(form);
 		}
-		else
-			write(1, form, 1);
 		form++;
 	}
-	va_end(ap);
-	return (0);
 }
 
 int				main(void)
