@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/02 15:07:50 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:53:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,51 @@ typedef	struct		flags
 	char			flag;
 	int				width;
 	int				precision;
+	int				count;
 }					p_flags;
 
-void				ft_format(char *str, va_list ar)
+void				ft_putchar(char c, p_flags *fl)
 {
+	write(1, &c, 1);
+	fl->count++;
+}
 
+char				*ft_format(char *str, va_list ar, p_flags *fl)
+{
+	while (*str != 'd')
+	{
+		ft_flag(&str, ar, &fl);
+		str++;
+		fl->count++;
+	}
+	return (str);
 }
 
 int					ft_printf(const char *form, ...)
 {
-
-	va_list			ar;
+	va_list			ap;
 	int				count;
+	char			*str;
+	p_flags			fl;
 
-	count = 0;
-	va_start(ar, form);
-	while (*form)
+	str = (char *)form;
+	fl.count = 0;
+	va_start(ap, form);
+	while (*str)
 	{
-		if (*form == '%')
+		if (*str == '%')
 		{
-			ft_format(form, ar);
+			ft_format(str, ap, &fl);
 		}
-		form++;
+		else
+			ft_putchar(*str, &fl);
+		str++;
 	}
-	return (count);
+	printf("return value : %d\n", fl.count);
+	return (fl.count);
 }
 
+/*
 int					main(void)
 {
 	printf("==================\n");
