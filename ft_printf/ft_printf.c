@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/01 17:26:02 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/02 15:07:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef	struct		flags
 	int				precision;
 }					p_flags;
 
-void				ft_format(char *str)
+void				ft_format(char *str, va_list ar)
 {
 
 }
@@ -40,7 +40,7 @@ int					ft_printf(const char *form, ...)
 	{
 		if (*form == '%')
 		{
-			ft_format(form);
+			ft_format(form, ar);
 		}
 		form++;
 	}
