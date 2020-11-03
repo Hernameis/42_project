@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 13:04:18 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/03 14:22:36 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/03 17:45:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,30 @@ void				ft_d(char **str, int n, p_flags *fl)
 	printf("%c\n", (*fl).flag);
 	printf("%d\n %d\n %d\n", (*fl).width, (*fl).precision, (*fl).count);
 
+	int				i;
+	int				j;
+	char			*num;
+
+	i = 0;
+	if ((*fl).width < (*fl).precision)
+		(*fl).width = (*fl).precision;
+	while (i < (*fl).width)
+	{
+		if ((*fl).flag != '-')
+		{
+			j = 0;
+			while ((*fl).width - (*fl).precision)
+			{
+				write(1, " ", 1);
+				j++;
+			}
+		}
+		i++;
+	}
+	num = ft_itoa(n);
+	write(1, num, (*fl).precision);
+	free (num);
+	(*fl).count += (*fl).width;
 }
 
 char				**ft_format(char **str, va_list ap, p_flags *fl)
@@ -94,24 +118,33 @@ char				**ft_format(char **str, va_list ap, p_flags *fl)
 
 int					ft_printf(const char *form, ...)		// while문으로 돌려서
 {															// %가 있을때와 없을때로 나눔.
+	printf("1\n");
 	va_list			ap;
 	int				count;
 	char			**str;
 	p_flags			fl;
 
+	printf("11\n");
 	init_fl(&fl);
+	printf("111\n");
 	*str = (char *)form;
-	va_start(ap, form);
+	printf("1111\n");
+//	va_start(ap, form);
+	printf("11111\n");
 	while (**str)
 	{
+	printf("111111\n");
 		if (**str == '%')
 		{
+	printf("1111111\n");
 			ft_format(str, ap, &fl);
 		}
 		else
+	printf("11111111\n");
 			ft_putchar(**str, &fl);
 		(*str)++;
 	}
+	printf("111111111\n");
 	printf("ft_return value : %d\n", fl.count);
 	return (fl.count);
 }
@@ -121,7 +154,7 @@ int					ft_printf(const char *form, ...)		// while문으로 돌려서
 
 int					main(void)
 {
-	printf("Hello%7.3dWorld\n", 5);
+//	printf("Hello%7.3dWorld\n", 5);
 	printf("==================\n");
 	printf("printf(\"print%%%%%%dta\\\\n\", 5);\n");
 	printf("prin%%%dta\n", 5);
