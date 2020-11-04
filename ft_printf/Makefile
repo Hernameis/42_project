@@ -6,12 +6,33 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 14:12:30 by sunmin            #+#    #+#              #
-#    Updated: 2020/11/04 16:26:29 by sunmin           ###   ########.fr        #
+#    Updated: 2020/11/04 17:36:14 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintft.a
+NAME = libftprintf.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+SRCS = ft_printf.c ft_bzero.c ft_itoa.c ft_memset.c ft_strlen.c
 
+SRCS_O = $(subst .c,.o, $(SRCS))
+
+.c.o : $(SRCS_O)
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+$(NAME) : $(SRCS_O)
+	ar rcs $(NAME) $^
+
+bonus : $(BONUS_O)
+	ar rcs $(NAME) $^
+
+clean :
+	rm -f $(SRCS_O) $(BONUS_O)
+
+fclean : clean
+	rm -f $(NAME)
+
+re : clean all
+
+all : $(NAME)

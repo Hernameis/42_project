@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/04 16:18:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/04 17:33:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ typedef struct		specifier
 	int				count;
 }					spec;
 
-void				ft_putchar(char c, spec *sp)
+static void				ft_putchar(char c, spec *sp)
 {
 	write(1, &c, 1);
 	(sp->count)++;
 }
 
-void				init_spec(spec *sp)
+static void				init_spec(spec *sp)
 {
 	sp->zero = 0;
 	sp->left = 0;
@@ -37,7 +37,7 @@ void				init_spec(spec *sp)
 	sp->count = 0;
 }
 
-void				d_proccess(int d, spec *sp)
+static void				d_proccess(int d, spec *sp)
 {
 //	printf("d_proccess : %d\n", d);
 	char			*str;
@@ -47,7 +47,8 @@ void				d_proccess(int d, spec *sp)
 
 	str = ft_itoa(d);
 	printf("itoa : %s\n", str);
-	sp->precision < ft_strlen(str) ? ft_strlen(str) : sp->precision;
+	if (sp->precision < (int)ft_strlen(str))
+	   sp->precision = (int)ft_strlen(str);
 	if (sp->precision > sp->width)
 		sp->width = sp->precision;
 	if(!(str2 = (char *)malloc(sizeof(char) * (sp->width + 1))))
@@ -77,7 +78,7 @@ void				d_proccess(int d, spec *sp)
 			i++;
 		}
 		printf("strlen : %zu\n", ft_strlen(str));
-		while (i < sp->precision - ft_strlen(str))
+		while (i < sp->precision - (int)ft_strlen(str))
 		{
 			i++;
 		}
@@ -100,7 +101,7 @@ void				d_proccess(int d, spec *sp)
 }
 // cspdiuxX%
 
-char				**ft_parcel(char **form, va_list ap, spec *sp)			//나중에 2부분으로 분할.
+static char				**ft_parcel(char **form, va_list ap, spec *sp)			//나중에 2부분으로 분할.
 {									// 인덱스 증가시킴 서식지정자랑 플래그들 체크	// set_flags먼저 하고 d,s,c 구분해서 보냄
 //	printf("%d\n", 111);
 	(*form)++;
