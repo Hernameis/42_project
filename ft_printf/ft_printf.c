@@ -6,47 +6,41 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/04 17:33:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/05 16:30:58 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
 
-typedef struct		specifier
-{
-	int				zero;
-	int				left;
-	int				width;
-	int				precision;
-	int				count;
-}					spec;
-
-static void				ft_putchar(char c, spec *sp)
+void				ft_putchar(char c, spec *sp)
 {
 	write(1, &c, 1);
 	(sp->count)++;
 }
 
-static void				init_spec(spec *sp)
+void				init_spec(spec *sp)
 {
 	sp->zero = 0;
 	sp->left = 0;
 	sp->width = 0;
 	sp->precision = 0;
+	sp->minus = 0;
 	sp->count = 0;
 }
 
-static void				d_proccess(int d, spec *sp)
+void				d_proccess(int d, spec *sp)
 {
-//	printf("d_proccess : %d\n", d);
 	char			*str;
 	char			*str2;
 	int				i;
 	int				j;
+	int				num;
 
-	str = ft_itoa(d);
-	printf("itoa : %s\n", str);
+	if (d < 0)
+		sp->minus = 1;
+	num = d;
+	str = ft_itoa(num);
 	if (sp->precision < (int)ft_strlen(str))
 	   sp->precision = (int)ft_strlen(str);
 	if (sp->precision > sp->width)
@@ -54,7 +48,7 @@ static void				d_proccess(int d, spec *sp)
 	if(!(str2 = (char *)malloc(sizeof(char) * (sp->width + 1))))
 			return ;
 	if (sp->zero)
-		ft_bzero(str2, 0);
+		ft_bzero(str2, sp->width);
 	else
 	{
 		ft_memset(str2, ' ', sp->width);
@@ -63,9 +57,9 @@ static void				d_proccess(int d, spec *sp)
 	if (sp->left)
 	{
 		i = 0;
-		while (i < sp->width && i < sp->precision)
+		while (i < sp->width)
 		{
-			str2[i] = str[i];
+			str2[i + sp->minus] = str[i];
 			i++;
 		}
 	}
@@ -73,13 +67,13 @@ static void				d_proccess(int d, spec *sp)
 	{
 		i = 0;
 		while (i < sp->width - sp->precision)
-		{
-			str2[i] = ' ';
 			i++;
-		}
-		printf("strlen : %zu\n", ft_strlen(str));
+		j = i;
+		if (sp->minus)
+			str2[sp->width - sp->precision - 1] = '-';
 		while (i < sp->precision - (int)ft_strlen(str))
 		{
+			str2[j + i] = '0';
 			i++;
 		}
 		j = 0;
@@ -98,12 +92,102 @@ static void				d_proccess(int d, spec *sp)
 	}
 	free(str);
 	free(str2);
+//	printf("\nzero : %d\nleft : %d\nwidth : %d\nprecision : %d\ncount : %d\n\n", sp->zero, sp->left, sp->width, sp->precision, sp->count);
 }
 // cspdiuxX%
 
-static char				**ft_parcel(char **form, va_list ap, spec *sp)			//나중에 2부분으로 분할.
-{									// 인덱스 증가시킴 서식지정자랑 플래그들 체크	// set_flags먼저 하고 d,s,c 구분해서 보냄
-//	printf("%d\n", 111);
+void				width_check(char **form, va_list ap, spec *sp)
+{
+	int				i;
+	int				j;
+	int				num;
+	char			*tmp;
+
+//	printf("width_check : %s\n", *form);
+	i = 0;
+	if (**form == '*')
+	{
+		sp->width = va_arg(ap, int);
+		(*form)++;
+	}
+	else
+	{
+		while (**form >= '0' && **form <= '9')
+		{
+			(*form)++;
+			i++;
+		}
+	}
+	j = 0;
+	while (j < i)
+	{
+		(*form)--;
+		j++;
+	}
+//	printf("%s %d\n", *form, i);
+	tmp = ft_substr(*form, 0, i);
+	num = ft_atoi(tmp);
+	if (num < 0)
+	{
+		sp->left = 1;
+		num = -num;
+	}
+	sp->width = num;
+	j = 0;
+	while (j < i)
+	{
+		(*form)++;
+		j++;
+	}
+	free(tmp);
+}
+
+void				precision_check(char **form, va_list ap, spec *sp)
+{
+	int				i;
+	int				j;
+	int				num;
+	char			*tmp;
+
+	i = 0;
+	if (**form == '*')
+	{
+		sp->precision = va_arg(ap, int);
+		(*form)++;
+	}
+	else
+	{
+		while (**form >= '0' && **form <= '9')
+		{
+			(*form)++;
+			i++;
+		}
+	}
+	j = 0;
+	while (j < i)
+	{
+		(*form)--;
+		j++;
+	}
+	tmp = ft_substr(*form, 0, i);
+	num = ft_atoi(tmp);
+	if (num < 0)
+	{
+		sp->left = 1;
+		num = -num;
+	}
+	sp->precision = num;
+	j = 0;
+	while (j < i)
+	{
+		(*form)++;
+		j++;
+	}
+	free(tmp);
+}
+
+char				**ft_parcel(char **form, va_list ap, spec *sp)	
+{
 	(*form)++;
 	if (**form == '-')								// left
 	{
@@ -115,36 +199,21 @@ static char				**ft_parcel(char **form, va_list ap, spec *sp)			//나중에 2부
 		sp->zero = 1;
 		(*form)++;
 	}
-	while ((**form >= '0' && **form <= '9') || **form == '*')			// width	wildcard도 생각해야함.
-	{
-		if (**form == '*')
-		{
-			sp->width = va_arg(ap, int);
-			(*form)++;
-			break ;
-		}
-		sp->width = (sp->width * 10) + **form - '0';
-		(*form)++;
-//		printf("222 %c\n", **form);
-	}
+//	printf("@@ %s\n", *form);
+	width_check(form, ap, sp);
 	if (**form == '.')
 		(*form)++;
-	while ((**form >= '0' && **form <= '9') || **form == '*')			// precision	wildcard도 생각해야함.
-	{
-		if (**form == '*')
-		{
-			sp->precision = va_arg(ap, int);
-			(*form)++;
-			break ;
-		}
-		sp->precision = (sp->precision * 10) + **form - '0';
-		(*form)++;
-	}
-	if (**form == 'd' || **form == 'i')								// 2번 파셀
-	{
-//		printf("333 %c\n", **form);
+	precision_check(form, ap, sp);
+	if (sp->width < 0 || sp->precision < 0)
+		sp->left = 1;
+	ft_parcel2(form, ap, sp);
+	return (form);
+}
+
+char				**ft_parcel2(char **form, va_list ap, spec *sp)
+{
+	if (**form == 'd' || **form == 'i')	
 		d_proccess(va_arg(ap, int), sp);
-	}
 //	else if (**form == 's')
 //		s_proccess(, va_arg(ap, char *));			// ??????????
 //	else if (**form == 'p')
@@ -157,10 +226,10 @@ static char				**ft_parcel(char **form, va_list ap, spec *sp)			//나중에 2부
 //		x_proccess();
 //	else if (**form == 'X')
 //		xx_proccess();
-	else
+	else										// %%가 들어오는 경우
 	{
 //		per_proccess();
-		printf("444 %c\n", **form);
+//		printf("444 %c\n", **form);
 	}
 //	printf("555 %c\n", **form);
 	return (form);
@@ -184,22 +253,32 @@ int					ft_printf(const char *format, ...)
 		str++;
 	}
 	va_end(ap);
-	printf("return : %d\n", sp.count);
-	printf("zero : %d, left : %d, width : %d, precision : %d\n", sp.zero, sp.left, sp.width, sp.precision);
 	return (sp.count);
 }
 
 
-
 int		main(void)
 {
-	printf("=================\n");
-	printf("%-3.5dabcd\nreturn : %d\n", 51, printf("%-3.5dabcd\n", 51));
-	printf("%*.*dabcde\nreturn : %d\n", -3, 5, 51, printf("%-3.5dabcde\n", 51));
-	printf("%010.5d\n", 21);
-	printf("=================\n");
-	ft_printf("%3.*dabcd\n", 5, 51);
-//	while(1)
-//		;
+	printf("%7d\n", 33);
+	ft_printf("%7d\n", 33);
+	printf("==========\n");
+	printf("%7d\n", -14);
+	ft_printf("%7d\n", -14);
+	printf("==========\n");
+	printf("%3d\n", 0);
+	ft_printf("%3d\n", 0);
+	printf("==========\n");
+	printf("%-7d\n", 33);
+	ft_printf("%-7d\n", 33);
+	printf("==========\n");
+	printf("%-7d\n", -14);
+	ft_printf("%-7d\n", -14);
+	printf("==========\n");
+	printf("%-3d\n", 0);
+	ft_printf("%-3d\n", 0);
+	printf("==========\n");
+	printf("%-5d\n", -2562);
+	ft_printf("%-5d\n", -2562);
+	printf("==========\n");
 	return (0);
 }
