@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/05 16:30:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/06 10:10:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,49 +47,6 @@ void				d_proccess(int d, spec *sp)
 		sp->width = sp->precision;
 	if(!(str2 = (char *)malloc(sizeof(char) * (sp->width + 1))))
 			return ;
-	if (sp->zero)
-		ft_bzero(str2, sp->width);
-	else
-	{
-		ft_memset(str2, ' ', sp->width);
-		str2[sp->width] = '\0';
-	}
-	if (sp->left)
-	{
-		i = 0;
-		while (i < sp->width)
-		{
-			str2[i + sp->minus] = str[i];
-			i++;
-		}
-	}
-	else
-	{
-		i = 0;
-		while (i < sp->width - sp->precision)
-			i++;
-		j = i;
-		if (sp->minus)
-			str2[sp->width - sp->precision - 1] = '-';
-		while (i < sp->precision - (int)ft_strlen(str))
-		{
-			str2[j + i] = '0';
-			i++;
-		}
-		j = 0;
-		while (i < sp->precision)
-		{
-			str2[i] = str[j];
-			i++;
-			j++;
-		}
-	}
-	i = 0;
-	while (str2[i])
-	{
-		ft_putchar(str2[i], sp);
-		i++;
-	}
 	free(str);
 	free(str2);
 //	printf("\nzero : %d\nleft : %d\nwidth : %d\nprecision : %d\ncount : %d\n\n", sp->zero, sp->left, sp->width, sp->precision, sp->count);
@@ -252,6 +209,7 @@ int					ft_printf(const char *format, ...)
 			ft_putchar(*str, &sp);
 		str++;
 	}
+	printf("zero : %d, left : %d, width : %d, precision : %d, minus : %d, count :  %d\n", sp.zero, sp.left, sp.width, sp.precision, sp.minus, sp.count);
 	va_end(ap);
 	return (sp.count);
 }
