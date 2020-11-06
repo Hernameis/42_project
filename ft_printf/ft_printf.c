@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/06 16:10:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/06 19:14:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,90 @@ void				init_spec(spec *sp)
 	sp->count = 0;
 }
 
-void				d_proccess(int d, spec *sp)
+void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 {
+	char			*num;
+	char			*str;
+	int				n;
+	int				i;
+	int				j;
+	int				len;
 
+	if (d < 0)
+	{
+		n = -d;
+		sp->minus = 1;
+	}
+	else
+		n = d;
+	num = ft_itoa(n);
+	len = ft_strlen(num);
+	if (sp->precision < len)
+		sp->precision = len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+	if(!(str = (char *)malloc(sizeof(char) * (sp->width + 1))))
+		return ;
+	str[sp->width] = '\0';
+	i = 0;
+	if (!sp->left && !sp->zero)
+	{
+		while (i < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+			i--;
+	}
+	if (sp->minus)
+	{
+		str[i] = '-';
+		i++;
+	}
+	if (sp->zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+	j = 0;
+	if (sp->precision)
+	{
+		while (j < sp->precision - len)
+		{
+			str[i] = '0';
+			j++;
+			i++;
+		}
+	}
+	j = 0;
+	while (len--)
+	{
+		str[i] = num[j];
+		i++;
+		j++;
+	}
+	if (sp->left)
+	{
+		j = 0;
+		if (sp->minus)
+			j++;
+		while (j < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+			j++;
+		}
+	}
+	while (*str)
+	{
+		ft_putchar(*str, sp);
+		str++;
+	}
+	free(num);
 }
 
 // cspdiuxX%
@@ -141,10 +222,18 @@ char				**ft_parcel(char **form, va_list ap, spec *sp)
 	}
 	width_check(form, ap, sp);						// width
 	if (**form == '.')
+	{
 		(*form)++;
-	precision_check(form, ap, sp);					// precision
+		precision_check(form, ap, sp);					// precision
+	}
+	else
+		(*form)++;								// precision이 0인 경우 때문에
 	if (sp->width < 0 || sp->precision < 0)
 		sp->left = 1;
+	if (sp->precision)
+		sp->zero = 0;
+	if (sp->left)
+		sp->zero = 0;
 	ft_parcel2(form, ap, sp);
 	return (form);
 }
@@ -199,6 +288,16 @@ int					ft_printf(const char *format, ...)
 /*
 int		main(void)
 {
+
+
+	printf("[%.-6d]\n", -3);
+	printf("[%.6d]\n", -3);
+	printf("[%-.6d]\n", -3);
+	printf("\n");
+	ft_printf("%.6d", -3);
+
+
+
 	printf("%11.5d\n", -53);
 	ft_printf("%11.5d\n", -53);
 	printf("==========\n");
@@ -220,6 +319,8 @@ int		main(void)
 	printf("%-5d\n", -2562);
 	ft_printf("%-5d\n", -2562);
 	printf("==========\n");
+	printf("%07.5d\n", 5);
+	printf("%07d\n", 5);
 //	while (1)
 //		;
 	return (0);
