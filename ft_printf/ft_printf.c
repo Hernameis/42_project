@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/06 10:10:36 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/06 16:10:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void				ft_putchar(char c, spec *sp)
 {
 	write(1, &c, 1);
 	(sp->count)++;
+//	printf("\ncount : %d\n", sp->count);
 }
 
 void				init_spec(spec *sp)
@@ -31,28 +32,10 @@ void				init_spec(spec *sp)
 
 void				d_proccess(int d, spec *sp)
 {
-	char			*str;
-	char			*str2;
-	int				i;
-	int				j;
-	int				num;
 
-	if (d < 0)
-		sp->minus = 1;
-	num = d;
-	str = ft_itoa(num);
-	if (sp->precision < (int)ft_strlen(str))
-	   sp->precision = (int)ft_strlen(str);
-	if (sp->precision > sp->width)
-		sp->width = sp->precision;
-	if(!(str2 = (char *)malloc(sizeof(char) * (sp->width + 1))))
-			return ;
-	free(str);
-	free(str2);
-//	printf("\nzero : %d\nleft : %d\nwidth : %d\nprecision : %d\ncount : %d\n\n", sp->zero, sp->left, sp->width, sp->precision, sp->count);
 }
-// cspdiuxX%
 
+// cspdiuxX%
 void				width_check(char **form, va_list ap, spec *sp)
 {
 	int				i;
@@ -156,11 +139,10 @@ char				**ft_parcel(char **form, va_list ap, spec *sp)
 		sp->zero = 1;
 		(*form)++;
 	}
-//	printf("@@ %s\n", *form);
-	width_check(form, ap, sp);
+	width_check(form, ap, sp);						// width
 	if (**form == '.')
 		(*form)++;
-	precision_check(form, ap, sp);
+	precision_check(form, ap, sp);					// precision
 	if (sp->width < 0 || sp->precision < 0)
 		sp->left = 1;
 	ft_parcel2(form, ap, sp);
@@ -209,16 +191,16 @@ int					ft_printf(const char *format, ...)
 			ft_putchar(*str, &sp);
 		str++;
 	}
-	printf("zero : %d, left : %d, width : %d, precision : %d, minus : %d, count :  %d\n", sp.zero, sp.left, sp.width, sp.precision, sp.minus, sp.count);
+//	printf("zero : %d, left : %d, width : %d, precision : %d, minus : %d, count :  %d\n", sp.zero, sp.left, sp.width, sp.precision, sp.minus, sp.count);
 	va_end(ap);
 	return (sp.count);
 }
 
-
+/*
 int		main(void)
 {
-	printf("%7d\n", 33);
-	ft_printf("%7d\n", 33);
+	printf("%11.5d\n", -53);
+	ft_printf("%11.5d\n", -53);
 	printf("==========\n");
 	printf("%7d\n", -14);
 	ft_printf("%7d\n", -14);
@@ -238,5 +220,8 @@ int		main(void)
 	printf("%-5d\n", -2562);
 	ft_printf("%-5d\n", -2562);
 	printf("==========\n");
+//	while (1)
+//		;
 	return (0);
 }
+*/
