@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/05 15:28:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 11:43:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	specifier
 	int			minus;
 	int			width;
 	int			precision;
+	int			zero_precision;
 	int			count;
 }				spec;
 
