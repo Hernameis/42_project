@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/07 16:56:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 18:54:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void				p_proccess(long long int p, spec *sp)
 		sp->zero = 0;
 	if (p == 0 && sp->zero_precision)
 		len = 0;
-
 	if (sp->precision < len)
 		sp->precision = len;
 	if (sp->width < sp->precision)
@@ -683,7 +682,7 @@ int					ft_printf(const char *format, ...)
 	return (sp.count);
 }
 
-	/* 
+	/*
 int		main(void)
 {
 
@@ -692,8 +691,8 @@ int		main(void)
 	c = "1";
 
 
-	printf("-->|%*.p|<--\n", 13, c);
-	ft_printf("-->|%*.p|<--\n", 13, c);
+	printf("-->|%2.p|<--\n", NULL);
+	ft_printf("-->|%2.p|<--\n", NULL);
 
 	return (0);
 }
