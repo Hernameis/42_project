@@ -6,12 +6,66 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/07 14:35:53 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 16:56:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
+
+static int			itoa_len(long long n)
+{
+	int				len;
+
+	len = 0;
+	if (n < 0)
+	{
+		n = -n;
+		len = 1;
+	}
+	if (n == 0)
+		len = 1;
+	while (n)
+	{
+		n /= 16;
+		len++;
+	}
+	return (len);
+}
+
+static int			ft_num(int c)
+{
+	return ((c < 0) ? -c : c);
+}
+
+char				*ft_itoa_base(long long n, char x)
+{
+	char			*hex;
+	char			*str;
+	int				len;
+	int				i;
+	int				sign;
+
+	if (x == 'x' || x == 'p')
+		hex = "0123456789abcdef";
+	else if(x == 'X')
+		hex = "0123456789ABCDEF";
+	sign = 1;
+	len = itoa_len(n);
+	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	i = 0;
+	sign = (n < 0) ? -1 : 1;
+	str[len] = '\0';
+	while (i <= --len)
+	{
+		str[len] = hex[ft_num(n % 16)];
+		n = n / 16;
+	}
+	if (sign == -1)
+		str[0] = '-';
+	return (str);
+}														// 여기까지 이토아 베이스 
 
 void				ft_putchar(char c, spec *sp)
 {
@@ -29,6 +83,308 @@ void				init_spec(spec *sp)
 	sp->zero_precision = 0;
 	sp->minus = 0;
 	sp->count = 0;
+}
+
+void				p_proccess(long long int p, spec *sp)
+{
+	char			*num;
+	char			*str;
+	long long int	n;
+	int				i;
+	int				j;
+	int				len;
+	unsigned int	alloc_len;
+	int				real_width;
+	int				real_precision;
+
+	n = p;
+	num = ft_itoa_base(n, 'p');
+	sp->minus = 1;						//  -부호 부분을 0x출력으로 사용하기 위함임.
+	real_width = sp->width;
+	real_precision = sp->precision;
+	len = ft_strlen(num);
+	if (real_precision < len && real_precision != 0)
+		sp->zero = 0;
+	if (p == 0 && sp->zero_precision)
+		len = 0;
+
+	if (sp->precision < len)
+		sp->precision = len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+
+	if (sp->minus && (real_width < len || real_width < real_precision))
+		alloc_len = sp->width + 2;											// 0x때문에 + 2
+	else
+		alloc_len = sp->width;
+
+	if(!(str = (char *)malloc(sizeof(char) * (alloc_len  + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	i = 0;
+	if (!sp->left && !sp->zero)
+	{
+		while (i < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+		{
+			i--;
+			i--;
+		}
+	}
+	if (sp->minus)
+	{
+		str[i] = '0';
+		i++;
+		str[i] = 'x';
+		i++;
+	}
+	if (sp->zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+	j = 0;
+	if (sp->precision)
+	{
+		while (j < sp->precision - len)
+		{
+			str[i] = '0';
+			j++;
+			i++;
+		}
+	}
+	j = 0;
+	while (len--)
+	{
+		str[i] = num[j];
+		i++;
+		j++;
+	}
+	if (sp->left)
+	{
+		j = 0;
+		if (sp->minus)
+		{
+			j++;
+			j++;
+		}
+		while (j <sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+			j++;
+		}
+	}
+	while (*str)
+	{
+		ft_putchar(*str, sp);
+		str++;
+	}
+	free(num);
+}
+
+void				x_proccess(unsigned int x, spec *sp, char c)
+{
+	char			*num;
+	char			*str;
+	unsigned int	n;
+	int				i;
+	int				j;
+	int				len;
+	unsigned int	alloc_len;
+	int				real_width;
+	int				real_precision;
+
+	n = x;
+	if (c == 'x')
+		num = ft_itoa_base(n, 'x');
+	else
+		num = ft_itoa_base(n, 'X');
+
+	real_width = sp->width;
+	real_precision = sp->precision;
+	len = ft_strlen(num);
+	if (real_precision < len && real_precision != 0)
+		sp->zero = 0;
+	if (x == 0 && sp->zero_precision)
+		len = 0;
+
+	if (sp->precision < len)
+		sp->precision = len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+
+	if (sp->minus && (real_width < len || real_width < real_precision))
+		alloc_len = sp->width + 1;
+	else
+		alloc_len = sp->width;
+
+	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	i = 0;
+	if (!sp->left && !sp->zero)
+	{
+		while (i < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+			i--;
+	}
+	if (sp->minus)
+	{
+		str[i] = '-';
+		i++;
+	}
+	if (sp->zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+	j = 0;
+	if (sp->precision)
+	{
+		while (j < sp->precision - len)
+		{
+			str[i] = '0';
+			j++;
+			i++;
+		}
+	}
+	j = 0;
+	while (len--)
+	{
+		str[i] = num[j];
+		i++;
+		j++;
+	}
+	if (sp->left)
+	{
+		j = 0;
+		if (sp->minus)
+			j++;
+		while (j <sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+			j++;
+		}
+	}
+	while (*str)
+	{
+		ft_putchar(*str, sp);
+		str++;
+	}
+	free(num);
+}
+
+void				u_proccess(unsigned int u, spec *sp)
+{
+	char			*num;
+	char			*str;
+	unsigned int	n;
+	int				i;
+	int				j;
+	int				len;
+	unsigned int	alloc_len;
+	int				real_width;
+	int				real_precision;
+
+	n = u;
+	num = ft_itoa(n);
+
+	real_width = sp->width;
+	real_precision = sp->precision;
+	len = ft_strlen(num);
+	if (real_precision < len && real_precision != 0)
+		sp->zero = 0;
+	if (u == 0 && sp->zero_precision)
+		len = 0;
+
+	if (sp->precision < len)
+		sp->precision = len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+
+	if (sp->minus && (real_width < len || real_width < real_precision))
+		alloc_len = sp->width + 1;
+	else
+		alloc_len = sp->width;
+
+	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	i = 0;
+	if (!sp->left && !sp->zero)
+	{
+		while (i < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+			i--;
+	}
+	if (sp->minus)
+	{
+		str[i] = '-';
+		i++;
+	}
+	if (sp->zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+	j = 0;
+	if (sp->precision)
+	{
+		while (j < sp->precision - len)
+		{
+			str[i] = '0';
+			j++;
+			i++;
+		}
+	}
+	j = 0;
+	while (len--)
+	{
+		str[i] = num[j];
+		i++;
+		j++;
+	}
+	if (sp->left)
+	{
+		j = 0;
+		if (sp->minus)
+			j++;
+		while (j < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+			j++;
+		}
+	}
+	while (*str)
+	{
+		ft_putchar(*str, sp);
+		str++;
+	}
+	free(num);
 }
 
 void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
@@ -283,16 +639,16 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 	}
 //	else if (**form == 's')
 //		s_proccess(, va_arg(ap, char *));			// ??????????
-//	else if (**form == 'p')
-//		p_proccess();
+	else if (**form == 'p')
+		p_proccess(va_arg(ap, long long int), sp);
 //	else if (**form == 'c')
 //		c_proccess();
 	else if (**form == 'u')
 		u_proccess(va_arg(ap, unsigned int), sp);
-//	else if (**form == 'x')
-//		x_proccess();
-//	else if (**form == 'X')
-//		xx_proccess();
+	else if (**form == 'x')
+		x_proccess(va_arg(ap, unsigned int), sp, 'x');
+	else if (**form == 'X')
+		x_proccess(va_arg(ap, unsigned int), sp, 'X');
 	else										// %%가 들어오는 경우
 	{
 //		printf("parcel2_else!!\n");
@@ -327,14 +683,18 @@ int					ft_printf(const char *format, ...)
 	return (sp.count);
 }
 
-//    /*
+	/* 
 int		main(void)
 {
 
+	char		*c;
 
-	printf("-->|%0*.u|<--\n", 4, 512);
-	ft_printf("-->|%0*.u|<--\n", 4, 512);
+	c = "1";
+
+
+	printf("-->|%*.p|<--\n", 13, c);
+	ft_printf("-->|%*.p|<--\n", 13, c);
 
 	return (0);
 }
-//   */
+   */

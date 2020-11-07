@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 13:50:08 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/18 15:29:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 16:21:24 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		itoa_len(int n)
+static int		itoa_len(long long n)
 {
 	int		len;
 
@@ -37,7 +37,7 @@ static int		ft_num(int c)
 	return ((c < 0) ? -c : c);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long n)
 {
 	char	*str;
 	int		len;

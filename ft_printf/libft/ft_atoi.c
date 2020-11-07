@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 15:47:34 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/09 23:25:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 15:22:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		ft_atoi(const char *str)
 {
-	size_t	i;
-	long	sign;
-	long	num;
+	size_t		i;
+	long		sign;
+	long long	num;
 
 	i = 0;
 	sign = 1;

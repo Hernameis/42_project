@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/07 11:43:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/07 16:13:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char			**ft_parcel2(char **form, va_list ap, spec *sp);
 int				ft_printf(const char *format, ...);
 void			width_check(char **form, va_list ap, spec *sp);
 void			precision_check(char **form, va_list ap, spec *sp);
+char			*ft_itoa_base(long long n, char x);
 
 #endif
