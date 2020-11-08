@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/08 16:10:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/08 17:40:45 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,222 @@ void				init_spec(spec *sp)
 	sp->zero_precision = 0;
 	sp->minus = 0;
 	sp->count = 0;
+	sp->s_num = 0;
 }
 
 
+
+void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
+{
+//	printf("d_proccess!!!!\n");
+	char			*str;
+	int				i;
+	int				j;
+	int				len;
+	int				alloc_len;
+	int				real_width;
+	int				real_precision;
+
+
+//	sp->minus = 1;
+
+
+	real_width = sp->width;
+//	if (sp->s_num)
+//		real_precision = sp->s_num;
+//	else
+	len = ft_strlen(s);
+//	if (!sp->zero_precision)
+//		real_precision = len;
+	real_precision = len;
+	if (sp->s_num < len)
+		real_precision = sp->s_num;
+
+//
+//	printf("\nreal_precision %d\n", real_precision);
+//	if (real_precision < len && real_precision != 0)
+//		sp->zero = 0;
+//	if (sp->precision < len)
+//		sp->precision = len;
+//	if (sp->width < sp->precision)
+//		sp->width = sp->precision;
+
+//	if (sp->minus && (real_width < len || real_width < real_precision))
+//		alloc_len = sp->width + 1;
+//	else
+		alloc_len = sp->width;
+
+//	printf("nn num =  %s, alloc_len = %d nn\n", num, alloc_len);
+	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	i = 0;
+	if (!sp->left && !sp->per_zero)
+	{
+		while (i < sp->width - 1) // sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+			i--;
+	}
+//	if (sp->minus)
+//	{
+//		str[i] = c
+//		i++;
+//	}
+	if (sp->per_zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+//	j = 0;
+//	if (sp->precision)
+//	{
+//		while (j < sp->precision - len)
+//		{
+//			str[i] = '0';
+//			j++;
+//			i++;
+//		}
+//	}
+//	sp->precision = 1;
+
+	j = 0;
+	while (j < real_precision)
+	{
+		str[i] = s[j];
+		i++;
+		j++;
+	}
+
+	if (sp->left)									// 마지막 공백 
+	{
+		j = 0;
+		if (sp->minus)
+			j++;
+		while (i < sp->width)						 //j < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		//	j++;
+		}
+	}
+//	printf("\n\nalloc_len : %d real_width : %d real_precision : %d sp->zero : %d sp->left : %d sp->minus : %d sp->width : %d sp->precision : %d sp->zero_precision %d sp->per_zero %d sp->s_num %d\n", alloc_len, real_width, real_precision, sp->zero, sp->left, sp->minus, sp->width, sp->precision, sp->zero_precision, sp->per_zero, sp->s_num);
+
+	while (*str)
+	{
+		ft_putchar(*str, sp);
+		str++;
+	}
+//	free(num);
+}
+
+
+
+
+void				c_proccess(char c, spec *sp)			// 공백 - 0 숫자 공백
+{
+//	printf("d_proccess!!!!\n");
+	char			*str;
+	int				i;
+	int				j;
+	int				len;
+	int				alloc_len;
+	int				real_width;
+	int				real_precision;
+
+
+//	sp->minus = 1;
+
+
+	real_width = sp->width;
+	real_precision = sp->precision;
+//	printf("\nreal_precision %d\n", real_precision);
+	len = 1;
+//	if (real_precision < len && real_precision != 0)
+//		sp->zero = 0;
+	if (sp->precision < len)
+		sp->precision = len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+
+//	if (sp->minus && (real_width < len || real_width < real_precision))
+//		alloc_len = sp->width + 1;
+//	else
+		alloc_len = sp->width;
+
+//	printf("nn num =  %s, alloc_len = %d nn\n", num, alloc_len);
+	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	i = 0;
+	if (!sp->left && !sp->per_zero)
+	{
+		while (i < sp->width - 1) // sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		}
+		if (sp->minus && i)
+			i--;
+	}
+	if (sp->minus)
+	{
+		str[i] = c;
+		i++;
+	}
+	if (sp->per_zero)
+	{
+		while (i < sp->width - len)
+		{
+			str[i] = '0';
+			i++;
+		}
+	}
+//	j = 0;
+//	if (sp->precision)
+//	{
+//		while (j < sp->precision - len)
+//		{
+//			str[i] = '0';
+//			j++;
+//			i++;
+//		}
+//	}
+	sp->precision = 1;
+	j = 0;
+	while (j < 1)
+	{
+		str[i] = c;
+		i++;
+		j++;
+	}
+	if (sp->left)									// 마지막 공백 
+	{
+		j = 0;
+		if (sp->minus)
+			j++;
+		while (i < sp->width)						 //j < sp->width - sp->precision)
+		{
+			str[i] = ' ';
+			i++;
+		//	j++;
+		}
+	}
+//	printf("\n\nalloc_len : %d real_width : %d real_precision : %d sp->zero : %d sp->left : %d sp->minus : %d sp->width : %d sp->precision : %d sp->zero_precision %d sp->per_zero %d\n", alloc_len, real_width, real_precision, sp->zero, sp->left, sp->minus, sp->width, sp->precision, sp->zero_precision, sp->per_zero);
+	i = 0;
+	while (i < sp->width)
+	{
+		ft_putchar(str[i], sp);
+		i++;
+	}
+//	free(num);
+}
 
 
 
@@ -694,10 +907,13 @@ void				precision_check(char **form, va_list ap, spec *sp)
 //		if (sp->left)
 //			sp->left = 0;
 //		sp->left = 1;
+		sp->s_num = -num;
 		num = 0;
 	}
 	else if (num == 0)
 		sp->zero_precision = 1;
+	else
+		sp->s_num = num;
 	sp->precision = num;
 	j = 0;
 	while (j < i)
@@ -759,12 +975,12 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 		d_proccess(va_arg(ap, int), sp);
 //		printf("d,i!!!!\n");
 	}
-//	else if (**form == 's')
-//		s_proccess(, va_arg(ap, char *));			// ??????????
+	else if (**form == 's')
+		s_proccess(va_arg(ap, char *), sp);			// ??????????
 	else if (**form == 'p')
 		p_proccess(va_arg(ap, long long int), sp);
-//	else if (**form == 'c')
-//		c_proccess();
+	else if (**form == 'c')
+		c_proccess(va_arg(ap, int), sp);
 	else if (**form == 'u')
 		u_proccess(va_arg(ap, unsigned int), sp);
 	else if (**form == 'x')
@@ -772,11 +988,7 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 	else if (**form == 'X')
 		x_proccess(va_arg(ap, unsigned int), sp, 'X');
 	else if (**form == '%')							// %%가 들어오는 경우
-	{
-//		printf("parcel2_else!!\n");
 		per_proccess(sp);
-//		printf("444 %c\n", **form);
-	}
 	else
 		return NULL;
 //	printf("555 %c\n", **form);
@@ -811,10 +1023,13 @@ int					ft_printf(const char *format, ...)
 int		main(void)
 {
 
+	char	s[3] = "abc";
 
-	printf("-->|%0*.%|<--\n", -4);
-	ft_printf("-->|%0*.%|<--\n", -4);
+	printf("-->|%-16.*s|<--\n", 1, s);
+	ft_printf("-->|%-16.*s|<--\n\n", 1, s);
+	printf("-->|%-16.*s|<--\n", -4, s);
+	ft_printf("-->|%-16.*s|<--\n", -4, s);
 
 	return (0);
 }
-   */
+	 */
