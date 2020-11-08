@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/07 16:13:37 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/08 16:10:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct	specifier
 {
 	int			zero;
+	int			per_zero;
 	int			left;
 	int			minus;
 	int			width;
