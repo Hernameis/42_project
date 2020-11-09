@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/08 16:56:38 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/09 12:45:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct	specifier
 	int			zero_precision;
 	int			count;
 	int			s_num;
+	int			minus_precision;
+	int			empty_precision;
 }				spec;
 
 void			ft_putchar(char c, spec *sp);

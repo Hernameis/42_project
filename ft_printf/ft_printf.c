@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/08 17:40:45 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/09 13:31:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void				init_spec(spec *sp)
 	sp->minus = 0;
 	sp->count = 0;
 	sp->s_num = 0;
+	sp->minus_precision = 0;
+	sp->empty_precision = 0;
 }
-
 
 
 void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
@@ -101,7 +102,9 @@ void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 	int				real_precision;
 
 
-//	sp->minus = 1;
+	if (!s)
+		s = ft_strdup("(null)");
+		 //	sp->minus = 1;
 
 
 	real_width = sp->width;
@@ -109,13 +112,20 @@ void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 //		real_precision = sp->s_num;
 //	else
 	len = ft_strlen(s);
-//	if (!sp->zero_precision)
-//		real_precision = len;
 	real_precision = len;
-	if (sp->s_num < len)
+	if (sp->zero_precision && sp->s_num == 0)
+		real_precision = 0;
+	else if (!sp->minus_precision && sp->s_num < len)
 		real_precision = sp->s_num;
+	else if (!sp->minus_precision && sp->s_num >= len)
+		real_precision = len;
+	else if (sp->minus_precision && sp->s_num)
+		real_precision = len;
+	if (sp->empty_precision)
+		real_precision = len;
 
-//
+
+
 //	printf("\nreal_precision %d\n", real_precision);
 //	if (real_precision < len && real_precision != 0)
 //		sp->zero = 0;
@@ -136,7 +146,7 @@ void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 	i = 0;
 	if (!sp->left && !sp->per_zero)
 	{
-		while (i < sp->width - 1) // sp->precision)
+		while (i < sp->width - real_precision)		//  - sp->precision)
 		{
 			str[i] = ' ';
 			i++;
@@ -198,7 +208,6 @@ void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 	}
 //	free(num);
 }
-
 
 
 
@@ -909,6 +918,8 @@ void				precision_check(char **form, va_list ap, spec *sp)
 //		sp->left = 1;
 		sp->s_num = -num;
 		num = 0;
+//		sp->zero_precision = 1;
+		sp->minus_precision = 1;
 	}
 	else if (num == 0)
 		sp->zero_precision = 1;
@@ -948,6 +959,8 @@ char				**ft_parcel(char **form, va_list ap, spec *sp)
 		(*form)++;
 		precision_check(form, ap, sp);					// precision
 	}
+	else
+		sp->empty_precision = 1;
 //	alse
 //		(*form)++;								// precision이 0인 경우 때문에 ... 하지만 이것 때문에 %d가 바로 오는 경우 d를 건너뜀.
 //	if (sp->width < 0 || sp->precision < 0)
@@ -1008,10 +1021,14 @@ int					ft_printf(const char *format, ...)
 	while (*str)
 	{
 		if (*str == '%')
+		{
 			str = *(ft_parcel(&str, ap, &sp));
+
+		}
 		else
 			ft_putchar(*str, &sp);
 		str++;
+
 	}
 //	printf("zero : %d, left : %d, width : %d, precision : %d, minus : %d, count :  %d\n", sp.zero, sp.left, sp.width, sp.precision, sp.minus, sp.count);
 	va_end(ap);
@@ -1023,12 +1040,8 @@ int					ft_printf(const char *format, ...)
 int		main(void)
 {
 
-	char	s[3] = "abc";
-
-	printf("-->|%-16.*s|<--\n", 1, s);
-	ft_printf("-->|%-16.*s|<--\n\n", 1, s);
-	printf("-->|%-16.*s|<--\n", -4, s);
-	ft_printf("-->|%-16.*s|<--\n", -4, s);
+	printf("|%-*.3s|\n", 5, "LYDI");
+	ft_printf("\n|%-*.3s|", 5, "LYDI");
 
 	return (0);
 }
