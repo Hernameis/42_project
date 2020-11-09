@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/09 13:31:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/09 18:32:58 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -939,8 +939,9 @@ void				precision_check(char **form, va_list ap, spec *sp)
 
 char				**ft_parcel(char **form, va_list ap, spec *sp)	
 {
-//	printf("parcel 1 !!! & **form = %c \n", **form);
+
 	(*form)++;
+//	printf("parcel 1 !!! & **form = %c \n", **form);
 	while (**form == '-' || **form == '0')
 	{
 		if (**form == '-')								// left
@@ -993,7 +994,10 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 	else if (**form == 'p')
 		p_proccess(va_arg(ap, long long int), sp);
 	else if (**form == 'c')
+	{
+		printf("ccc");
 		c_proccess(va_arg(ap, int), sp);
+	}
 	else if (**form == 'u')
 		u_proccess(va_arg(ap, unsigned int), sp);
 	else if (**form == 'x')
@@ -1003,7 +1007,9 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 	else if (**form == '%')							// %%가 들어오는 경우
 		per_proccess(sp);
 	else
+	{
 		return NULL;
+	}
 //	printf("555 %c\n", **form);
 //	printf("parcel2 end!!\n");
 	return (form);
@@ -1018,16 +1024,21 @@ int					ft_printf(const char *format, ...)
 	str = (char *)format;
 	va_start(ap, format);
 	init_spec(&sp);
+//	printf("\nsss %s sss\n", str);
 	while (*str)
 	{
+		printf("ccc %c ccc\n", *str);
 		if (*str == '%')
 		{
-			str = *(ft_parcel(&str, ap, &sp));
-
+			if ((str = *(ft_parcel(&str, ap, &sp))) == NULL)
+				return (-1);
+			
 		}
 		else
 			ft_putchar(*str, &sp);
+		printf("ddd %c ddd\n", *str);
 		str++;
+
 
 	}
 //	printf("zero : %d, left : %d, width : %d, precision : %d, minus : %d, count :  %d\n", sp.zero, sp.left, sp.width, sp.precision, sp.minus, sp.count);
@@ -1036,13 +1047,12 @@ int					ft_printf(const char *format, ...)
 	return (sp.count);
 }
 
-	/*
+//	/*
 int		main(void)
 {
 
-	printf("|%-*.3s|\n", 5, "LYDI");
-	ft_printf("\n|%-*.3s|", 5, "LYDI");
+	printf("%d\n", ft_printf("%"));
 
 	return (0);
 }
-	 */
+//	 */
