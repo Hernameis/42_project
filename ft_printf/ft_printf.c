@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/10 11:11:10 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/10 11:31:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -833,7 +833,7 @@ void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 }
 
 // cspdiuxX%
-void				width_check(char **form, va_list ap, spec *sp)
+void				width_check(const char **form, va_list ap, spec *sp)
 {
 //	printf("width_check !!!\n");
 	int				i;
@@ -880,7 +880,7 @@ void				width_check(char **form, va_list ap, spec *sp)
 //	free(tmp);
 }
 
-void				precision_check(char **form, va_list ap, spec *sp)
+void				precision_check(const char **form, va_list ap, spec *sp)
 {
 	int				i;
 	int				j;
@@ -937,7 +937,7 @@ void				precision_check(char **form, va_list ap, spec *sp)
 //	printf("precision %d\n", sp->precision);
 }
 
-char				**ft_parcel(char **form, va_list ap, spec *sp)	
+int				ft_parcel(const char **form, va_list ap, spec *sp)	
 {
 
 	(*form)++;
@@ -977,11 +977,11 @@ char				**ft_parcel(char **form, va_list ap, spec *sp)
 		sp->zero = 0;
 		sp->per_zero = 0;
 	}
-	ft_parcel2(form, ap, sp);
-	return (form);
+//	return (NULL);
+	return (ft_parcel2(form, ap, sp));
 }
 
-char				**ft_parcel2(char **form, va_list ap, spec *sp)
+int				ft_parcel2(const char **form, va_list ap, spec *sp)
 {
 //	printf("parcel2!!!\n**form!! = %c\n", **form);
 	if (**form == 'd' || **form == 'i')	
@@ -995,7 +995,7 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 		p_proccess(va_arg(ap, long long int), sp);
 	else if (**form == 'c')
 	{
-		printf("ccc");
+//		printf("ccc");
 		c_proccess(va_arg(ap, int), sp);
 	}
 	else if (**form == 'u')
@@ -1008,41 +1008,41 @@ char				**ft_parcel2(char **form, va_list ap, spec *sp)
 		per_proccess(sp);
 	else
 	{
-		return NULL;
+		return (-1);
 	}
 //	printf("555 %c\n", **form);
-//	printf("parcel2 end!!\n");
-	return (form);
+//	printf("parcel2 end!!+\n");
+	return (0);
 }
 
 int					ft_printf(const char *format, ...)
 {
 	va_list			ap;
 	spec			sp;
-	char			*str;
+//	char			*str;
 
-	str = (char *)format;
+//	str = (char *)format;
 	va_start(ap, format);
 	init_spec(&sp);
 //	printf("\nsss %s sss\n", str);
-	while (*str)
+	while (*format)
 	{
-		printf("ccc %c ccc\n", *str);
-		if (*str == '%')
+//		printf("ccc %c ccc\n", *str);
+		if (*format == '%')
 		{
-			if ((str = *ft_parcel(&str, ap, &sp)) == NULL)
+			if (ft_parcel(&format, ap, &sp) == -1)
 			{
 //				if (str = NULL)
 //					printf("zzz");
-				printf("1231231");
+//				printf("1231231");
 				return (-1);
 			}
 			
 		}
 		else
-			ft_putchar(*str, &sp);
-		printf("ddd %c ddd\n", *str);
-		str++;
+			ft_putchar(*format, &sp);
+//		printf("ddd %c ddd\n", *str);
+		format++;
 
 
 	}
@@ -1056,7 +1056,8 @@ int					ft_printf(const char *format, ...)
 int		main(void)
 {
 
-	printf("%d\n", ft_printf("%"));
+	printf("%ld\n", -2147483648);
+	ft_printf("%d\n", -2147483648);
 
 	return (0);
 }

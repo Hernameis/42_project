@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/09 12:45:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/10 11:22:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct	specifier
 void			ft_putchar(char c, spec *sp);
 void			init_spec(spec *sp);
 void			d_proccess(int d, spec *sp);
-char			**ft_parcel(char **form, va_list ap, spec *sp);
-char			**ft_parcel2(char **form, va_list ap, spec *sp);
+int				ft_parcel(const char **form, va_list ap, spec *sp);
+int				ft_parcel2(const char **form, va_list ap, spec *sp);
 int				ft_printf(const char *format, ...);
-void			width_check(char **form, va_list ap, spec *sp);
-void			precision_check(char **form, va_list ap, spec *sp);
+void			width_check(const char **form, va_list ap, spec *sp);
+void			precision_check(const char **form, va_list ap, spec *sp);
 char			*ft_itoa_base(long long n, char x);
 
 #endif
