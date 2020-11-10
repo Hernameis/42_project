@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/10 11:00:37 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/10 11:11:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -977,8 +977,7 @@ char				**ft_parcel(char **form, va_list ap, spec *sp)
 		sp->zero = 0;
 		sp->per_zero = 0;
 	}
-	if (!(ft_parcel2(form, ap, sp)))
-		return (NULL);
+	ft_parcel2(form, ap, sp);
 	return (form);
 }
 
@@ -1031,7 +1030,7 @@ int					ft_printf(const char *format, ...)
 		printf("ccc %c ccc\n", *str);
 		if (*str == '%')
 		{
-			if ((str = *(ft_parcel(&str, ap, &sp)) == NULL))
+			if ((str = *ft_parcel(&str, ap, &sp)) == NULL)
 			{
 //				if (str = NULL)
 //					printf("zzz");
