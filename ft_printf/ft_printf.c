@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/11 15:50:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/11 17:28:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -944,16 +944,23 @@ int					ft_printf(const char *format, ...)
 int		main(void)
 {
 
-	printf("[%d][%%][%c]\n", 100, 'a');
-	ft_printf("[%d][%%][%c]\n", 100, 'a');
+	ft_printf("[%c]\n", 100);
+	ft_printf("[%s]\n", 100);
+	ft_printf("[%p]\n", 100);
+	ft_printf("[%d]\n", 100);
+	ft_printf("[%d]\n", 100);
+	ft_printf("[%d]\n", 100);
+	ft_printf("[%d]\n", 100);
+	ft_printf("[%d]\n", 100);
+
 
 //	printf("printf(%%s!, Ceci n'est toujours pasun exercice !)\n");
 //	printf("%s!", "Ceci n'est toujours pasun exercice !");
 //	printf("\n");
 //	ft_printf("%s!", "Ceci n'est toujours pasun exercice !");
 
-//	while (1)
-//		;
+	while (1)
+		;
 	return (0);
 }
 	 */
