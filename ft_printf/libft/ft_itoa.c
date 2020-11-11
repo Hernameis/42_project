@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 13:50:08 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/07 16:21:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/11 11:46:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int		itoa_len(long long n)
 
 	len = 0;
 	if (n < 0)
-	{
 		n = -n;
-		len = 1;
-	}
 	if (n == 0)
 		len = 1;
 	while (n)
@@ -56,7 +53,5 @@ char			*ft_itoa(long long n)
 		str[len] = ft_num(n % 10) + '0';
 		n = n / 10;
 	}
-	if (sign == -1)
-		str[0] = '-';
 	return (str);
 }
