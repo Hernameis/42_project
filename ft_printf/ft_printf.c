@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/11 17:28:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 09:55:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,7 +356,6 @@ void				p_proccess(long long int p, spec *sp)
 	if(!(str = (char *)malloc(sizeof(char) * (alloc_len  + 1))))
 		return ;
 	str[alloc_len] = '\0';
-//	printf("\n\nalloc_len : %d real_width : %d real_precision : %d sp->zero : %d sp->left : %d sp->minus : %d sp->width : %d sp->precision : %d sp->zero_precision %d\n", alloc_len, real_width, real_precision, sp->zero, sp->left, sp->minus, sp->width, sp->precision, sp->zero_precision);
 	i = 0;
 	if (!sp->left && !sp->zero)
 	{
@@ -365,7 +364,6 @@ void				p_proccess(long long int p, spec *sp)
 			str[i] = ' ';
 			i++;
 		}
-//		printf("111 %d 111\n", i);
 		if (sp->minus && i)
 		{
 			i--;
@@ -373,7 +371,6 @@ void				p_proccess(long long int p, spec *sp)
 				i--;
 		}
 	}
-//		printf("222 %d 222\n", i);
 	if (sp->minus)
 	{
 		str[i] = '0';
@@ -381,7 +378,6 @@ void				p_proccess(long long int p, spec *sp)
 		str[i] = 'x';
 		i++;
 	}
-//		printf("333 %d 333\n", i);
 	if (sp->zero)
 	{
 		while (i < sp->width - len)
@@ -390,7 +386,6 @@ void				p_proccess(long long int p, spec *sp)
 			i++;
 		}
 	}
-//		printf("444 %d 444\n", i);
 	j = 0;
 	if (sp->precision)
 	{
@@ -401,7 +396,6 @@ void				p_proccess(long long int p, spec *sp)
 			i++;
 		}
 	}
-//		printf("555 %d 555\n", i);
 	j = 0;
 	while (len--)
 	{
@@ -409,7 +403,6 @@ void				p_proccess(long long int p, spec *sp)
 		i++;
 		j++;
 	}
-//		printf("666 %d 666\n", i);
 	if (sp->left)
 	{
 		j = 0;
@@ -425,7 +418,6 @@ void				p_proccess(long long int p, spec *sp)
 			j++;
 		}
 	}
-//		printf("777 %d 777\n", i);
 	while (*str)
 	{
 		ft_putchar(*str, sp);
@@ -633,7 +625,6 @@ void				u_proccess(unsigned int u, spec *sp)
 
 void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 {
-//	printf("d_proccess!!!!\n");
 	char			*num;
 	char			*str;
 	int				n;
@@ -656,7 +647,6 @@ void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 
 	real_width = sp->width;
 	real_precision = sp->precision;
-//	printf("\nreal_precision %d\n", real_precision);
 	len = ft_strlen(num);
 	if (real_precision < len && real_precision != 0)
 		sp->zero = 0;
@@ -672,8 +662,6 @@ void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 		alloc_len = sp->width + 1;
 	else
 		alloc_len = sp->width;
-
-//	printf("nn num =  %s, alloc_len = %d nn\n", num, alloc_len);
 	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
 		return ;
 	str[alloc_len] = '\0';
