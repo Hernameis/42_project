@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   raw_printf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 08:38:50 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 09:55:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 11:01:23 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
+/*
 static int			itoa_len(long long n)
 {
 	int				len;
@@ -66,6 +66,8 @@ char				*ft_itoa_base(long long n, char x)
 		str[0] = '-';
 	return (str);
 }														// 여기까지 이토아 베이스 
+*/
+
 
 void				ft_putchar(char c, spec *sp)
 {
@@ -87,7 +89,7 @@ void				init_spec(spec *sp)
 	sp->empty_precision = 0;
 }
 
-
+/*
 void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 {
 	char			*str;
@@ -167,9 +169,9 @@ void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
 		str++;
 	}
 }
+*/
 
-
-
+/*
 void				c_proccess(char c, spec *sp)			// 공백 - 0 숫자 공백
 {
 	char			*str;
@@ -242,10 +244,10 @@ void				c_proccess(char c, spec *sp)			// 공백 - 0 숫자 공백
 		i++;
 	}
 }
+*/
 
 
-
-
+/*
 void				per_proccess(spec *sp)			// 공백 - 0 숫자 공백
 {
 	char			*num;
@@ -318,9 +320,9 @@ void				per_proccess(spec *sp)			// 공백 - 0 숫자 공백
 		str++;
 	}
 }
+*/
 
-
-
+/*
 void				p_proccess(long long int p, spec *sp)
 {
 	char			*num;
@@ -425,7 +427,10 @@ void				p_proccess(long long int p, spec *sp)
 	}
 	free(num);
 }
+*/
 
+
+/*
 void				x_proccess(unsigned int x, spec *sp, char c)
 {
 	char			*num;
@@ -525,7 +530,9 @@ void				x_proccess(unsigned int x, spec *sp, char c)
 	}
 	free(num);
 }
+*/
 
+/*
 void				u_proccess(unsigned int u, spec *sp)
 {
 	char			*num;
@@ -622,7 +629,9 @@ void				u_proccess(unsigned int u, spec *sp)
 	}
 	free(num);
 }
+*/
 
+/*
 void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 {
 	char			*num;
@@ -725,17 +734,19 @@ void				d_proccess(int d, spec *sp)			// 공백 - 0 숫자 공백
 	}
 	free(num);
 }
+*/
+
 
 // cspdiuxX%
+
+/*
 void				width_check(const char **form, va_list ap, spec *sp)
 {
-//	printf("width_check !!!\n");
 	int				i;
 	int				j;
 	int				num;
 	char			*tmp;
 
-//	printf("width_check : %s\n", *form);
 	i = 0;
 	if (**form == '*')
 	{
@@ -770,7 +781,6 @@ void				width_check(const char **form, va_list ap, spec *sp)
 		(*form)++;
 		j++;
 	}
-//	free(tmp);
 }
 
 void				precision_check(const char **form, va_list ap, spec *sp)
@@ -783,9 +793,7 @@ void				precision_check(const char **form, va_list ap, spec *sp)
 	i = 0;
 	if (**form == '*')
 	{
-
 		num= va_arg(ap, int);
-//		printf("\n**** %d ****\n", num);
 		(*form)++;
 	}
 	else
@@ -806,12 +814,8 @@ void				precision_check(const char **form, va_list ap, spec *sp)
 	}
 	if (num < 0)
 	{
-//		if (sp->left)
-//			sp->left = 0;
-//		sp->left = 1;
 		sp->s_num = -num;
 		num = 0;
-//		sp->zero_precision = 1;
 		sp->minus_precision = 1;
 	}
 	else if (num == 0)
@@ -825,16 +829,15 @@ void				precision_check(const char **form, va_list ap, spec *sp)
 		(*form)++;
 		j++;
 	}
-//	if (tmp)
-//		free(tmp);
-//	printf("precision %d\n", sp->precision);
 }
+*/
 
+
+/*
 int				ft_parcel(const char **form, va_list ap, spec *sp)	
 {
 
 	(*form)++;
-//	printf("parcel 1 !!! & **form = %c \n", **form);
 	while (**form == '-' || **form == '0')
 	{
 		if (**form == '-')								// left
@@ -855,12 +858,6 @@ int				ft_parcel(const char **form, va_list ap, spec *sp)
 	}
 	else
 		sp->empty_precision = 1;
-//	alse
-//		(*form)++;								// precision이 0인 경우 때문에 ... 하지만 이것 때문에 %d가 바로 오는 경우 d를 건너뜀.
-//	if (sp->width < 0 || sp->precision < 0)
-//		sp->left = 1;
-//	else if (sp->width < 0 && sp->precision < 0)
-//		sp->left = 0;
 	if (sp->precision)
 		sp->zero = 0;
 	else if (sp->zero_precision)
@@ -870,7 +867,6 @@ int				ft_parcel(const char **form, va_list ap, spec *sp)
 		sp->zero = 0;
 		sp->per_zero = 0;
 	}
-//	return (NULL);
 	return (ft_parcel2(form, ap, sp));
 }
 
@@ -900,11 +896,11 @@ int				ft_parcel2(const char **form, va_list ap, spec *sp)
 	{
 		return (-1);
 	}
-//	printf("555 %c\n", **form);
-//	printf("parcel2 end!!+\n");
 	return (0);
 }
+*/
 
+/*
 int					ft_printf(const char *format, ...)
 {
 	va_list			ap;
@@ -927,6 +923,7 @@ int					ft_printf(const char *format, ...)
 	va_end(ap);
 	return (sp.count);
 }
+*/
 
 	/*
 int		main(void)
