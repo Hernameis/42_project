@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:59:07 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 12:10:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:54:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void			first_flag(const char **form, spec *sp)
+static void			first_flag(const char **form, t_spec *sp)
 {
 	while (**form == '-' || **form == '0')
 	{
@@ -27,7 +27,7 @@ static void			first_flag(const char **form, spec *sp)
 	}
 }
 
-int					ft_parcel(const char **form, va_list ap, spec *sp)
+int					ft_parcel(const char **form, va_list ap, t_spec *sp)
 {
 	(*form)++;
 	first_flag(form, sp);
@@ -52,7 +52,7 @@ int					ft_parcel(const char **form, va_list ap, spec *sp)
 	return (ft_parcel2(form, ap, sp));
 }
 
-int					ft_parcel2(const char **form, va_list ap, spec *sp)
+int					ft_parcel2(const char **form, va_list ap, t_spec *sp)
 {
 	if (**form == 'd' || **form == 'i')
 	{

@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:02:04 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 11:05:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:55:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				u_proccess(unsigned int u, spec *sp)
+void				u_proccess(unsigned int u, t_spec *sp)
 {
 	char			*num;
 	char			*str;

@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:45 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 12:01:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:54:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				p_proccess(long long int p, spec *sp)
+void				p_proccess(long long int p, t_spec *sp)
 {
 	char			*num;
 	char			*str;

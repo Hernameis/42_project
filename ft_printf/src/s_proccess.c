@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 09:48:31 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 11:05:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:55:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				s_proccess(char *s, spec *sp)			// 공백 - 0 숫자 공백
+void				s_proccess(char *s, t_spec *sp)			// 공백 - 0 숫자 공백
 {
 	char			*str;
 	int				i;

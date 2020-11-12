@@ -6,19 +6,19 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 11:00:09 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 11:02:50 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:55:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				ft_putchar(char c, spec *sp)
+void				ft_putchar(char c, t_spec *sp)
 {
 	write(1, &c, 1);
 	(sp->count)++;
 }
 
-void				init_spec(spec *sp)
+void				init_spec(t_spec *sp)
 {
 	sp->zero = 0;
 	sp->per_zero = 0;
@@ -35,7 +35,7 @@ void				init_spec(spec *sp)
 int					ft_printf(const char *format, ...)
 {
 	va_list			ap;
-	spec			sp;
+	t_spec			sp;
 
 	va_start(ap, format);
 	sp.count = 0;

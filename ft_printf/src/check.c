@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:43:58 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:03:34 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:54:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void			num_proccess(const char **form, int *i, int *j)
 	}
 }
 
-void				sub_width(const char **form, int *i, int *num, spec *sp)
+void				sub_width(const char **form, int *i, int *num, t_spec *sp)
 {
 	int				j;
 
@@ -40,7 +40,7 @@ void				sub_width(const char **form, int *i, int *num, spec *sp)
 	}
 }
 
-void				width_check(const char **form, va_list ap, spec *sp)
+void				width_check(const char **form, va_list ap, t_spec *sp)
 {
 	int				i;
 	int				j;
@@ -69,7 +69,7 @@ void				width_check(const char **form, va_list ap, spec *sp)
 	sub_width(form, &i, &num, sp);
 }
 
-void				sub_precision(int *num, spec *sp)
+void				sub_precision(int *num, t_spec *sp)
 {
 	if (*num < 0)
 	{
@@ -84,7 +84,7 @@ void				sub_precision(int *num, spec *sp)
 	sp->precision = *num;
 }
 
-void				precision_check(const char **form, va_list ap, spec *sp)
+void				precision_check(const char **form, va_list ap, t_spec *sp)
 {
 	int				i;
 	int				j;

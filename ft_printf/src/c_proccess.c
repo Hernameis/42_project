@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:25 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 11:05:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:59:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				c_proccess(char c, spec *sp)			// 공백 - 0 숫자 공백
+void				c_proccess(char c, t_spec *sp)
 {
 	char			*str;
 	int				i;
@@ -65,12 +65,12 @@ void				c_proccess(char c, spec *sp)			// 공백 - 0 숫자 공백
 		i++;
 		j++;
 	}
-	if (sp->left)									// 마지막 공백 
+	if (sp->left)
 	{
 		j = 0;
 		if (sp->minus)
 			j++;
-		while (i < sp->width)						 //j < sp->width - sp->precision)
+		while (i < sp->width)
 		{
 			str[i] = ' ';
 			i++;
