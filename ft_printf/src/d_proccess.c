@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 09:46:12 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 15:41:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 17:09:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void			d_widpre(t_spec *sp, int d, int *len, int *alloc_len)
 
 static void			d_write(t_spec *sp, char **str, int *len, char **num)
 {
-	int				i;
-
 	if (sp->minus)
 		(*str)[(sp->i)++] = '-';
 	if (sp->zero)
@@ -53,12 +51,9 @@ static void			d_write(t_spec *sp, char **str, int *len, char **num)
 		while ((sp->j)++ < sp->width - sp->precision)
 			(*str)[(sp->i)++] = ' ';
 	}
-	i = 0;
-	while ((*str)[i])
-	{
-		ft_putchar((*str)[i], sp);
-		i++;
-	}
+	sp->i = 0;
+	while ((*str)[sp->i])
+		ft_putchar((*str)[(sp->i)++], sp);
 	free(*str);
 	*str = NULL;
 }

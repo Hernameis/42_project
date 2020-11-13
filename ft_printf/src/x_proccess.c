@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:02:17 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 16:04:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 17:08:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void			x_check(unsigned int *n, unsigned int x, char c, char **num)
 
 static void			x_write(t_spec *sp, int *len, char **str, char **num)
 {
-	int				i;
-
 	if (sp->minus)
 		(*str)[(sp->i)++] = '-';
 	if (sp->zero)
@@ -46,14 +44,9 @@ static void			x_write(t_spec *sp, int *len, char **str, char **num)
 		while ((sp->j)++ < sp->width - sp->precision)
 			(*str)[(sp->i)++] = ' ';
 	}
-	i = 0;
-	while ((*str)[i])
-	{
-		ft_putchar((*str)[i], sp);
-		i++;
-	}
-	free(*str);
-	*str = NULL;
+	sp->i = 0;
+	while ((*str)[sp->i])
+		ft_putchar((*str)[(sp->i)++], sp);
 }
 
 static void			x_widpre(t_spec *sp, unsigned int x, int *len,
@@ -72,6 +65,14 @@ static void			x_widpre(t_spec *sp, unsigned int x, int *len,
 		*alloc_len = sp->width + 1;
 	else
 		*alloc_len = sp->width;
+}
+
+static void			x_free(char **str, char **num)
+{
+	free(*str);
+	*str = NULL;
+	free(*num);
+	*num = NULL;
 }
 
 void				x_proccess(unsigned int x, t_spec *sp, char c)
@@ -98,5 +99,5 @@ void				x_proccess(unsigned int x, t_spec *sp, char c)
 			(sp->i)--;
 	}
 	x_write(sp, &len, &str, &num);
-	free(num);
+	x_free(&str, &num);
 }

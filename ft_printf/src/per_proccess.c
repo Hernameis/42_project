@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:02:27 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 16:08:31 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 17:09:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void			per_write(t_spec *sp, int *len, char **str)
 {
-	int				i;
-
 	if (sp->minus)
 		(*str)[(sp->i)++] = '%';
 	if (sp->per_zero)
@@ -34,12 +32,9 @@ static void			per_write(t_spec *sp, int *len, char **str)
 		while (sp->i < sp->width)
 			(*str)[(sp->i)++] = ' ';
 	}
-	i = 0;
-	while ((*str)[i])
-	{
-		ft_putchar((*str)[i], sp);
-		i++;
-	}
+	sp->i = 0;
+	while ((*str)[sp->i])
+		ft_putchar((*str)[(sp->i)++], sp);
 	free(*str);
 	*str = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:25 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 15:46:55 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 17:08:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ static void			c_write(char **str, t_spec *sp)
 	}
 	sp->i = 0;
 	while (sp->i < sp->width)
-	{
-		ft_putchar((*str)[sp->i], sp);
-		(sp->i)++;
-	}
+		ft_putchar((*str)[(sp->i)++], sp);
 	free(*str);
 	*str = NULL;
 }
