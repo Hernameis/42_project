@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:45 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 10:39:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:16:30 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,10 @@ static void			p_w(t_spec *sp, int *len, unsigned int *a_l,
 
 static void			p_write(int *len, char **str, t_spec *sp, char **num)
 {
+	int				i;
+
 	while ((*len)--)
-	{
-		(*str)[sp->i] = (*num)[sp->j];
-		(sp->i)++;
-		(sp->j)++;
-	}
+		(*str)[(sp->i)++] = (*num)[(sp->j)++];
 	if (sp->left)
 	{
 		sp->j = 0;
@@ -73,14 +71,14 @@ static void			p_write(int *len, char **str, t_spec *sp, char **num)
 			(sp->j)++;
 			(sp->j)++;
 		}
-		while (sp->j < sp->width - sp->precision)
-		{
+		while ((sp->j)++ < sp->width - sp->precision)
 			(*str)[(sp->i)++] = ' ';
-			(sp->j)++;
-		}
 	}
-	while (**str)
-		ft_putchar(*((*str)++), sp);
+	i = 0;
+	while ((*str)[i])
+		ft_putchar((*str)[i++], sp);
+	free(*str);
+	*str = NULL;
 }
 
 void				p_proccess(long long int p, t_spec *sp)
@@ -103,11 +101,7 @@ void				p_proccess(long long int p, t_spec *sp)
 	str[a_l] = '\0';
 	p_0x(sp, &str, &len);
 	if (sp->precision)
-		while (sp->j < sp->precision - len)
-		{
+		while ((sp->j)++ < sp->precision - len)
 			str[(sp->i)++] = '0';
-			sp->j++;
-		}
 	p_write(&len, &str, sp, &num);
-	free(num);
 }

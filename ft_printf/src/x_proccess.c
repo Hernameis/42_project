@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:02:17 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 11:59:17 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:04:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void			x_check(unsigned int *n, unsigned int x, char c, char **num)
 
 static void			x_write(t_spec *sp, int *len, char **str, char **num)
 {
+	int				i;
+
 	if (sp->minus)
 		(*str)[(sp->i)++] = '-';
 	if (sp->zero)
@@ -44,8 +46,14 @@ static void			x_write(t_spec *sp, int *len, char **str, char **num)
 		while ((sp->j)++ < sp->width - sp->precision)
 			(*str)[(sp->i)++] = ' ';
 	}
-	while (**str)
-		ft_putchar(*((*str)++), sp);
+	i = 0;
+	while ((*str)[i])
+	{
+		ft_putchar((*str)[i], sp);
+		i++;
+	}
+	free(*str);
+	*str = NULL;
 }
 
 static void			x_widpre(t_spec *sp, unsigned int x, int *len,

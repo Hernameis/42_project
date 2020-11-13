@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 09:48:31 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 09:46:17 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:09:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void			s_flags(t_spec *sp, char **str, int *len)
 
 static void			s_write(t_spec *sp, char **str)
 {
+	int				i;
+
 	if (sp->left)
 	{
 		sp->j = 0;
@@ -64,11 +66,11 @@ static void			s_write(t_spec *sp, char **str)
 			(sp->i)++;
 		}
 	}
-	while (**str)
-	{
-		ft_putchar(**str, sp);
-		(*str)++;
-	}
+	i = 0;
+	while ((*str)[i])
+		ft_putchar((*str)[i++], sp);
+	free(*str);
+	*str = NULL;
 }
 
 void				s_proccess(char *s, t_spec *sp)

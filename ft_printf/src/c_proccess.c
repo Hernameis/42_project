@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:25 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 09:47:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 15:46:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static void			c_write(char **str, t_spec *sp)
 		ft_putchar((*str)[sp->i], sp);
 		(sp->i)++;
 	}
+	free(*str);
+	*str = NULL;
 }
 
 void				c_proccess(char c, t_spec *sp)

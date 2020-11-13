@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:32:28 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 14:09:40 by sunmin           ###   ########.fr       */
+/*   Created: 2020/11/13 13:47:26 by sunmin            #+#    #+#             */
+/*   Updated: 2020/11/13 16:12:11 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-char		*ft_substr(char const *s, unsigned int start, int len)
+int	ft_printf(const char *fomat, ...);
+
+
+int		main(void)
 {
-	char	*sub;
-	int		i;
+	char		*a;
 
-	if (s == NULL)
-		return (NULL);
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (!(sub = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
+	a = "abc";
+	ft_printf("ppp%p\n", a);
+	while (1)
+		;
+	return (0);
 }

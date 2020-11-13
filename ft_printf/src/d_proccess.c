@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 09:46:12 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 11:39:59 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 15:41:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static void			d_widpre(t_spec *sp, int d, int *len, int *alloc_len)
 		*alloc_len = sp->width;
 }
 
-static void			d_writd(t_spec *sp, char **str, int *len, char **num)
+static void			d_write(t_spec *sp, char **str, int *len, char **num)
 {
+	int				i;
+
 	if (sp->minus)
 		(*str)[(sp->i)++] = '-';
 	if (sp->zero)
@@ -51,8 +53,14 @@ static void			d_writd(t_spec *sp, char **str, int *len, char **num)
 		while ((sp->j)++ < sp->width - sp->precision)
 			(*str)[(sp->i)++] = ' ';
 	}
-	while (**str)
-		ft_putchar(*((*str)++), sp);
+	i = 0;
+	while ((*str)[i])
+	{
+		ft_putchar((*str)[i], sp);
+		i++;
+	}
+	free(*str);
+	*str = NULL;
 }
 
 static void			d_minus(t_spec *sp, int d, int *n, char **num)
@@ -90,6 +98,5 @@ void				d_proccess(int d, t_spec *sp)
 		if (sp->minus && sp->i)
 			(sp->i)--;
 	}
-	d_writd(sp, &str, &len, &num);
-	free(num);
+	d_write(sp, &str, &len, &num);
 }
