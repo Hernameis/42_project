@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 11:00:09 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:55:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 09:42:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void				init_spec(t_spec *sp)
 	sp->s_num = 0;
 	sp->minus_precision = 0;
 	sp->empty_precision = 0;
+	sp->i = 0;
+	sp->j = 0;
 }
 
 int					ft_printf(const char *format, ...)

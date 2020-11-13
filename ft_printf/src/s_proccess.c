@@ -6,89 +6,85 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 09:48:31 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:55:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 09:46:17 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				s_proccess(char *s, t_spec *sp)			// 공백 - 0 숫자 공백
+static void			set_widpre(t_spec *sp, int *len, int *alloc_len, char *s)
 {
-	char			*str;
-	int				i;
-	int				j;
-	int				len;
-	int				alloc_len;
-	int				real_width;
-	int				real_precision;
-
-
-	if (!s)
-		s = ft_strdup("(null)");
-
-
-	real_width = sp->width;
-	len = ft_strlen(s);
-	real_precision = len;
+	sp->real_width = sp->width;
+	*len = ft_strlen(s);
+	sp->real_precision = *len;
 	if (sp->zero_precision && sp->s_num == 0)
-		real_precision = 0;
-	else if (!sp->minus_precision && sp->s_num < len)
-		real_precision = sp->s_num;
-	else if (!sp->minus_precision && sp->s_num >= len)
-		real_precision = len;
+		sp->real_precision = 0;
+	else if (!sp->minus_precision && sp->s_num < *len)
+		sp->real_precision = sp->s_num;
+	else if (!sp->minus_precision && sp->s_num >= *len)
+		sp->real_precision = *len;
 	else if (sp->minus_precision && sp->s_num)
-		real_precision = len;
+		sp->real_precision = *len;
 	if (sp->empty_precision)
-		real_precision = len;
-	alloc_len = sp->width;
+		sp->real_precision = *len;
+	*alloc_len = sp->width;
 	if (!sp->width)
-		alloc_len = real_precision;
-	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
-		return ;
-	str[alloc_len] = '\0';
-	i = 0;
+		*alloc_len = sp->real_precision;
+}
+
+static void			s_flags(t_spec *sp, char **str, int *len)
+{
 	if (!sp->left && !sp->per_zero)
 	{
-		while (i < sp->width - real_precision)		//  - sp->precision)
-		{
-			str[i] = ' ';
-			i++;
-		}
-		if (sp->minus && i)
-			i--;
+		while (sp->i < sp->width - sp->real_precision)
+			(*str)[(sp->i)++] = ' ';
+		if (sp->minus && sp->i)
+			(sp->i)--;
 	}
 	if (sp->per_zero)
 	{
-		while (i < sp->width - len)
+		while (sp->i < sp->width - *len)
 		{
-			str[i] = '0';
-			i++;
+			(*str)[sp->i] = '0';
+			(sp->i)++;
 		}
-	}
-	j = 0;
-	while (j < real_precision)
-	{
-		str[i] = s[j];
-		i++;
-		j++;
-	}
-
-	if (sp->left)									// 마지막 공백 
-	{
-		j = 0;
-		if (sp->minus)
-			j++;
-		while (i < sp->width)						 //j < sp->width - sp->precision)
-		{
-			str[i] = ' ';
-			i++;
-		//	j++;
-		}
-	}
-	while (*str)
-	{
-		ft_putchar(*str, sp);
-		str++;
 	}
 }
 
+static void			s_write(t_spec *sp, char **str)
+{
+	if (sp->left)
+	{
+		sp->j = 0;
+		if (sp->minus)
+			(sp->j)++;
+		while (sp->i < sp->width)
+		{
+			(*str)[sp->i] = ' ';
+			(sp->i)++;
+		}
+	}
+	while (**str)
+	{
+		ft_putchar(**str, sp);
+		(*str)++;
+	}
+}
+
+void				s_proccess(char *s, t_spec *sp)
+{
+	char			*str;
+	int				len;
+	int				alloc_len;
+
+	if (!s)
+		s = ft_strdup("(null)");
+	set_widpre(sp, &len, &alloc_len, s);
+	if (!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	s_flags(sp, &str, &len);
+	while (sp->j < sp->real_precision)
+		str[sp->i++] = s[sp->j++];
+	s_write(sp, &str);
+}

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:25:21 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:00:55 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 09:41:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ typedef struct		s_spec
 	int			s_num;
 	int			minus_precision;
 	int			empty_precision;
+	int			real_width;
+	int			real_precision;
+	int			i;
+	int			j;
 }					t_spec;
 
 int					ft_printf(const char *format, ...);

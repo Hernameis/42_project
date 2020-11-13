@@ -6,81 +6,88 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:25 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:59:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 09:47:11 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void				c_proccess(char c, t_spec *sp)
+static void			width_precision(t_spec *sp, int *len, int *alloc_len)
 {
-	char			*str;
-	int				i;
-	int				j;
-	int				len;
-	int				alloc_len;
-	int				real_width;
-	int				real_precision;
-
-	real_width = sp->width;
-	real_precision = sp->precision;
-	len = 1;
-	if (sp->precision < len)
-		sp->precision = len;
+	if (sp->precision < *len)
+		sp->precision = *len;
 	if (sp->width < sp->precision)
 		sp->width = sp->precision;
-	alloc_len = sp->width;
-	if(!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
-		return ;
-	str[alloc_len] = '\0';
-	i = 0;
+	*alloc_len = sp->width;
+}
+
+static void			c_flags(t_spec *sp, char **str, char c)
+{
 	if (!sp->left && !sp->per_zero)
 	{
-		while (i < sp->width - 1) // sp->precision)
+		while (sp->i < sp->width - 1)
 		{
-			str[i] = ' ';
-			i++;
+			(*str)[sp->i] = ' ';
+			(sp->i)++;
 		}
-		if (sp->minus && i)
-			i--;
+		if (sp->minus && sp->i)
+			(sp->i)--;
 	}
 	if (sp->minus)
 	{
-		str[i] = c;
-		i++;
+		(*str)[sp->i] = c;
+		(sp->i)++;
 	}
 	if (sp->per_zero)
 	{
-		while (i < sp->width - len)
+		while (sp->i < sp->width - 1)
 		{
-			str[i] = '0';
-			i++;
+			(*str)[sp->i] = '0';
+			(sp->i)++;
 		}
 	}
-	sp->precision = 1;
-	j = 0;
-	while (j < 1)
-	{
-		str[i] = c;
-		i++;
-		j++;
-	}
+}
+
+static void			c_write(char **str, t_spec *sp)
+{
 	if (sp->left)
 	{
-		j = 0;
+		sp->j = 0;
 		if (sp->minus)
-			j++;
-		while (i < sp->width)
+			sp->j++;
+		while (sp->i < sp->width)
 		{
-			str[i] = ' ';
-			i++;
-		//	j++;
+			(*str)[sp->i] = ' ';
+			(sp->i)++;
 		}
 	}
-	i = 0;
-	while (i < sp->width)
+	sp->i = 0;
+	while (sp->i < sp->width)
 	{
-		ft_putchar(str[i], sp);
-		i++;
+		ft_putchar((*str)[sp->i], sp);
+		(sp->i)++;
 	}
+}
+
+void				c_proccess(char c, t_spec *sp)
+{
+	char			*str;
+	int				len;
+	int				alloc_len;
+
+	alloc_len = 0;
+	len = 1;
+	width_precision(sp, &len, &alloc_len);
+	if (!(str = (char *)malloc(sizeof(char) * (alloc_len + 1))))
+		return ;
+	str[alloc_len] = '\0';
+	c_flags(sp, &str, c);
+	sp->precision = 1;
+	while (sp->j < 1)
+	{
+		str[sp->i] = c;
+		sp->i++;
+		sp->j++;
+	}
+	c_write(&str, sp);
 }

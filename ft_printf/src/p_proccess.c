@@ -6,113 +6,108 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:01:45 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/12 13:54:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/13 10:39:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+static void			p_0x(t_spec *sp, char **str, int *len)
+{
+	if (!sp->left && !sp->zero)
+	{
+		while (sp->i < sp->width - sp->precision)
+			(*str)[(sp->i)++] = ' ';
+		if (sp->minus && sp->i)
+		{
+			sp->i--;
+			if (sp->i)
+				sp->i--;
+		}
+	}
+	if (sp->minus)
+	{
+		(*str)[sp->i] = '0';
+		sp->i++;
+		(*str)[sp->i] = 'x';
+		sp->i++;
+	}
+	if (sp->zero)
+	{
+		while (sp->i < sp->width - *len)
+			(*str)[(sp->i)++] = '0';
+	}
+}
+
+static void			p_w(t_spec *sp, int *len, unsigned int *a_l,
+		long long int p)
+{
+	if (sp->real_precision < *len && sp->real_precision != 0)
+		sp->zero = 0;
+	if (p == 0 && sp->zero_precision)
+		*len = 0;
+	if (sp->precision < *len)
+		sp->precision = *len;
+	if (sp->width < sp->precision)
+		sp->width = sp->precision;
+	if (sp->minus && (sp->real_width < *len ||
+		sp->real_width < sp->real_precision))
+		*a_l = sp->width + 2;
+	else
+		*a_l = sp->width;
+}
+
+static void			p_write(int *len, char **str, t_spec *sp, char **num)
+{
+	while ((*len)--)
+	{
+		(*str)[sp->i] = (*num)[sp->j];
+		(sp->i)++;
+		(sp->j)++;
+	}
+	if (sp->left)
+	{
+		sp->j = 0;
+		if (sp->minus)
+		{
+			(sp->j)++;
+			(sp->j)++;
+		}
+		while (sp->j < sp->width - sp->precision)
+		{
+			(*str)[(sp->i)++] = ' ';
+			(sp->j)++;
+		}
+	}
+	while (**str)
+		ft_putchar(*((*str)++), sp);
+}
 
 void				p_proccess(long long int p, t_spec *sp)
 {
 	char			*num;
 	char			*str;
 	long long int	n;
-	int				i;
-	int				j;
 	int				len;
-	unsigned int	alloc_len;
-	int				real_width;
-	int				real_precision;
+	unsigned int	a_l;
 
 	n = p;
 	num = ft_itoa_base(n, 'p');
-	sp->minus = 1;						//  -부호 부분을 0x출력으로 사용하기 위함임.
-	real_width = sp->width;
-	real_precision = sp->precision;
+	sp->minus = 1;
+	sp->real_width = sp->width;
+	sp->real_precision = sp->precision;
 	len = ft_strlen(num);
-	if (real_precision < len && real_precision != 0)
-		sp->zero = 0;
-	if (p == 0 && sp->zero_precision)
-		len = 0;
-	if (sp->precision < len)
-		sp->precision = len;
-	if (sp->width < sp->precision)
-		sp->width = sp->precision;
-
-	if (sp->minus && (real_width < len || real_width < real_precision))
-		alloc_len = sp->width + 2;											// 0x때문에 + 2
-	else
-		alloc_len = sp->width;
-
-	if(!(str = (char *)malloc(sizeof(char) * (alloc_len  + 1))))
+	p_w(sp, &len, &a_l, p);
+	if (!(str = (char *)malloc(sizeof(char) * (a_l + 1))))
 		return ;
-	str[alloc_len] = '\0';
-	i = 0;
-	if (!sp->left && !sp->zero)
-	{
-		while (i < sp->width - sp->precision)
-		{
-			str[i] = ' ';
-			i++;
-		}
-		if (sp->minus && i)
-		{
-			i--;
-			if (i)
-				i--;
-		}
-	}
-	if (sp->minus)
-	{
-		str[i] = '0';
-		i++;
-		str[i] = 'x';
-		i++;
-	}
-	if (sp->zero)
-	{
-		while (i < sp->width - len)
-		{
-			str[i] = '0';
-			i++;
-		}
-	}
-	j = 0;
+	str[a_l] = '\0';
+	p_0x(sp, &str, &len);
 	if (sp->precision)
-	{
-		while (j < sp->precision - len)
+		while (sp->j < sp->precision - len)
 		{
-			str[i] = '0';
-			j++;
-			i++;
+			str[(sp->i)++] = '0';
+			sp->j++;
 		}
-	}
-	j = 0;
-	while (len--)
-	{
-		str[i] = num[j];
-		i++;
-		j++;
-	}
-	if (sp->left)
-	{
-		j = 0;
-		if (sp->minus)
-		{
-			j++;
-			j++;
-		}
-		while (j <sp->width - sp->precision)
-		{
-			str[i] = ' ';
-			i++;
-			j++;
-		}
-	}
-	while (*str)
-	{
-		ft_putchar(*str, sp);
-		str++;
-	}
+	p_write(&len, &str, sp, &num);
 	free(num);
 }
