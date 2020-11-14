@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:47:26 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 16:28:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/14 15:42:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int	ft_printf(const char *fomat, ...);
 
 int		main(void)
 {
-	char		*a;
 
-	a = "abc";
-	ft_printf("ppp%p\n", a);
-	while (1)
-		;
+	ft_printf("[%*.*%]\n", 2, -4);
+	printf("[%*.*%]\n", 2, -4);
+//	while (1)
+//		;
 	return (0);
 }

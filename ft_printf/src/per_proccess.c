@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 10:02:27 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 17:09:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/14 15:43:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void			per_write(t_spec *sp, int *len, char **str)
 	sp->i = 0;
 	while ((*str)[sp->i])
 		ft_putchar((*str)[(sp->i)++], sp);
-	free(*str);
-	*str = NULL;
 }
 
 void				per_proccess(t_spec *sp)
