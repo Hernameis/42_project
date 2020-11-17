@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/13 13:46:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2020/11/17 11:40:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		push_gnl(char **remain, char *temp, char **line)
 	{
 		*temp = '\0';
 		*line = ft_strdup(*remain);
-		next = ft_strdup(temp + 1); // 만약 remain이  개행으로 딱 떨어진다면, temp + 1은 무엇을 가리키는가?
+		next = ft_strdup(temp + 1);
 		free(*remain);
 		*remain = next;
 		return (1);
@@ -38,7 +38,7 @@ static int		push_gnl(char **remain, char *temp, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	char		*remain[FILE_MAX];		// 원래 static으로 선언하려던 부분
+	char		*remain[FILE_MAX];
 	char		*buff;
 	char		*temp;
 	int			n;
