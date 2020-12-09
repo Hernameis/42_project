@@ -1,6 +1,6 @@
 FROM	debian:buster
 
-LABEL	maintainer="sunmin@student.42seoul.kr"
+LABEL	maintainer="sunmin"
 
 RUN		apt-get update && apt-get install -y \
 		nginx \
