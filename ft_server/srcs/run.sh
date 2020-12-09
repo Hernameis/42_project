@@ -1,5 +1,3 @@
-#!/bin/bash
-
 chmod 775 /run.sh
 chown -R www-data:www-data /var/www/
 chmod -R 755 /var/www/
@@ -28,7 +26,7 @@ echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'sunmin'@'localhost' WITH GRANT OPT
 wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz
 tar -xvf phpMyAdmin-5.0.2-all-languages.tar.gz
 mv phpMyAdmin-5.0.2-all-languages phpmyadmin
-mv phpmyadmin /var/www/html
+mv phpmyadmin /var/www/html/
 rm phpMyAdmin-5.0.2-all-languages.tar.gz
 cp -rp /tmp/config.inc.php /var/www/html/phpmyadmin/
 
