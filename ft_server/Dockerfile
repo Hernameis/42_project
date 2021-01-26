@@ -2,7 +2,7 @@ FROM	debian:buster
 
 LABEL	maintainer="sunmin"
 
-RUN		apt-get update && apt-get install -y \
+RUN		apt-get update && apt-get -y upgrade && apt-get -y install \
 		nginx \
 		mariadb-server \
 		php-mysql \

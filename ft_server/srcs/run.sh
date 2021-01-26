@@ -7,7 +7,7 @@ mv localhost.dev.crt etc/ssl/certs/
 mv localhost.dev.key etc/ssl/private/
 chmod 600 etc/ssl/certs/localhost.dev.crt etc/ssl/private/localhost.dev.key
 
-cp -rp /tmp/default /etc/nginx/sites-available/
+cp -rp /tmp/default /etc/nginx/sites-available/default
 
 wget https://wordpress.org/latest.tar.gz
 tar -xvf latest.tar.gz
@@ -20,7 +20,7 @@ echo "CREATE DATABASE IF NOT EXISTS wordpress;" \
 	| mysql -u root --skip-password
 echo "CREATE USER IF NOT EXITSTS 'sunmin'@'localhost' IDENTIFIED BY 'sunmin';" \
 	| mysql -u root --skip-password
-echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'sunmin'@'localhost' WITH GRANT OPTION;" \
+echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'sunmin'@'%' idendtified by 'sunmin' WITH GRANT OPTION;" \
 	| mysql -u root --skip-password
 
 wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz
@@ -28,7 +28,7 @@ tar -xvf phpMyAdmin-5.0.2-all-languages.tar.gz
 mv phpMyAdmin-5.0.2-all-languages phpmyadmin
 mv phpmyadmin /var/www/html/
 rm phpMyAdmin-5.0.2-all-languages.tar.gz
-cp -rp /tmp/config.inc.php /var/www/html/phpmyadmin/
+cp -rp /tmp/config.sample.php /var/www/html/phpmyadmin/config.inc.php
 
 service nginx start
 service php7.3-fpm start
