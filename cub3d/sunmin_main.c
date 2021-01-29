@@ -5,6 +5,7 @@
 #include "mlx.h"
 
 #define _USE_MATH_DEFINES
+#define degree_convert 0.0174533
 
 // gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 // w == 13, a == 0, s == 1, d == 2, esc == 53
@@ -30,6 +31,7 @@ typedef struct		s_window
 	double	player_center_y;
 
 	double	player_direction;
+	double	tan_p;
 
 	int		ray_x;
 	int		ray_y;
@@ -45,12 +47,14 @@ typedef struct		s_window
 
 	double	density;
 	double	index;
+	double	temp;
 }					t_window;
 
 int		draw_ray(t_window *window);
 int		erase_ray(t_window *window);
 int		draw_grid(t_window *window);
 int		put_player(t_window *window);
+int		convert_degree(t_window *window);
 
 int		press_key(int key, t_window *window)
 {
@@ -65,57 +69,44 @@ int		press_key(int key, t_window *window)
 
 	erase_ray(window);
 
-	//w
-	if (window->key == 13)
+	//w = 13, s = 1
+	if (window->key == 13 || window->key == 1)
 	{
-		window->index = 0;
-		while (window->index < window->move_speed)
-		{
-			window->temp_color = window->player_color;
-			window->player_color = window->floor_color;
-			put_player(window);
-			window->where_player_x++;
-			window->where_player_y += tan(window->player_direction);
-			window->player_center_x++;
-			window->player_center_y += tan(window->player_direction);
-			window->player_color = window->temp_color;
-
-			window->index++;
-		}
+			window->index = 0;
+			while (window->index < window->move_speed)
+			{
+				window->temp_color = window->player_color;
+				window->player_color = window->floor_color;
+				put_player(window);
+				if (window->key == 13)
+				{
+					window->where_player_x++;
+					window->where_player_y += tan(window->player_direction);
+					window->player_center_x++;
+					window->player_center_y += tan(window->player_direction);
+				}
+				else
+				{
+					window->where_player_x--;
+					window->where_player_y -= tan(window->player_direction);
+					window->player_center_x--;
+					window->player_center_y -= tan(window->player_direction);
+					window->player_color = window->temp_color;
+				}
+				window->index++;
+			}
 	}
 
-	//s
-	if (window->key == 1)
+	//a = 0 , d = 2
+	if (window->key == 0 || window->key == 2)
 	{
-		window->index = 0;
-		while (window->index < window->move_speed)
-		{
-			window->temp_color = window->player_color;
-			window->player_color = window->floor_color;
-			put_player(window);
-			window->where_player_x--;
-			window->where_player_y -= tan(window->player_direction);
-			window->player_center_x--;
-			window->player_center_y -= tan(window->player_direction);
-			window->player_color = window->temp_color;
-			
-			window->index++;
-		}
+		if (window->key == 0)
+			window->player_direction -= degree_convert * window->key_size;
+		else
+			window->player_direction += degree_convert * window->key_size;
 	}
-
-	//a
-	if (window->key == 0)
-	{
-		window->player_direction -= (M_PI / 360) * window->key_size;
-	}
-
-	//d
-	if (window->key == 2)
-	{
-		window->player_direction += (M_PI / 360) * window->key_size;
-	}
-
-			put_player(window);
+	convert_degree(window);
+	put_player(window);
 	draw_ray(window);
 	return (0);
 }
@@ -172,57 +163,173 @@ int		put_player(t_window *window)
 	return (0);
 }
 
-int		if_tan_infinite(double n)
+double	ft_tan(double n)
 {
-	int		i;
-
-	i = 0;
-	while (n > M_PI / 2)
-		n -= M_PI;
-	if (n == M_PI / 2)
-	{
-		return (1);
-	}
+	if (tan(n) > 1000)
+		return (1000);
+	else if (tan(n) < -1000)
+		return (-1000);
 	else
-	{
-		return (0);
-	}
+		return (n);
 }
 
 int		draw_ray(t_window *window)
 {
-	int		x;
-	int		y;
-	double	tan_p;
+	double		x;
+	double		y;
+	double		i;
 
-	if (if_tan_infinite(fabs(window->player_direction)))
+	i = window->pov * (-1 / 2);
+	while (i < window->pov)
 	{
-		tan_p = 10000;
-	}
-	else
+	window->temp = window->player_direction; 	
+	window->player_direction += i * degree_convert;
+	if (window->player_direction >= 0 && window->player_direction < degree_convert * 90)							// 1사분면 
 	{
-		tan_p = tan(window->player_direction);
-	}
-	window->index = 0;
-	while (window->index < window->pov / 2)
-	{
-		x = 1;
-		y = 1;
-		while (x + window->player_center_x < window->height && y + window->player_center_y < window->width)
+		x = 0;
+		y = 0;
+		while (window->player_center_x + x < window->height && window->player_center_y + y < window->width)
 		{
 			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x + x, window->player_center_y + y, 0xfff5dd);
-			if (y / x >= tan_p)
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
 				x++;
+			}
 			else
 				y++;
 		}
-		window->index += 1 / window->density;
-		tan_p += window->index;
+	}
+	else if(window->player_direction >= degree_convert * 90 && window->player_direction < degree_convert * 180)	// 2사분면
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x - x > 0 && window->player_center_y + y < window->width)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x - x, window->player_center_y + y, 0xfff5dd);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	}
+	else if(window->player_direction >= degree_convert * 180 && window->player_direction < degree_convert * 270)	//3사분면
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x - x > 0 && window->player_center_y - y >	0)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x - x, window->player_center_y - y, 0xfff5dd);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	} 
+	else			// 4사분면
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x + x < window->height && window->player_center_y - y > 0)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x + x, window->player_center_y - y, 0xfff5dd);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	}
+	window->player_direction = window->temp;
+	i++;
 	}
 	return (0);
-//	mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->ray_x, window->ray_y, 0xfff5ee);
 }
 
+
+int		erase_ray(t_window *window)
+{
+	double		x;
+	double		y;
+	double		i;
+
+	i = window->pov * (-1 / 2);
+	while (i < window->pov)
+	{
+	window->temp = window->player_direction; 	
+	window->player_direction += i * degree_convert;
+	if (window->player_direction >= 0 && window->player_direction < degree_convert * 90)							// 1사분면 
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x + x < window->height && window->player_center_y + y < window->width)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x + x, window->player_center_y + y, 0x000000);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	}
+	else if(window->player_direction >= degree_convert * 90 && window->player_direction < degree_convert * 180)	// 2사분면
+	{
+		x = 1;
+		y = 1;
+		while (window->player_center_x - x > 0 && window->player_center_y + y < window->width)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x - x, window->player_center_y + y, 0x000000);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	}
+	else if(window->player_direction >= degree_convert * 180 && window->player_direction < degree_convert * 270)	//3사분면
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x - x > 0 && window->player_center_y - y >	0)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x - x, window->player_center_y - y, 0x000000);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	} 
+	else			// 4사분면
+	{
+		x = 0;
+		y = 0;
+		while (window->player_center_x + x < window->height && window->player_center_y - y > 0)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->player_center_x + x, window->player_center_y - y, 0x000000);
+			if (y / x >= fabs(tan(window->player_direction)))
+			{
+				x++;
+			}
+			else
+				y++;
+		}
+	}
+	window->player_direction = window->temp;
+	i++;
+	}
+	return (0);
+}
+
+
+/*
 int		erase_ray(t_window *window)
 {
 	int		x;
@@ -248,9 +355,8 @@ int		erase_ray(t_window *window)
 		tan_p += window->index;
 	}
 	return (0);
-//	mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->ray_x, window->ray_y, 0xfff5ee);
 }
-
+*/
 
 
 /*
@@ -289,7 +395,18 @@ int		draw_ray(t_window *window)
 }
 */
 
-
+int		convert_degree(t_window *window)
+{
+	while (window->player_direction < 0)
+	{
+		window->player_direction += degree_convert * 360;
+	}
+	while (window->player_direction > degree_convert * 360)
+	{
+		window->player_direction -= degree_convert * 360;
+	}
+	return (0);
+}
 
 int		main(void)
 {
@@ -329,17 +446,17 @@ int		main(void)
 	window.player_center_x = window.where_player_x + window.player_size / 2;
 	window.player_center_y = window.where_player_y + window.player_size / 2;
 
-	window.player_direction = M_PI / 6;
+	window.player_direction = degree_convert * 89;
 	window.mlx_ptr = mlx_init();
 	window.win_ptr = mlx_new_window(window.mlx_ptr, window.height, window.width, "42 sunmin");
 
 	window.floor_color = 0x000000;
 	
-	window.key_size = 10;
+	window.key_size = 5;
 	window.move_speed = 2;
 
-	window.pov = 90;
-	window.density = 3;
+	window.pov = 45;
+	window.density = 50;
 
 	// 만약에 grid를 mlx_loop_hook으로 실행하지 않으면 플레이어가 지나가면 사라지는 일회성 격자가 됨.
 //	draw_grid(&window);
