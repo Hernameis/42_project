@@ -5,7 +5,7 @@
 #include "mlx.h"
 
 #define _USE_MATH_DEFINES
-#define degree_convert 0.0174533
+#define degree_convert M_PI / 180
 
 // gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 // w == 13, a == 0, s == 1, d == 2, esc == 53
@@ -184,6 +184,7 @@ int		draw_ray(t_window *window)
 	{
 	window->temp = window->player_direction; 	
 	window->player_direction += i * degree_convert;
+	convert_degree(window);
 	if (window->player_direction >= 0 && window->player_direction < degree_convert * 90)							// 1사분면 
 	{
 		x = 0;
@@ -260,8 +261,9 @@ int		erase_ray(t_window *window)
 	i = window->pov * (-1 / 2);
 	while (i < window->pov)
 	{
-	window->temp = window->player_direction; 	
+	window->temp = window->player_direction;
 	window->player_direction += i * degree_convert;
+	convert_degree(window);
 	if (window->player_direction >= 0 && window->player_direction < degree_convert * 90)							// 1사분면 
 	{
 		x = 0;
