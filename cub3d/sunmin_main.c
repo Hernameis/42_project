@@ -4,7 +4,7 @@
 #include <math.h>
 #include "mlx.h"
 
-#define PI 3.14159265359
+#define _USE_MATH_DEFINES
 
 // gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 // w == 13, a == 0, s == 1, d == 2, esc == 53
@@ -17,6 +17,10 @@ typedef struct		s_window
 	int		height;
 	int		width;
 	int		row_size;
+
+	int		grid_height_num;
+	int		grid_width_num;
+
 	int		column_size;
 	int		player_size;
 	int		player_color;
@@ -102,13 +106,13 @@ int		press_key(int key, t_window *window)
 	//a
 	if (window->key == 0)
 	{
-		window->player_direction += (PI / 360) * window->key_size;
+		window->player_direction -= (M_PI / 360) * window->key_size;
 	}
 
 	//d
 	if (window->key == 2)
 	{
-		window->player_direction -= (PI / 360) * window->key_size;
+		window->player_direction += (M_PI / 360) * window->key_size;
 	}
 
 			put_player(window);
@@ -132,7 +136,7 @@ int		draw_grid(t_window *window)
 			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i * window->column_size, 0xfff5ee);
 		}
 	}
- 
+
 	// column
 	i = -1;
 	while (i < window->height / window->row_size)
@@ -168,14 +172,37 @@ int		put_player(t_window *window)
 	return (0);
 }
 
+int		if_tan_infinite(double n)
+{
+	int		i;
+
+	i = 0;
+	while (n > M_PI / 2)
+		n -= M_PI;
+	if (n == M_PI / 2)
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
+}
+
 int		draw_ray(t_window *window)
 {
 	int		x;
 	int		y;
 	double	tan_p;
 
-	tan_p = tan(window->player_direction);
-
+	if (if_tan_infinite(fabs(window->player_direction)))
+	{
+		tan_p = 10000;
+	}
+	else
+	{
+		tan_p = tan(window->player_direction);
+	}
 	window->index = 0;
 	while (window->index < window->pov / 2)
 	{
@@ -263,6 +290,7 @@ int		draw_ray(t_window *window)
 */
 
 
+
 int		main(void)
 {
 	t_window	window;
@@ -286,10 +314,14 @@ int		main(void)
 			  11111111 1111111 111111111111"
 */
 
-	window.height = 900;
-	window.width = 500;
-	window.row_size = window.height / 33;
-	window.column_size = window.width / 14;
+	window.height = 500;
+	window.width = 275;
+
+	window.grid_height_num = 33;
+	window.grid_width_num = 14;
+
+	window.row_size = window.height / window.grid_height_num;
+	window.column_size = window.width / window.grid_width_num;
 	window.player_size = 5;
 	window.player_color = 0xfff5ee;
 	window.where_player_x = window.height / 2;
@@ -297,7 +329,7 @@ int		main(void)
 	window.player_center_x = window.where_player_x + window.player_size / 2;
 	window.player_center_y = window.where_player_y + window.player_size / 2;
 
-	window.player_direction = PI / 6;
+	window.player_direction = M_PI / 6;
 	window.mlx_ptr = mlx_init();
 	window.win_ptr = mlx_new_window(window.mlx_ptr, window.height, window.width, "42 sunmin");
 
@@ -311,7 +343,7 @@ int		main(void)
 
 	// 만약에 grid를 mlx_loop_hook으로 실행하지 않으면 플레이어가 지나가면 사라지는 일회성 격자가 됨.
 //	draw_grid(&window);
-//	mlx_loop_hook(window.mlx_ptr, draw_grid, &window);
+	mlx_loop_hook(window.mlx_ptr, draw_grid, &window);
 
 	draw_ray(&window);
 //	mlx_loop_hook(window.mlx_ptr, draw_ray, &window);
