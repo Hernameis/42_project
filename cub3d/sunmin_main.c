@@ -6,6 +6,11 @@
 
 #define _USE_MATH_DEFINES
 #define degree_convert M_PI / 180
+#define key_esc 53
+#define key_w 13
+#define key_a 0
+#define key_s 1
+#define key_d 2
 
 // gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 // w == 13, a == 0, s == 1, d == 2, esc == 53
@@ -33,6 +38,11 @@ typedef struct		s_window
 	double	player_direction;
 	double	tan_p;
 
+	int		press_w;
+	int		press_s;
+	int		press_a;
+	int		press_d;
+
 	int		ray_x;
 	int		ray_y;
 
@@ -55,22 +65,25 @@ int		erase_ray(t_window *window);
 int		draw_grid(t_window *window);
 int		put_player(t_window *window);
 int		convert_degree(t_window *window);
+int		key_press(int key, t_window *window);
+int		key_release(int key, t_window *window);
+int		ft_loop(t_window *window);
 
-int		press_key(int key, t_window *window)
+int		press_key(t_window *window)
 {
 
-	window->key = key;
+/*	window->key = key;
 	//esc
 	if (window->key == 53)
 	{
 		write(1, "Quit.\n", 6);
 		exit(0);
 	}
-
+*/
 	erase_ray(window);
 
 	//w = 13, s = 1
-	if (window->key == 13 || window->key == 1)
+	if (window->press_w || window->press_s)
 	{
 			window->index = 0;
 			while (window->index < window->move_speed)
@@ -78,7 +91,7 @@ int		press_key(int key, t_window *window)
 				window->temp_color = window->player_color;
 				window->player_color = window->floor_color;
 				put_player(window);
-				if (window->key == 13)
+				if (window->press_w)
 				{
 					window->where_player_x++;
 					window->where_player_y += tan(window->player_direction);
@@ -98,9 +111,9 @@ int		press_key(int key, t_window *window)
 	}
 
 	//a = 0 , d = 2
-	if (window->key == 0 || window->key == 2)
+	if (window->press_a || window->press_d)
 	{
-		if (window->key == 0)
+		if (window->press_a)
 			window->player_direction -= degree_convert * window->key_size;
 		else
 			window->player_direction += degree_convert * window->key_size;
@@ -455,22 +468,83 @@ int		main(void)
 	window.floor_color = 0x000000;
 	
 	window.key_size = 5;
-	window.move_speed = 2;
+	window.move_speed = 20;
 
 	window.pov = 45;
-	window.density = 50;
+	window.density = 10;
+
+	window.press_w = 0;
+	window.press_s = 0;
+	window.press_a = 0;
+	window.press_d = 0;
 
 	// 만약에 grid를 mlx_loop_hook으로 실행하지 않으면 플레이어가 지나가면 사라지는 일회성 격자가 됨.
 //	draw_grid(&window);
-	mlx_loop_hook(window.mlx_ptr, draw_grid, &window);
+	mlx_loop_hook(window.mlx_ptr, ft_loop, &window);
 
 	draw_ray(&window);
 //	mlx_loop_hook(window.mlx_ptr, draw_ray, &window);
 
 	put_player(&window);
 
-	mlx_key_hook(window.win_ptr, press_key, &window);
+	mlx_hook(window.win_ptr, 2, 1L<<0, key_press, &window);
+	mlx_hook(window.win_ptr, 3, 1L<<1, key_release, &window);
+
+//	mlx_key_hook(window.win_ptr, press_key, &window);
 	mlx_loop(window.mlx_ptr);
 
+	return (0);
+}
+
+int		key_press(int key, t_window *window)
+{
+	if (key == 53)
+	{
+		exit (0);
+	}
+	else if (key == key_w)
+	{
+		window->press_w = 1;
+	}
+	else if (key == key_s)
+	{
+		window->press_s = 1;
+	}
+	else if (key == key_a)
+	{
+		window->press_a = 1;
+	}
+	else if (key == key_d)
+	{
+		window->press_d = 1;
+	}
+	return (0);
+}
+
+int		key_release(int key, t_window *window)
+{
+	if (key == key_w)
+	{
+		window->press_w = 0;
+	}
+	else if (key == key_s)
+	{
+		window->press_s = 0;
+	}
+	else if (key == key_a)
+	{
+		window->press_a = 0;
+	}
+	else if (key == key_d)
+	{
+		window->press_d = 0;
+	}
+	return (0);
+}
+
+int		ft_loop(t_window *window)
+{
+	draw_grid(window);
+	press_key(window);
 	return (0);
 }
