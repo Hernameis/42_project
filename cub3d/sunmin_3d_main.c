@@ -15,6 +15,8 @@
 
 */
 
+// gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_3d_main.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,10 +38,6 @@
 #define key_a 0
 #define key_s 1
 #define key_d 2
-
-
-
-// gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 
 typedef struct		s_window
 {
