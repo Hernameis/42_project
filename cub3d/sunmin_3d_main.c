@@ -3,7 +3,6 @@
 
 	1. 플레이어가 벽을 통과하지 못하게(현재 벽 통과시 튕김)
 	2. 최대 해상도 락
-	3. 
 
 
 	개선이 필요한 부분
@@ -12,7 +11,7 @@
 	2. 키보드를 계속 누르고 있으면 튕김
 	3. 이동 각도가 미세하게 다름 (wa를 누르고 있으면 이동 각도 전환에 지연 발생)
 	4. ws 를 동시에 누르면 움직임이 이상해짐 (ad를 동시에 누르면 하나만 적용되는 걸로 봐서는 if문으로 같이 묶은 게 문제인듯)
-	5. 
+	5. 어안렌즈 효과 (벽이 둥글게 보임)
 
 */
 
@@ -23,8 +22,14 @@
 #include "mlx.h"
 // #include "libft.h"
 
-#define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES	// 정확한 파이값 사용
+
 #define degree_convert M_PI / 180
+
+#define screenHeight	300
+#define screenWidth		200
+#define mapHeight	10
+#define	mapWidth	10
 
 #define key_esc 53
 #define key_w 13
@@ -32,10 +37,7 @@
 #define key_s 1
 #define key_d 2
 
-#define screenHeight	300
-#define screenWidth		200
-#define mapHeight	10		// index는 0부터 시작함에 유의 (10칸짜리임)
-#define	mapWidth	10
+
 
 // gcc -L minilibx_mms -lmlx -framework OpenGL -framework Appkit sunmin_main.c
 
@@ -43,34 +45,29 @@ typedef struct		s_window
 {
 	int		**worldmap;
 
-
 	void	*mlx_ptr;
 	void	*win_ptr;
 
-	int		height;
-	int		width;
 	int		row_size;
-
-	int		grid_height_num;
-	int		grid_width_num;
-
 	int		column_size;
+
+	double	player_tall;
 	int		player_size;
 	int		player_color;
 	double	where_player_x;
 	double	where_player_y;
 	double	player_center_x;
 	double	player_center_y;
-
 	double	player_direction;
 	double	player_direction_degree;
-
 	double	tan_p;
 
 	int		press_w;
 	int		press_s;
 	int		press_a;
 	int		press_d;
+	int		key;
+	int		key_size;
 
 	int		ray_x;
 	int		ray_y;
@@ -78,26 +75,18 @@ typedef struct		s_window
 	int		floor_color;
 	int		temp_color;
 
-	int		key;
-	int		key_size;
-
 	double	move_x;
 	double	move_y;
+	int		move_speed_x;
+	int		move_speed_y;
 
 	int		map_x;
 	int		map_y;
-
-	int		grid_size_x;
-	int		grid_size_y;
-
 	int		map_flag;
 
 	int		pov;
-	int		move_speed_x;
-	int		move_speed_y;
-	int		wall_size;
 
-	double		player_tall;
+	int		wall_size;
 
 	int		quar_x;
 	int		quar_y;
@@ -481,9 +470,6 @@ int		main(void)
 {
 	t_window	window;
 
-//	window.height = 500;
-//	window.width = 275;
-
 
 	window.row_size = screenHeight / mapHeight;
 	window.column_size = screenWidth / mapWidth;
@@ -541,7 +527,6 @@ int		main(void)
 		i++;
 	}
 
-//	window.worldmap = ft_memcpy(&window.worldmap, &cub3d_map, mapWidth * mapHeight);	// 오류남
 
 	int j = 0;
 	while (j < 10)
@@ -554,22 +539,6 @@ int		main(void)
 		}	
 		j++;
 	}
-
-	/*
-	int a = 0;
-	int b;
-	while (a < 10)
-	{
-		b = 0;
-		while (b < 10)
-		{
-			printf("%d ", window.worldmap[a][b]);
-			b++;
-		}
-		printf("\n");
-		a++;
-	}
-	*/
 	
 	mlx_loop_hook(window.mlx_ptr, ft_loop, &window);
 
