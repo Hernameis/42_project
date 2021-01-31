@@ -3,6 +3,8 @@
 
 	1. 플레이어가 벽을 통과하지 못하게(현재 벽 통과시 튕김)
 	2. 최대 해상도 락
+	3. 벽에 이미지 삽입
+	4. 스프라이트
 
 
 	개선이 필요한 부분
@@ -557,21 +559,4 @@ double	ray_distance(t_window *window, int x, int y)
 	double	distance;
 
 	return (distance = sqrt(x * x + y * y));
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned long	i;
-	char			*str;
-
-	if (dest == NULL && src == NULL)
-		return (NULL);
-	str = dest;
-	i = 0;
-	while (i < n)
-	{
-		*str++ = *(unsigned char *)src++;
-		i++;
-	}
-	return (dest);
 }
