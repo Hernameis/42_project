@@ -1,10 +1,11 @@
 /*
     추가할 사항
 
-	1. 플레이어가 벽을 통과하지 못하게(현재 벽 통과시 튕김)
+	1. 플레이어가 벽을 통과하지 못하게
 	2. 최대 해상도 락
 	3. 벽에 이미지 삽입
 	4. 스프라이트
+	5. 천장, 바닥 표현
 
 
 	개선이 필요한 부분
@@ -14,6 +15,8 @@
 	3. 이동 각도가 미세하게 다름 (wa를 누르고 있으면 이동 각도 전환에 지연 발생)
 	4. ws 를 동시에 누르면 움직임이 이상해짐 (ad를 동시에 누르면 하나만 적용되는 걸로 봐서는 if문으로 같이 묶은 게 문제인듯)
 	5. 어안렌즈 효과 (벽이 둥글게 보임)
+	6. 벽 통과시 튕김
+	7. 벽에 가까이 가면 아래에 이상한 이미지 추가로 출력됨
 
 */
 
@@ -30,10 +33,10 @@
 
 #define degree_convert M_PI / 180
 
-#define screenHeight	300
-#define screenWidth		200
-#define mapHeight	10
-#define	mapWidth	10
+#define screenHeight	200.0
+#define screenWidth		150.0
+#define mapHeight	10.0
+#define	mapWidth	10.0
 
 #define key_esc 53
 #define key_w 13
@@ -96,10 +99,55 @@ typedef struct		s_window
 	double	index;
 	double	temp;
 	double	sight_wall;
+
+	void	*wall_n_ptr;
+	int		*wall_n_data;
+	int		wall_n_height;
+	int		wall_n_width;
+	int		wall_n_size_l;
+	int		wall_n_bpp;
+	int		wall_n_endian;
+
+	void	*wall_s_ptr;
+	int		*wall_s_data;
+	int		wall_s_height;
+	int		wall_s_width;
+	int		wall_s_size_l;
+	int		wall_s_bpp;
+	int		wall_s_endian;
+
+	void	*wall_w_ptr;
+	int		*wall_w_data;
+	int		wall_w_height;
+	int		wall_w_width;
+	int		wall_w_size_l;
+	int		wall_w_bpp;
+	int		wall_w_endian;
+
+	void	*wall_e_ptr;
+	int		*wall_e_data;
+	int		wall_e_height;
+	int		wall_e_width;
+	int		wall_e_size_l;
+	int		wall_e_bpp;
+	int		wall_e_endian;
 }					t_window;
+
+typedef	struct		s_img
+{
+	void		*ptr;
+	int			*data;
+	int			height;
+	int			width;
+
+	int			size_l;
+	int			bpp;
+	int			endian;
+}				t_img;
 
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
+int		wall_direction(t_window *window);
 double	ray_distance(t_window *window, int x, int y);
 int		draw_wall(t_window *window);
 int		check_map_flag(t_window *window, int pixel_x, int pixel_y);
@@ -285,13 +333,15 @@ double	ft_tan(double n)
 		return (n);
 }
 
+
+
 int		draw_ray(t_window *window, int color)
 {
 	double		x;
 	double		y;
 	double		i;
 	double		j;
-	int			a;
+	double		a;
 	double		put_i;
 	int			b;
 
@@ -300,10 +350,11 @@ int		draw_ray(t_window *window, int color)
 	i = 0;
 	while (i < screenHeight && check_map_flag(window, window->player_center_x, window->player_center_y != 1))
 	{
+		double de = (double)window->pov / (double)screenHeight;
 		window->temp = window->player_direction; 	
 		window->player_direction += put_i * degree_convert;
 		convert_degree(window);
-		b = which_quardrant(window);
+		b = which_quardrant(window);		// b 를 활용하지는 않음
 			x = 0;
 			y = 0;
 			while (window->player_center_x + (window->quar_x) * x < screenHeight && window->player_center_y + (window->quar_y) * y < screenWidth)
@@ -324,15 +375,48 @@ int		draw_ray(t_window *window, int color)
 			window->sight_wall = (1 / window->distance) * window->wall_size * (screenWidth / 2);
 			window->index = 0;
 			a = 0;
-			while (a < window->sight_wall)
+			double b = 0;
+			while (a < window->sight_wall * 1.5)
 			{
-				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
-				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
-				a++;
+				if (wall_direction(window) != 0)		// 이부분도 추가해야함 
+				{
+					if (1)
+					{
+//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
+//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(window->wall_n_height * (((a / window->sight_wall)) * window->column_size) + (x / window->row_size) * window->wall_n_height)]);
+					}
+					else if (2)
+					{
+						;
+					}
+					else if (3)
+					{
+						;
+					}
+					else
+					{
+						;
+					}
+				}
+				else
+				{
+					;
+	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
+	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
+				}
+				if (a < window->sight_wall)
+				{
+					a++;
+				}
+				else
+				{
+					a += 1;
+				}
 			}
 		window->player_direction = window->temp;
 		i++;
-		double de = (double)window->pov / (double)screenHeight;
+
 		put_i += de;
 	}
 	return (0);
@@ -409,12 +493,48 @@ int		key_release(int key, t_window *window)
 	return (0);
 }
 
+int		ft_floor(t_window *window)
+{
+	int i;
+	int j;
+
+	int		color_ceil;
+	int		color_floo;
+
+	color_floo = 0xf7f7f7;
+	color_ceil = 0xbfefff;
+	i = 0;
+	while (i < screenWidth / 2)
+	{
+		j = 0;
+		while (j < screenHeight)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i, color_ceil);
+			j++;
+		}
+		i++;
+	}
+	while (i < screenWidth)
+	{
+		j = 0;
+		while (j < screenHeight)
+		{
+			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i, color_floo);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		ft_loop(t_window *window)
 {
-	// grid를 loop으로 실행하지 않으면 플레이어가 지나가면 사라지는 일회성 격자가 됨.
-	draw_grid(window);
+// grid를 loop으로 실행하지 않으면 플레이어가 지나가면 사라지는 일회성 격자가 됨.
+// 아래쪽에 있는 코드일수록 우선순위 있음
+//	draw_wall(window);
+//	draw_grid(window);
+	ft_floor(window);
 	press_key(window);
-	draw_wall(window);
 	return (0);
 }
 
@@ -465,11 +585,40 @@ int		check_map_flag(t_window *window, int pixel_x, int pixel_y)
 	return (window->worldmap[window->map_y][window->map_x]);
 }
 
+int		wall_direction(t_window *window)
+{
+	if (1)			//north
+	{
+		return (1);
+	}
+	else if (2)		//south
+	{
+		return (2);
+	}
+	else if (3)		//west
+	{
+		return (3);
+	}
+	else if (4)		//east
+	{
+		return (4);
+	}
+	return (0);
+}
+
+int		converted_location(int x, int y)
+{
+	int		img_width;
+	int		img_height;
+
+	
+
+	return (0);
+}
 
 int		main(void)
 {
 	t_window	window;
-
 
 	window.row_size = screenHeight / mapHeight;
 	window.column_size = screenWidth / mapWidth;
@@ -504,7 +653,7 @@ int		main(void)
 
 	window.wall_size = 20;
 
-	int cub3d_map[mapWidth][mapHeight] = 
+	int cub3d_map[(int)mapWidth][(int)mapHeight] = 
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -518,6 +667,17 @@ int		main(void)
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 
+	window.wall_n_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_n.xpm", &window.wall_n_width, &window.wall_n_height);
+	window.wall_n_data = (int *)mlx_get_data_addr(window.wall_n_ptr, &window.wall_n_bpp, &window.wall_n_size_l, &window.wall_n_endian);
+
+	window.wall_s_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_s.xpm", &window.wall_s_width, &window.wall_s_height);
+	window.wall_s_data = (int *)mlx_get_data_addr(window.wall_s_ptr, &window.wall_s_bpp, &window.wall_s_size_l, &window.wall_s_endian);
+
+	window.wall_w_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_w.xpm", &window.wall_w_width, &window.wall_w_height);
+	window.wall_w_data = (int *)mlx_get_data_addr(window.wall_w_ptr, &window.wall_w_bpp, &window.wall_w_size_l, &window.wall_w_endian);
+
+	window.wall_e_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_e.xpm", &window.wall_e_width, &window.wall_e_height);
+	window.wall_e_data = (int *)mlx_get_data_addr(window.wall_e_ptr, &window.wall_e_bpp, &window.wall_e_size_l, &window.wall_e_endian);
 
 	window.worldmap = (int **)malloc(sizeof(int *) * (mapWidth));
 	int i = 0;
@@ -540,7 +700,11 @@ int		main(void)
 		j++;
 	}
 	
+	
+
+
 	mlx_loop_hook(window.mlx_ptr, ft_loop, &window);
+
 
 	draw_ray(&window, 0xfff5ee);
 
@@ -548,6 +712,7 @@ int		main(void)
 
 	mlx_hook(window.win_ptr, 2, 1L<<0, key_press, &window);
 	mlx_hook(window.win_ptr, 3, 1L<<1, key_release, &window);
+
 
 	mlx_loop(window.mlx_ptr);
 
