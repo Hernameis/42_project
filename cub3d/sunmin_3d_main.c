@@ -72,6 +72,8 @@ typedef struct		s_window
 	int		key;
 	int		key_size;
 
+	double	k;
+
 	int		ray_x;
 	int		ray_y;
 
@@ -344,10 +346,12 @@ int		draw_ray(t_window *window, int color)
 	double		a;
 	double		put_i;
 	int			b;
+	double		floor;
 
 
 	put_i = window->pov * (-1 / 2);
 	i = 0;
+	window->k = 0;
 	while (i < screenHeight && check_map_flag(window, window->player_center_x, window->player_center_y != 1))
 	{
 		double de = (double)window->pov / (double)screenHeight;
@@ -374,9 +378,10 @@ int		draw_ray(t_window *window, int color)
 			window->distance = ray_distance(window, x, y);
 			window->sight_wall = (1 / window->distance) * window->wall_size * (screenWidth / 2);
 			window->index = 0;
+			floor = 1.5;
 			a = 0;
 			double b = 0;
-			while (a < window->sight_wall * 1.5)
+			while (a < window->sight_wall * floor)
 			{
 				if (wall_direction(window) != 0)		// 이부분도 추가해야함 
 				{
@@ -384,38 +389,33 @@ int		draw_ray(t_window *window, int color)
 					{
 //						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
 //						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(window->wall_n_height * (((a / window->sight_wall)) * window->column_size) + (x / window->row_size) * window->wall_n_height)]);
+//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(window->wall_n_height * (((int)((a / window->sight_wall)) * window->column_size) * window->wall_n_width) + (x / window->row_size) * window->wall_n_height)]);		// 형변환 잘못해주면 세그폴트 뜸
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)window->k, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(a / floor / window->sight_wall * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
+
 					}
 					else if (2)
 					{
-						;
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_s_data[(int)(a / floor / window->sight_wall * window->wall_s_width) * window->wall_s_width + (int)(x * window->wall_s_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 					}
 					else if (3)
 					{
-						;
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_w_data[(int)(a / floor / window->sight_wall * window->wall_w_width) * window->wall_w_width + (int)(x * window->wall_w_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 					}
 					else
 					{
-						;
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_e_data[(int)(a / floor / window->sight_wall * window->wall_e_width) * window->wall_e_width + (int)(x * window->wall_e_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 					}
 				}
 				else
 				{
-					;
 	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
 	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
 				}
-				if (a < window->sight_wall)
-				{
 					a++;
-				}
-				else
-				{
-					a += 1;
-				}
 			}
 		window->player_direction = window->temp;
 		i++;
+		window->k++;
 
 		put_i += de;
 	}
@@ -657,11 +657,11 @@ int		main(void)
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}

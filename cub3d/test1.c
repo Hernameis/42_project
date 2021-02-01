@@ -24,7 +24,7 @@ int		main(void)
 	int		count_w;
 
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, 500, 500, "test");
+	win = mlx_new_window(mlx, 1000, 1000, "test");
 	img.ptr = mlx_xpm_file_to_image(mlx, "./wall/wall_n.xpm", &img.width, &img.height);
 	img.data = (int *)mlx_get_data_addr(img.ptr, &img.bpp, &img.size_l, &img.endian);
 
@@ -46,15 +46,17 @@ int		main(void)
 	int c;
 	c = 0;
 	int idx = 0;
-	while (y < 200)
+	double	width = 23.0;
+	double	height = 23.0;
+	while (y < width)
 	{
 		x = 0;
-		while (x < 300)
+		while (x < height)
 		{
-			printf("%d\n", (int)(y * (64.0 / 200.0) * 64) + (int)(x * ( 64.0 / 300)));
-			mlx_pixel_put(mlx, win, x, y, img.data[(int)(y * (64.0 / 200.0)) * 64 + (int)(x * ( 64.0 / 300))]);
+//			printf("%d\n", (int)(y * (64.0 / width) * 64) + (int)(x * ( 64.0 / height)));
+			mlx_pixel_put(mlx, win, x, y, img.data[(int)(y * (64.0 / width)) * 64 + (int)(x * ( 64.0 / height))]);
 			idx++;
-			printf("%d\n",idx);
+//			printf("%d\n",idx);
 			c++;
 			x++;
 		}
