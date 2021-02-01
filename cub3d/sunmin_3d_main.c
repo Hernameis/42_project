@@ -31,7 +31,7 @@
 
 #define _USE_MATH_DEFINES	// 정확한 파이값 사용
 
-#define degree_convert M_PI / 180
+#define degree_convert M_PI/180
 
 #define screenHeight	200.0
 #define screenWidth		150.0
@@ -233,6 +233,7 @@ int		press_key(t_window *window)
 			window->player_direction -= degree_convert * window->key_size;
 		else
 			window->player_direction += degree_convert * window->key_size;
+		printf("%fl\n", window->player_direction * 180 / M_PI);		//
 	}
 	convert_degree(window);
 	put_player(window, 0xfff5ee);
@@ -351,7 +352,6 @@ int		draw_ray(t_window *window, int color)
 
 	put_i = window->pov * (-1 / 2);
 	i = 0;
-	window->k = 0;
 	while (i < screenHeight && check_map_flag(window, window->player_center_x, window->player_center_y != 1))
 	{
 		double de = (double)window->pov / (double)screenHeight;
@@ -390,7 +390,7 @@ int		draw_ray(t_window *window, int color)
 //						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
 //						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
 //						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(window->wall_n_height * (((int)((a / window->sight_wall)) * window->column_size) * window->wall_n_width) + (x / window->row_size) * window->wall_n_height)]);		// 형변환 잘못해주면 세그폴트 뜸
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)window->k, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(a / floor / window->sight_wall * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
+						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(a / floor / window->sight_wall * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 
 					}
 					else if (2)
@@ -415,7 +415,6 @@ int		draw_ray(t_window *window, int color)
 			}
 		window->player_direction = window->temp;
 		i++;
-		window->k++;
 
 		put_i += de;
 	}
