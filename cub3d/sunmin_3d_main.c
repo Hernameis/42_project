@@ -6,6 +6,7 @@
 	3. 벽에 이미지 삽입
 	4. 스프라이트
 	5. 천장, 바닥 표현
+	6. 벽 구분
 
 
 	개선이 필요한 부분
@@ -14,7 +15,6 @@
 	2. 키보드를 계속 누르고 있으면 튕김
 	3. 이동 각도가 미세하게 다름 (wa를 누르고 있으면 이동 각도 전환에 지연 발생)
 	4. ws 를 동시에 누르면 움직임이 이상해짐 (ad를 동시에 누르면 하나만 적용되는 걸로 봐서는 if문으로 같이 묶은 게 문제인듯)
-	5. 어안렌즈 효과 (벽이 둥글게 보임)
 	6. 벽 통과시 튕김
 	7. 벽에 가까이 가면 아래에 이상한 이미지 추가로 출력됨
 
@@ -31,10 +31,10 @@
 
 #define _USE_MATH_DEFINES	// 정확한 파이값 사용
 
-#define degree_convert M_PI/180
+#define degree_convert (M_PI/180)
 
-#define screenHeight	200.0
-#define screenWidth		150.0
+#define screenW		300.0
+#define screenH		200.0
 #define mapHeight	10.0
 #define	mapWidth	10.0
 
@@ -48,8 +48,8 @@ typedef struct		s_window
 {
 	int		**worldmap;
 
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlx;
+	void	*win;
 
 	int		row_size;
 	int		column_size;
@@ -57,12 +57,12 @@ typedef struct		s_window
 	double	player_tall;
 	int		player_size;
 	int		player_color;
-	double	where_player_x;
-	double	where_player_y;
-	double	player_center_x;
-	double	player_center_y;
-	double	player_direction;
-	double	player_direction_degree;
+	double	w_p_x;
+	double	w_p_y;
+	double	player_c_x;
+	double	player_c_y;
+	double	player_dir;
+	double	player_dir_degree;
 	double	tan_p;
 
 	int		press_w;
@@ -93,14 +93,23 @@ typedef struct		s_window
 
 	int		wall_size;
 
-	int		quar_x;
-	int		quar_y;
+	int		q_x;
+	int		q_y;
 
 	double	distance;
 	double	density;
 	double	index;
 	double	temp;
-	double	sight_wall;
+	double	ray_dir;
+	double	wall_h;
+
+	void	*screen_ptr;
+	int		*screen_data;
+	int		screen_height;
+	int		screen_width;
+	int		screen_size_l;
+	int		screen_bpp;
+	int		screen_endian;
 
 	void	*wall_n_ptr;
 	int		*wall_n_data;
@@ -109,6 +118,9 @@ typedef struct		s_window
 	int		wall_n_size_l;
 	int		wall_n_bpp;
 	int		wall_n_endian;
+
+	int		which_wall;
+	int		wall_x_y;
 
 	void	*wall_s_ptr;
 	int		*wall_s_data;
@@ -149,14 +161,14 @@ typedef	struct		s_img
 
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
-int		wall_direction(t_window *window);
+int		wall_dir(t_window *window, double x, double y);
 double	ray_distance(t_window *window, int x, int y);
 int		draw_wall(t_window *window);
-int		check_map_flag(t_window *window, int pixel_x, int pixel_y);
+int		check_map(t_window *window, int pixel_x, int pixel_y);
 int		ft_degree(t_window *window);
 void	define_player_center(t_window *window);
 int		which_quardrant(t_window *window);
-int		draw_ray(t_window *window, int color);
+int		draw_pix(t_window *window, int color);
 int		draw_grid(t_window *window);
 int		put_player(t_window *window, int color);
 int		convert_degree(t_window *window);
@@ -170,7 +182,7 @@ void	move_xy_zero(t_window *window);
 
 int		if_tan_bigger_than_one(t_window *window)
 {
-	if (fabs(tan(window->player_direction)) >= 1)
+	if (fabs(tan(window->player_dir)) >= 1)
 		return (1);
 	return (0);
 }
@@ -189,7 +201,7 @@ void	move_xy_zero(t_window *window)
 
 int		press_key(t_window *window)
 {
-	draw_ray(window, 0x000000);		// erase_ray
+	draw_pix(window, 0x000000);		// erase_ray
 	if (window->press_w || window->press_s)
 	{
 		put_player(window, 0x000000);
@@ -198,28 +210,28 @@ int		press_key(t_window *window)
 			which_quardrant(window);
 				if (window->press_w)
 				{
-					if (move_tan(window) > fabs(tan(window->player_direction)))
+					if (move_tan(window) > fabs(tan(window->player_dir)))
 					{
-						window->move_x += (window->quar_x);
-						window->where_player_x += (window->quar_x) * window->move_speed_x;
+						window->move_x += (window->q_x);
+						window->w_p_x += (window->q_x) * window->move_speed_x;
 					}
 					else
 					{
-						window->move_y += window->quar_y;
-						window->where_player_y += (window->quar_y) * window->move_speed_y;
+						window->move_y += window->q_y;
+						window->w_p_y += (window->q_y) * window->move_speed_y;;
 					}
 				}
 				if (window->press_s)
 				{
-					if (move_tan(window) > fabs(tan(window->player_direction)))
+					if (move_tan(window) > fabs(tan(window->player_dir)))
 					{
-						window->move_x -= (window->quar_x);
-						window->where_player_x -= (window->quar_x) * window->move_speed_x;
+						window->move_x -= (window->q_x);
+						window->w_p_x -= (window->q_x) * window->move_speed_x;
 					}
 					else
 					{
-						window->move_y -= window->quar_y;
-						window->where_player_y -= (window->quar_y) * window->move_speed_y;
+						window->move_y -= window->q_y;
+						window->w_p_y -= (window->q_y) * window->move_speed_y;
 					}
 				}
 			}
@@ -230,14 +242,15 @@ int		press_key(t_window *window)
 	{
 //		move_xy_zero(window);
 		if (window->press_a)
-			window->player_direction -= degree_convert * window->key_size;
+			window->player_dir -= degree_convert * window->key_size;
 		else
-			window->player_direction += degree_convert * window->key_size;
-		printf("%fl\n", window->player_direction * 180 / M_PI);		//
+			window->player_dir += degree_convert * window->key_size;
+		printf("%fl\n", window->player_dir / degree_convert);		//
+//		printf("%fl\n", degree_convert);
 	}
 	convert_degree(window);
 	put_player(window, 0xfff5ee);
-	draw_ray(window, 0x82eefd);
+	draw_pix(window, 0x82eefd);
 	return (0);
 }
 
@@ -247,14 +260,14 @@ int		draw_wall(t_window *window)
 	int		j;
 
 	i = 0;
-	while (i < screenWidth)
+	while (i < screenH)
 	{
 		j = 0;
-		while (j < screenHeight)
+		while (j < screenW)
 		{
-			if (check_map_flag(window, j, i) == 1)
+			if (check_map(window, j, i) == 1)
 			{
-				mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i, 0xe5645c);
+				mlx_pixel_put(window->mlx, window->win, j, i, 0xe5645c);
 			}
 			j++;
 		}
@@ -269,33 +282,33 @@ int		draw_grid(t_window *window)
 	float		i = -1;
 	// row
  
-	while (i < screenWidth / window->column_size)
+	while (i < screenH / window->column_size)
 	{
 		i++;
 		j = -1;
-		while (j < screenHeight)
+		while (j < screenW)
 		{
 			j++;
-			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i * window->column_size, 0x757c88);
+			mlx_pixel_put(window->mlx, window->win, j, i * window->column_size, 0x757c88);
 		}
 	}
 
 	// column
 	i = -1;
-	while (i < screenHeight / window->row_size)
+	while (i < screenW / window->row_size)
 	{
 		i++;
 		j = -1;
-		while (j < screenWidth)
+		while (j < screenH)
 		{
 			j++;
-			mlx_pixel_put(window->mlx_ptr, window->win_ptr, i * window->row_size, j, 0xfff5ee);
+			mlx_pixel_put(window->mlx, window->win, i * window->row_size, j, 0xfff5ee);
 		}
 	}
 	return (0);
 }
 
-int		put_player(t_window *window, int color)
+int		put_player(t_window *window, int color)			// 플레이어의 좌표 정보 포함
 {
 	int		index_row;
 	int		index_col;
@@ -304,18 +317,18 @@ int		put_player(t_window *window, int color)
 
 	while (index_row < window->player_size)
 	{
-		if (check_map_flag(window, window->where_player_x, window->where_player_y) != 1)
+		if (check_map(window, window->w_p_x, window->w_p_y) != 1)
 		{
 			index_col = 0;
 			while (index_col < window->player_size)
 			{
-				mlx_pixel_put(window->mlx_ptr, window->win_ptr, window->where_player_x + index_row, window->where_player_y + index_col, color);
-				if (check_map_flag(window, window->where_player_x, window->where_player_y) != 1)
+				mlx_pixel_put(window->mlx, window->win, window->w_p_x + index_row, window->w_p_y + index_col, color);
+				if (check_map(window, window->w_p_x, window->w_p_y) != 1)
 				{
 					index_col++;
 				}
 			}
-			if (check_map_flag(window, window->where_player_x, window->where_player_y) != 1)
+			if (check_map(window, window->w_p_x, window->w_p_y) != 1)
 			{
 				index_row++;
 			}
@@ -338,105 +351,102 @@ double	ft_tan(double n)
 
 
 
-int		draw_ray(t_window *window, int color)
+int		draw_pix(t_window *window, int color)
 {
 	double		x;
 	double		y;
 	double		i;
 	double		j;
-	double		a;
-	double		put_i;
+	double		wall_h_pix;
+	double		diff;
 	int			b;
+	int			dir;
 	double		floor;
+	double		degree_per_pix;
 
-
-	put_i = window->pov * (-1 / 2);
+	diff = window->pov * -1 / 2;
+	degree_per_pix = (double)window->pov / (double)screenW;
 	i = 0;
-	while (i < screenHeight && check_map_flag(window, window->player_center_x, window->player_center_y != 1))
+	while (diff < window->pov * 1 / 2 && check_map(window, window->player_c_x, window->player_c_y != 1))
 	{
-		double de = (double)window->pov / (double)screenHeight;
-		window->temp = window->player_direction; 	
-		window->player_direction += put_i * degree_convert;
+//		window->which_wall = 0;
+//		window->wall_x_y = 0;
+		window->temp = window->player_dir; 	
+		window->player_dir += diff * M_PI / 180;
 		convert_degree(window);
 		b = which_quardrant(window);		// b 를 활용하지는 않음
 			x = 0;
 			y = 0;
-			while (window->player_center_x + (window->quar_x) * x < screenHeight && window->player_center_y + (window->quar_y) * y < screenWidth)
+			while (window->player_c_x + (window->q_x) * x >= 0 && window->player_c_x + (window->q_x) * x < screenW && window->player_c_y + (window->q_y) * y >= 0 && window->player_c_y + (window->q_y) * y < screenH)
 			{
-				if (check_map_flag(window, window->player_center_x + (window->quar_x) * x, window->player_center_y + (window->quar_y) * y) == 0)
+				if (check_map(window, window->player_c_x + (window->q_x) * x, window->player_c_y + (window->q_y) * y) == 0)
 				{
-					if (y / x >= fabs(tan(window->player_direction)))
+					if (y / x >= fabs(tan(window->player_dir)))
 					{
 						x++;
+//						window->which_wall = window->q_x * 1;
+//						window->wall_x_y = 1;
 					}
 					else
+					{
 						y++;
+//						window->which_wall = window->q_y * 1;
+//						window->wall_x_y = 2;
+					}
 				}
 				else
-					break;
-			}
-			window->distance = ray_distance(window, x, y);
-			window->sight_wall = (1 / window->distance) * window->wall_size * (screenWidth / 2);
-			window->index = 0;
-			floor = 1.5;
-			a = 0;
-			double b = 0;
-			while (a < window->sight_wall * floor)
-			{
-				if (wall_direction(window) != 0)		// 이부분도 추가해야함 
 				{
-					if (1)
-					{
-//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
-//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
-//						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(window->wall_n_height * (((int)((a / window->sight_wall)) * window->column_size) * window->wall_n_width) + (x / window->row_size) * window->wall_n_height)]);		// 형변환 잘못해주면 세그폴트 뜸
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - window->sight_wall + a, window->wall_n_data[(int)(a / floor / window->sight_wall * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
+		//			printf("%fl, %fl\n", x, y);	//
+					break;
+				}
+			}
+			window->distance = cos(-1 * diff * degree_convert) * ray_distance(window, x, y);			// 어안렌즈 제거 
+			window->wall_h = (1 / window->distance) * window->wall_size * (screenH);
+			floor = 1.5;
+			wall_h_pix = 0;
+	//		double b = 0;
+			while (wall_h_pix < window->wall_h * floor)
+			{
+				int dir;
+				dir = wall_dir(window, window->w_p_x + (window->q_x) * x, window->w_p_y + (window->q_y) * y);
+				if (check_map(window, window->w_p_x + (window->q_x) * x, window->w_p_y + (window->q_y) * y) != 0)		// 이부분도 추가해야함
+				{
+					if (1) //window->which_wall == 1)
+					{		// 벽의 방향이 바뀌면 x, y 바꾸어야 함
+						mlx_pixel_put(window->mlx, window->win, (int)i, (screenH / 2) - window->wall_h + wall_h_pix, window->wall_n_data[(int)(wall_h_pix / floor / window->wall_h * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 
 					}
-					else if (2)
-					{
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_s_data[(int)(a / floor / window->sight_wall * window->wall_s_width) * window->wall_s_width + (int)(x * window->wall_s_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
-					}
-					else if (3)
-					{
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_w_data[(int)(a / floor / window->sight_wall * window->wall_w_width) * window->wall_w_width + (int)(x * window->wall_w_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
-					}
-					else
-					{
-						mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a, window->wall_e_data[(int)(a / floor / window->sight_wall * window->wall_e_width) * window->wall_e_width + (int)(x * window->wall_e_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
-					}
+//					else if (dir == 2)
+//					else if (dir ==3)
+//					else
 				}
-				else
-				{
-	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) - a, color);
-	//				mlx_pixel_put(window->mlx_ptr, window->win_ptr, (int)i, (screenWidth / 2) + a / 2, color);
-				}
-					a++;
+					wall_h_pix++;
 			}
-		window->player_direction = window->temp;
+		window->player_dir = window->temp;
+		double degree_per_pix = (double)window->pov / (double)screenW;
 		i++;
 
-		put_i += de;
+		diff += degree_per_pix;
 	}
 	return (0);
 }
 
 int		ft_degree(t_window *window)
 {
-	window->player_direction_degree = window->player_direction * degree_convert;
+	window->player_dir_degree = window->player_dir * degree_convert;
 	return (0);
 }
 
 
 int		convert_degree(t_window *window)
 {
-	while (window->player_direction < 0)
+	while (window->player_dir < 0)
 	{
-		window->player_direction += degree_convert * 360;
+		window->player_dir += degree_convert * 360;
 	}
-	while (window->player_direction > degree_convert * 360)
+	while (window->player_dir > degree_convert * 360)
 	{
-		window->player_direction -= degree_convert * 360;
+		window->player_dir -= degree_convert * 360;
 	}
 	return (0);
 }
@@ -503,22 +513,22 @@ int		ft_floor(t_window *window)
 	color_floo = 0xf7f7f7;
 	color_ceil = 0xbfefff;
 	i = 0;
-	while (i < screenWidth / 2)
+	while (i < screenH / 2)
 	{
 		j = 0;
-		while (j < screenHeight)
+		while (j < screenW)
 		{
-			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i, color_ceil);
+			mlx_pixel_put(window->mlx, window->win, j, i, color_ceil);
 			j++;
 		}
 		i++;
 	}
-	while (i < screenWidth)
+	while (i < screenH)
 	{
 		j = 0;
-		while (j < screenHeight)
+		while (j < screenW)
 		{
-			mlx_pixel_put(window->mlx_ptr, window->win_ptr, j, i, color_floo);
+			mlx_pixel_put(window->mlx, window->win, j, i, color_floo);
 			j++;
 		}
 		i++;
@@ -539,28 +549,28 @@ int		ft_loop(t_window *window)
 
 int		which_quardrant(t_window *window)
 {
-	if (window->player_direction >= degree_convert * 0 && window->player_direction < degree_convert * 90)
+	if (window->player_dir >= degree_convert * 0 && window->player_dir < degree_convert * 90)
 	{
-		window->quar_x = 1;
-		window->quar_y = 1;
+		window->q_x = 1;
+		window->q_y = 1;
 		return (1);
 	}
-	if (window->player_direction >= degree_convert * 90 && window->player_direction < degree_convert * 180)
+	if (window->player_dir >= degree_convert * 90 && window->player_dir < degree_convert * 180)
 	{
-		window->quar_x = -1;
-		window->quar_y = 1;
+		window->q_x = -1;
+		window->q_y = 1;
 		return (2);
 	}
-	if (window->player_direction >= degree_convert * 180 && window->player_direction < degree_convert * 270)
+	if (window->player_dir >= degree_convert * 180 && window->player_dir < degree_convert * 270)
 	{
-		window->quar_x = -1;
-		window->quar_y = -1;
+		window->q_x = -1;
+		window->q_y = -1;
 		return (3);
 	}
 	else
 	{
-		window->quar_x = 1;
-		window->quar_y = -1;
+		window->q_x = 1;
+		window->q_y = -1;
 		return (4);
 	}
 	return (0);
@@ -570,12 +580,12 @@ int		which_quardrant(t_window *window)
 
 void	define_player_center(t_window *window)
 {
-	window->player_center_x = window->where_player_x + window->player_size / 2;
-	window->player_center_y = window->where_player_y + window->player_size / 2;
+	window->player_c_x = window->w_p_x + window->player_size / 2;
+	window->player_c_y = window->w_p_y + window->player_size / 2;
 	return ;
 }
 
-int		check_map_flag(t_window *window, int pixel_x, int pixel_y)
+int		check_map(t_window *window, int pixel_x, int pixel_y)
 {
 	double	num;
 
@@ -584,24 +594,61 @@ int		check_map_flag(t_window *window, int pixel_x, int pixel_y)
 	return (window->worldmap[window->map_y][window->map_x]);
 }
 
-int		wall_direction(t_window *window)
+int		which_cub(t_window *window, int x, int y)
 {
-	if (1)			//north
+	if (window->worldmap[x / window->row_size][y / window->column_size] == 1)
+		return (1);
+	return (0);
+}
+
+int		wall_dir(t_window *window, double d_x, double d_y)		// 벽을 만나는 좌표 가져옴.
+{
+	int	x;
+	int	y;
+	int	x_p_1;
+	int	y_p_1;
+	int	x_m_1;
+	int	y_m_1;
+
+	x = (int)d_x;
+	y = (int)d_y;
+	x_p_1 = (int)(d_x + 1);
+	y_p_1 = (int)(d_y + 1);
+	x_m_1 = (int)(d_x - 1);
+	y_m_1 = (int)(d_y - 1);
+
+
+	return (1);
+
+	if (window->player_dir / degree_convert >= 0 && window->player_dir / degree_convert < 90)
+		return (1);
+	else if (window->player_dir / degree_convert >= 90 && window->player_dir / degree_convert < 180)
+		return (2);
+	else if (window->player_dir / degree_convert >= 180 && window->player_dir / degree_convert < 270)
+		return (3);
+	else
+		return (4);
+
+
+
+	if (which_cub(window, x_p_1, y_p_1) && which_cub(window, x_p_1, y_p_1))
 	{
 		return (1);
 	}
-	else if (2)		//south
+	else if (which_cub(window, x_p_1, y_m_1) && which_cub(window, x_m_1, y_m_1))
 	{
 		return (2);
 	}
-	else if (3)		//west
+	else if (which_cub(window, x_p_1, y_p_1) && which_cub(window, x_p_1, y_m_1))
 	{
 		return (3);
 	}
-	else if (4)		//east
+	else
 	{
 		return (4);
 	}
+						// 차라리 그냥 플레이어 각도 기반으로 해볼까?? 동쪽으로 볼때는 동쪽벽을 볼 수 없다
+						// x변화 남북, y변화 동서
 	return (0);
 }
 
@@ -619,17 +666,17 @@ int		main(void)
 {
 	t_window	window;
 
-	window.row_size = screenHeight / mapHeight;
-	window.column_size = screenWidth / mapWidth;
+	window.row_size = screenW / mapHeight;
+	window.column_size = screenH / mapWidth;
 	window.player_size = 10;
 	window.player_color = 0xfff5ee;
-	window.where_player_x = screenHeight / 2;
-	window.where_player_y = screenWidth / 2;
+	window.w_p_x = screenW / 2;
+	window.w_p_y = screenH / 2;
 	define_player_center(&window);
 
-	window.player_direction = degree_convert * 60;
-	window.mlx_ptr = mlx_init();
-	window.win_ptr = mlx_new_window(window.mlx_ptr, screenHeight, screenWidth, "42 sunmin");
+	window.player_dir = degree_convert * 60;
+	window.mlx = mlx_init();
+	window.win = mlx_new_window(window.mlx, screenW, screenH, "42 sunmin");
 
 	window.floor_color = 0x000000;
 	
@@ -656,26 +703,27 @@ int		main(void)
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 
-	window.wall_n_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_n.xpm", &window.wall_n_width, &window.wall_n_height);
+
+	window.wall_n_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_n.xpm", &window.wall_n_width, &window.wall_n_height);
 	window.wall_n_data = (int *)mlx_get_data_addr(window.wall_n_ptr, &window.wall_n_bpp, &window.wall_n_size_l, &window.wall_n_endian);
 
-	window.wall_s_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_s.xpm", &window.wall_s_width, &window.wall_s_height);
+	window.wall_s_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_s.xpm", &window.wall_s_width, &window.wall_s_height);
 	window.wall_s_data = (int *)mlx_get_data_addr(window.wall_s_ptr, &window.wall_s_bpp, &window.wall_s_size_l, &window.wall_s_endian);
 
-	window.wall_w_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_w.xpm", &window.wall_w_width, &window.wall_w_height);
+	window.wall_w_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_w.xpm", &window.wall_w_width, &window.wall_w_height);
 	window.wall_w_data = (int *)mlx_get_data_addr(window.wall_w_ptr, &window.wall_w_bpp, &window.wall_w_size_l, &window.wall_w_endian);
 
-	window.wall_e_ptr = mlx_xpm_file_to_image(window.mlx_ptr, "./wall/wall_e.xpm", &window.wall_e_width, &window.wall_e_height);
+	window.wall_e_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_e.xpm", &window.wall_e_width, &window.wall_e_height);
 	window.wall_e_data = (int *)mlx_get_data_addr(window.wall_e_ptr, &window.wall_e_bpp, &window.wall_e_size_l, &window.wall_e_endian);
 
 	window.worldmap = (int **)malloc(sizeof(int *) * (mapWidth));
@@ -702,18 +750,26 @@ int		main(void)
 	
 
 
-	mlx_loop_hook(window.mlx_ptr, ft_loop, &window);
+	mlx_loop_hook(window.mlx, ft_loop, &window);
 
 
-	draw_ray(&window, 0xfff5ee);
+	draw_pix(&window, 0xfff5ee);
 
 	put_player(&window, window.player_color);
 
-	mlx_hook(window.win_ptr, 2, 1L<<0, key_press, &window);
-	mlx_hook(window.win_ptr, 3, 1L<<1, key_release, &window);
+	mlx_hook(window.win, 2, 1L<<0, key_press, &window);
+	mlx_hook(window.win, 3, 1L<<1, key_release, &window);
 
 
-	mlx_loop(window.mlx_ptr);
+//	t_img img;
+
+//	img.ptr = mlx_new_image(mlx, screenW, screenH);
+//	img.addr = mlx_get_data_addr(img.ptr, &img.bpp, &img.line_l, &img.endian);
+
+
+
+
+	mlx_loop(window.mlx);
 
 	return (0);
 }

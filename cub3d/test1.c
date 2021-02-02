@@ -53,10 +53,8 @@ int		main(void)
 		x = 0;
 		while (x < height)
 		{
-//			printf("%d\n", (int)(y * (64.0 / width) * 64) + (int)(x * ( 64.0 / height)));
 			mlx_pixel_put(mlx, win, x, y, img.data[(int)(y * (64.0 / width)) * 64 + (int)(x * ( 64.0 / height))]);
 			idx++;
-//			printf("%d\n",idx);
 			c++;
 			x++;
 		}
@@ -70,7 +68,7 @@ int		main(void)
 	while (i < 64)
 	{
 		j = 0;
-		while (j < 64)
+		while (j < 32)
 		{
 			mlx_pixel_put(mlx, win, 300+j,300+i, img.data[i * 64 + j]);
 	//		printf("%d\n", idx);
@@ -79,6 +77,8 @@ int		main(void)
 		}
 		i++;
 	}
+
+	mlx
 
 	mlx_loop(mlx);
 	return (0);
