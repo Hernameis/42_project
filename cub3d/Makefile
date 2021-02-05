@@ -6,7 +6,7 @@ LIBS = -L minilibx_mms -lmlx -framework OpenGL -framework Appkit
 $(NAME)	:	${OBJS}
 	gcc ${LIBS} ${OBJS}
 
-OBJS = sunmin_3d_main.c
+OBJS = ./srcs/*
 
 clean :
 	rm -f a.out

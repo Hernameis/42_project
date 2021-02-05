@@ -355,29 +355,30 @@ int		draw_pix(t_window *window, int color)
 {
 	double		x;
 	double		y;
-	double		i;
+	double		screen_w_i;
 	double		j;
 	double		wall_h_pix;
 	double		diff;
-	int			b;
+	int			none;
 	int			dir;
 	double		floor;
 	double		degree_per_pix;
+	double		wall_h_ratio;
 
 	diff = window->pov * -1 / 2;
 	degree_per_pix = (double)window->pov / (double)screenW;
-	i = 0;
-	while (diff < window->pov * 1 / 2 && check_map(window, window->player_c_x, window->player_c_y != 1))
+	screen_w_i = 0;
+	while (diff < window->pov * 1 / 2)	//&& check_map(window, window->player_c_x, window->player_c_y != 1))
 	{
 //		window->which_wall = 0;
 //		window->wall_x_y = 0;
 		window->temp = window->player_dir; 	
 		window->player_dir += diff * M_PI / 180;
 		convert_degree(window);
-		b = which_quardrant(window);		// b 를 활용하지는 않음
+		none = which_quardrant(window);		// b 를 활용하지는 않음
 			x = 0;
 			y = 0;
-			while (window->player_c_x + (window->q_x) * x >= 0 && window->player_c_x + (window->q_x) * x < screenW && window->player_c_y + (window->q_y) * y >= 0 && window->player_c_y + (window->q_y) * y < screenH)
+			while (window->player_c_x + (window->q_x * x) >= 0 && window->player_c_x + (window->q_x) * x < screenW && window->player_c_y + (window->q_y) * y >= 0 && window->player_c_y + (window->q_y) * y < screenH)
 			{
 				if (check_map(window, window->player_c_x + (window->q_x) * x, window->player_c_y + (window->q_y) * y) == 0)
 				{
@@ -402,18 +403,16 @@ int		draw_pix(t_window *window, int color)
 			}
 			window->distance = cos(-1 * diff * degree_convert) * ray_distance(window, x, y);			// 어안렌즈 제거 
 			window->wall_h = (1 / window->distance) * window->wall_size * (screenH);
-			floor = 1.5;
 			wall_h_pix = 0;
-	//		double b = 0;
-			while (wall_h_pix < window->wall_h * floor)
+			while (wall_h_pix < window->wall_h)
 			{
-				int dir;
 				dir = wall_dir(window, window->w_p_x + (window->q_x) * x, window->w_p_y + (window->q_y) * y);
 				if (check_map(window, window->w_p_x + (window->q_x) * x, window->w_p_y + (window->q_y) * y) != 0)		// 이부분도 추가해야함
 				{
 					if (1) //window->which_wall == 1)
 					{		// 벽의 방향이 바뀌면 x, y 바꾸어야 함
-						mlx_pixel_put(window->mlx, window->win, (int)i, (screenH / 2) - window->wall_h + wall_h_pix, window->wall_n_data[(int)(wall_h_pix / floor / window->wall_h * window->wall_n_width) * window->wall_n_width + (int)(x * window->wall_n_height / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
+						wall_h_ratio = window->wall_n_width / window->wall_h;
+						mlx_pixel_put(window->mlx, window->win, (int)screen_w_i, (screenH / 2) - window->wall_h / 2 + wall_h_pix, window->wall_n_data[(int)(wall_h_pix * wall_h_ratio) * window->wall_n_width + (int)((window->q_x * x) * window->wall_n_width / window->row_size)]);		// 형변환 잘못해주면 세그폴트 뜸
 
 					}
 //					else if (dir == 2)
@@ -424,7 +423,7 @@ int		draw_pix(t_window *window, int color)
 			}
 		window->player_dir = window->temp;
 		double degree_per_pix = (double)window->pov / (double)screenW;
-		i++;
+		screen_w_i++;
 
 		diff += degree_per_pix;
 	}
@@ -674,7 +673,7 @@ int		main(void)
 	window.w_p_y = screenH / 2;
 	define_player_center(&window);
 
-	window.player_dir = degree_convert * 60;
+	window.player_dir = 0 * degree_convert;
 	window.mlx = mlx_init();
 	window.win = mlx_new_window(window.mlx, screenW, screenH, "42 sunmin");
 
@@ -684,7 +683,7 @@ int		main(void)
 	window.move_speed_x = 3;
 	window.move_speed_y = 3;
 
-	window.pov = 60;
+	window.pov = 40;
 	window.density = 1;
 
 	window.press_w = 0;
@@ -714,7 +713,7 @@ int		main(void)
 	};
 
 
-	window.wall_n_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_n.xpm", &window.wall_n_width, &window.wall_n_height);
+	window.wall_n_ptr = mlx_xpm_file_to_image(window.mlx, "wall/wall_n.xpm", &window.wall_n_width, &window.wall_n_height);
 	window.wall_n_data = (int *)mlx_get_data_addr(window.wall_n_ptr, &window.wall_n_bpp, &window.wall_n_size_l, &window.wall_n_endian);
 
 	window.wall_s_ptr = mlx_xpm_file_to_image(window.mlx, "./wall/wall_s.xpm", &window.wall_s_width, &window.wall_s_height);
