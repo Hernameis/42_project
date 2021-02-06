@@ -402,7 +402,7 @@ int		put_player(t_win *win)		// 플레이어 위치 점으로 표시
 }
 
 
-int		put_laser(t_win *win)
+int		put_laser(t_win *win)		// put multi-ray
 {
 	double		x;
 	double		y;
@@ -423,7 +423,7 @@ int		put_laser(t_win *win)
 	return (0);
 }
 
-int		put_dir(t_win *win)
+int		put_dir(t_win *win)		// single ray
 {
 	double		x;
 	double		y;
