@@ -1,23 +1,21 @@
 #include <stdio.h>
 /*
-    추가할 사항
+    **** 추가할 사항
+	
+	1. 벽 구현 (수평 시야각)
+	2. 스프라이트
 
-	1. 플레이어가 벽을 통과하지 못하게
-	2. 최대 해상도 락
-	3. 벽에 이미지 삽입
-	6. 스프라이트
-	5. 천장, 바닥 표현
-	6. 벽 구분
+	**** 개선이 필요한 부분
+
+	1. 스크린 최대 사이즈를 넘어가면 튕기거나 이동 불가
+	2. 벽 통과 못하게 하기
 
 
-	개선이 필요한 부분
+	**** 보충 사항
+	1. 키보드 동시 입력
+	2. 레이저와 동시에 배경 출력
 
-	1. 해상도를 크게하면 너무 느림
-	2. 키보드를 계속 누르고 있으면 튕김
-	3. 이동 각도가 미세하게 다름 (wa를 누르고 있으면 이동 각도 전환에 지연 발생)
-	4. ws 를 동시에 누르면 움직임이 이상해짐 (ad를 동시에 누르면 하나만 적용되는 걸로 봐서는 if문으로 같이 묶은 게 문제인듯)
-	6. 벽 통과시 튕김
-	7. 벽에 가까이 가면 아래에 이상한 이미지 추가로 출력됨
+
 
 */
 
@@ -128,7 +126,13 @@ typedef struct		s_win
 	int			m_wid;
 	int			m_hei;
 
+	//	시야각
+	double		pov;			// 수평 시야각
+	double		pov_v;			// 수직 시야각
+	double		pov_degree;		// 각도 기준 수평 시야각
 
+	//	벽
+	double		wall_len;		// 벽 길이(화면상 표기되는 것이 아닌 실제 길이)
 
 	//	플레이어
 	double		p_d;		// 플레이어가 보고 있는 방향
@@ -152,6 +156,9 @@ typedef struct		s_win
 	int			q_x;
 	int			q_y;
 
+	// 기타
+	int			idx_pix;	// 가로 인덱스
+
 
 }			t_win;
 
@@ -159,7 +166,10 @@ typedef struct		s_win
 
 //	함수 프로토타입 선언 
 
-int		draw_gird(t_win *win, int x, int y);
+int		put_change(t_win *win);
+int		distance_from_player(t_win *win, int x, int y);		// 두 점 사이의 거리 구하기(플레이어, 점(x, y)
+int		fill_grid(t_win *win, int x, int y);
+int		draw_grid(t_win *win);
 int		ft_pixel_put(t_win *win, int x, int y, int color);
 int		init_minimap(t_win *win);
 int		cub3d_map(t_win *win, int col, int row);
@@ -216,12 +226,14 @@ int		check_grid(t_win *win, int x, int y)
 
 int		ft_loop(t_win *win)
 {
-//	draw_grid(win);
+
 	ceiling_and_floor(win);		// 바닥, 천장 그리는 야매 함수
+	draw_grid(win);
 	if_key_pressed(win);
-	put_player(win);
-	put_laser(win);
-	put_dir(win);
+//	put_player(win);
+//	put_laser(win);
+//	put_dir(win);
+
 	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
@@ -307,7 +319,7 @@ int		if_key_pressed(t_win *win)
 			{
 				if (win->p_x + (win->key_ws) * 1 / win->s_w_per_m >= 0 && win->p_x + (win->key_ws) * 1 / win->s_w_per_m <= win->m_w)		// 맵 가로 끝에서 못 움직이게
 				{
-					win->p_x += (win->q_x) * (win->key_ws) * 1 / win->s_w_per_m;
+						win->p_x += (win->q_x) * (win->key_ws) * 1 / win->s_w_per_m;
 				}
 				win->m_x += (win->q_x) * (win->key_ws) * 1;
 			}
@@ -320,7 +332,7 @@ int		if_key_pressed(t_win *win)
 				win->m_y += (win->q_y) * (win->key_ws) * 1;
 			}
 //		}
-	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n\n", (win->p_d * 180 / M_PI), win->p_x, win->p_y, win->p_x * win->s_w_per_m, win->p_y * win->s_h_per_m);
+//	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n\n", (win->p_d * 180 / M_PI), win->p_x, win->p_y, win->p_x * win->s_w_per_m, win->p_y * win->s_h_per_m);
 	}
 	if (win->press_a || win->press_d)
 	{
@@ -328,8 +340,17 @@ int		if_key_pressed(t_win *win)
 		win->p_d += (win->key_ad) * degree;		// 방향 전환
 		within_2_pi(win);
 		cal_quar(win);
-	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n", (win->p_d * 180 / M_PI), win->m_x, win->m_y, win->p_x, win->p_y);
+//	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n", (win->p_d * 180 / M_PI), win->m_x, win->m_y, win->p_x, win->p_y);
 	}
+	put_change(win);
+	return (0);
+}
+
+int		put_change(t_win *win)
+{
+	put_player(win);
+	put_dir(win);
+	put_laser(win);
 	return (0);
 }
 
@@ -401,12 +422,104 @@ int		put_player(t_win *win)		// 플레이어 위치 점으로 표시
 	return (0);
 }
 
+int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기 
+{
+	double	wall_height_half;		// 벽길이 반쪽
+	int		idx;		// 세로 인덱스
+	int		start;
+	int		end;
+	double	deg_per_pix;
 
-int		put_laser(t_win *win)		// put multi-ray
+	deg_per_pix = win->pov / win->s_h;
+	printf("%.2f\n", dis);
+	wall_height_half = dis * (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len;
+	start = (win->s_h / 2) - (int)wall_height_half;
+	if (start < 0)
+	{
+		start = 0;
+	}
+	end = (int)(wall_height_half) + (int)(win->s_w / 2);
+	if (end > win->s_h)
+	{
+		end = win->s_h;
+	}
+//	printf("%.2f %d %d\n", wall_height_half, start, end);
+
+	idx = start;		// 벽 그리기 시작하는 높이
+	while (idx < end)
+	{
+		ft_pixel_put(win, win->idx_pix, idx, 0xb22222);
+		idx++;
+	}
+
+//	*/
+	return (0);
+}
+
+
+int		distance_from_player(t_win *win, int x, int y)		// 두 점 사이의 거리 구하기(플레이어, 점(x, y))
+{															// 여기서 벽 그리는 함수까지 호출
+	int		height;
+	int		width;
+	double	result;
+
+	height = fabs(win->p_x * win->s_h_per_m - x);
+	width = fabs(win->p_y * win->s_w_per_m - y);
+	result = sqrt(height * height + width * width);
+	draw_wall(win, result);
+//	printf("%.2f\n", result);
+	return (0);
+}
+
+int		draw_grid(t_win *win)
+{
+	int		row;
+	int		col;
+
+	col = 0;
+	while (col < win->s_h)
+	{
+		row = 0;
+		while (row < win->s_w)
+		{
+	//		printf("%d %d\n", row, col);
+			if (row % (int)win->s_h_per_m  == 0 || col % (int)win->s_w_per_m  == 0)
+			{
+				ft_pixel_put(win, row, col, 0xfff5ee);
+			}
+			fill_grid(win, row, col);
+			row++;
+		}
+		col++;
+	}
+
+	return (0);
+}
+
+int		fill_grid(t_win *win, int x, int y)
+{
+	if (check_grid(win, x, y))
+	{
+		ft_pixel_put(win, x, y, 0xc1c1c1);
+	}
+	return (0);
+}
+
+int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거리까지 계산
 {
 	double		x;
 	double		y;
+	double		start_degree;
+	double		end_degree;
+	double		deg_per_pix;
 
+	win->idx_pix = 0;
+	start_degree = win->p_d - (win->pov / 2);
+	end_degree = win->p_d + (win->pov / 2);
+	win->p_d = start_degree;
+	deg_per_pix = win->pov / win->s_h;
+while(win->idx_pix < win->s_h)
+{
 	x = 0.00001;
 	y = 0.00001;
 	while (1)
@@ -416,10 +529,15 @@ int		put_laser(t_win *win)		// put multi-ray
 		else
 				y += 1;
 		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y), 0xffff00);
-	if (win->map[(int)((win->p_x * win->s_w_per_m + x * win->q_x) / win->s_w_per_m)][(int)((win->p_y * win->s_h_per_m + y * win->q_y) / win->s_h_per_m)] == 1)
+		if (check_grid(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y)) == 1)
+		{
+//		distance_from_player(win, win->s_h_per_m + x, win->s_w_per_m + y);
 		break;
+		}
 	}
-
+	win->p_d += deg_per_pix;
+	win->idx_pix++;
+}
 	return (0);
 }
 
@@ -494,13 +612,13 @@ int		cub3d_map(t_win *win, int col, int row)
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+		{1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	return (total_map[col][row]);
@@ -584,6 +702,15 @@ int		init_cub3d(t_win *win)		// 변수 초기화하는 함수
 	win->s_w_per_m = win->s_w / win->m_w;
 	win->s_h_per_m = win->s_h / win->m_h;
 
+	// 수평 시야각
+	win->pov_degree = 90;
+	win->pov = win->pov_degree * (M_PI / 180);
+	win->pov_v = win->pov * (win->s_h / win->s_w);
+
+	// 벽
+	win->wall_len = 0.8;
+
+	// 기타
 	return (0);
 }
 
