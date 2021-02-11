@@ -155,9 +155,13 @@ typedef struct		s_win
 	// 수학
 	int			q_x;
 	int			q_y;
+	int			q_l_x;
+	int			q_l_y;
+	double		lens_deg;
 
 	// 기타
 	int			idx_pix;	// 가로 인덱스
+	double		temp;
 
 
 }			t_win;
@@ -174,7 +178,7 @@ int		ft_pixel_put(t_win *win, int x, int y, int color);
 int		init_minimap(t_win *win);
 int		cub3d_map(t_win *win, int col, int row);
 int		cal_quar(t_win *win);
-int		within_2_pi(t_win *win);
+int		within_2_pi(t_win *win, double degree);
 int		if_key_pressed(t_win *win);
 int		ft_loop(t_win *win);
 int		put_player(t_win *win);
@@ -226,10 +230,10 @@ int		check_grid(t_win *win, int x, int y)
 
 int		ft_loop(t_win *win)
 {
-
 	ceiling_and_floor(win);		// 바닥, 천장 그리는 야매 함수
-	draw_grid(win);
 	if_key_pressed(win);
+	draw_grid(win);
+
 //	put_player(win);
 //	put_laser(win);
 //	put_dir(win);
@@ -338,7 +342,7 @@ int		if_key_pressed(t_win *win)
 	{
 		if_key_ad(win);
 		win->p_d += (win->key_ad) * degree;		// 방향 전환
-		within_2_pi(win);
+		within_2_pi(win, 0);
 		cal_quar(win);
 //	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n", (win->p_d * 180 / M_PI), win->m_x, win->m_y, win->p_x, win->p_y);
 	}
@@ -348,9 +352,9 @@ int		if_key_pressed(t_win *win)
 
 int		put_change(t_win *win)
 {
-	put_player(win);
-	put_dir(win);
 	put_laser(win);
+	put_player(win);
+//	put_dir(win);
 	return (0);
 }
 
@@ -431,8 +435,8 @@ int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기
 	double	deg_per_pix;
 
 	deg_per_pix = win->pov / win->s_h;
-	printf("%.2f\n", dis);
-	wall_height_half = dis * (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len;
+//	printf("%.2f\n", dis);
+	wall_height_half = dis * (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len * cos(win->p_d);		// 어안렌즈 제거
 	start = (win->s_h / 2) - (int)wall_height_half;
 	if (start < 0)
 	{
@@ -466,7 +470,7 @@ int		distance_from_player(t_win *win, int x, int y)		// 두 점 사이의 거리
 	height = fabs(win->p_x * win->s_h_per_m - x);
 	width = fabs(win->p_y * win->s_w_per_m - y);
 	result = sqrt(height * height + width * width);
-	draw_wall(win, result);
+//	draw_wall(win, result);
 //	printf("%.2f\n", result);
 	return (0);
 }
@@ -492,7 +496,6 @@ int		draw_grid(t_win *win)
 		}
 		col++;
 	}
-
 	return (0);
 }
 
@@ -505,21 +508,27 @@ int		fill_grid(t_win *win, int x, int y)
 	return (0);
 }
 
-int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거리까지 계산
+int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거리까지 계산		&& 레이저가 엉망으로 나감
 {
 	double		x;
 	double		y;
 	double		start_degree;
 	double		end_degree;
 	double		deg_per_pix;
+	double		deg_index;
 
+	win->temp = win->p_d;
 	win->idx_pix = 0;
-	start_degree = win->p_d - (win->pov / 2);
-	end_degree = win->p_d + (win->pov / 2);
-	win->p_d = start_degree;
+	start_degree = within_2_pi(win, win->p_d - (win->pov / 2));
+	end_degree = within_2_pi(win, win->p_d + (win->pov / 2));
+	deg_index = start_degree;
 	deg_per_pix = win->pov / win->s_h;
-while(win->idx_pix < win->s_h)
+while (win->idx_pix < win->s_h)
 {
+//	printf("%.2f\n", win->p_d);		// 레이저 각도
+
+	within_2_pi(win, 0);
+	cal_quar(win);
 	x = 0.00001;
 	y = 0.00001;
 	while (1)
@@ -531,13 +540,15 @@ while(win->idx_pix < win->s_h)
 		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y), 0xffff00);
 		if (check_grid(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y)) == 1)
 		{
-//		distance_from_player(win, win->s_h_per_m + x, win->s_w_per_m + y);
-		break;
+			distance_from_player(win, win->s_h_per_m + x, win->s_w_per_m + y);
+			break;
 		}
 	}
-	win->p_d += deg_per_pix;
+	win->p_d += deg_per_pix;		/////// 각도 전역변수 하나 만들면 될듯
 	win->idx_pix++;
 }
+	win->p_d = win->temp;
+//	printf("%.2f.2222\n %.2f\n %.2f\n", win->p_d, start_degree, end_degree);
 	return (0);
 }
 
@@ -555,6 +566,32 @@ int		put_dir(t_win *win)		// single ray
 		else
 				y += 1;
 		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y), 0xff0000);
+	}
+	return (0);
+}
+
+
+int		cal_l_quar(t_win *win)
+{
+	if (win->p_d >= 0 && win->p_d < M_PI / 2)
+	{
+		win->q_l_x = 1;
+		win->q_l_y = 1;
+	}
+	else if (win->p_d >= M_PI / 2 && win->p_d < M_PI)
+	{
+		win->q_l_x = -1;
+		win->q_l_y = 1;
+	}
+	else if (win->p_d >= M_PI && win->p_d < M_PI * 3 / 2)
+	{
+		win->q_l_x = -1;
+		win->q_l_y = -1;
+	}
+	else
+	{
+		win->q_l_x = 1;
+		win->q_l_y = -1;
 	}
 	return (0);
 }
@@ -584,7 +621,7 @@ int		cal_quar(t_win *win)
 	return (0);
 }
 
-int		within_2_pi(t_win *win)
+int		within_2_pi(t_win *win, double degree)
 {
 	while (win->p_d < 0 || win->p_d > 2 * M_PI)
 	{
@@ -595,6 +632,18 @@ int		within_2_pi(t_win *win)
 		else
 		{
 			win->p_d -= 2 * M_PI;
+		}
+	}
+
+	while (degree < 0 || degree > 2 * M_PI)
+	{
+		if (degree < 0)
+		{
+			return(degree += 2 * M_PI);
+		}
+		else
+		{
+			return(degree -= 2 * M_PI);
 		}
 	}
 	return (0);
@@ -612,13 +661,13 @@ int		cub3d_map(t_win *win, int col, int row)
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
+		{1, 0, 0, 0, 0, 1, 1, 1, 0, 1},
 		{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-		{1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
-		{1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
-		{1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
-		{1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
-		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+		{1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	return (total_map[col][row]);
@@ -673,7 +722,7 @@ int		init_cub3d(t_win *win)		// 변수 초기화하는 함수
 	init_m_xy(win);
 
 	// 사분면
-	within_2_pi(win);
+	within_2_pi(win, 0);
 	cal_quar(win);
 
 	// 키보드 플래그
