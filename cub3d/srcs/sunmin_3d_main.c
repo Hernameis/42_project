@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sunmin_3d_main.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/13 17:11:31 by sunmin            #+#    #+#             */
+/*   Updated: 2021/02/13 17:36:50 by sunmin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 /*
     **** 추가할 사항
@@ -170,6 +182,7 @@ typedef struct		s_win
 
 //	함수 프로토타입 선언 
 
+double	within_2_pi_return(double degree);
 int		put_change(t_win *win);
 int		distance_from_player(t_win *win, int x, int y);		// 두 점 사이의 거리 구하기(플레이어, 점(x, y)
 int		fill_grid(t_win *win, int x, int y);
@@ -178,7 +191,7 @@ int		ft_pixel_put(t_win *win, int x, int y, int color);
 int		init_minimap(t_win *win);
 int		cub3d_map(t_win *win, int col, int row);
 int		cal_quar(t_win *win);
-int		within_2_pi(t_win *win, double degree);
+int		within_2_pi(t_win *win);
 int		if_key_pressed(t_win *win);
 int		ft_loop(t_win *win);
 int		put_player(t_win *win);
@@ -231,8 +244,9 @@ int		check_grid(t_win *win, int x, int y)
 int		ft_loop(t_win *win)
 {
 	ceiling_and_floor(win);		// 바닥, 천장 그리는 야매 함수
-	if_key_pressed(win);
 	draw_grid(win);
+	if_key_pressed(win);
+
 
 //	put_player(win);
 //	put_laser(win);
@@ -289,14 +303,14 @@ int		if_key_ad(t_win *win)
 
 	if (win->press_d && !win->press_a)
 	{
-		win->key_ad = 1;
-		return (1);
+		win->key_ad = +1;
+		return (+1);
 	}
 	else if (win->press_a && !win->press_d)
 	{
 		win->key_ad = -1;
 		return (-1);
-	}
+	
 	win->key_ad = 0;
 	return (0);
 }
@@ -342,10 +356,11 @@ int		if_key_pressed(t_win *win)
 	{
 		if_key_ad(win);
 		win->p_d += (win->key_ad) * degree;		// 방향 전환
-		within_2_pi(win, 0);
+		within_2_pi(win);
 		cal_quar(win);
 //	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n", (win->p_d * 180 / M_PI), win->m_x, win->m_y, win->p_x, win->p_y);
 	}
+//	printf("dir %.2f\n", win->p_d);
 	put_change(win);
 	return (0);
 }
@@ -354,7 +369,7 @@ int		put_change(t_win *win)
 {
 	put_laser(win);
 	put_player(win);
-//	put_dir(win);
+	put_dir(win);
 	return (0);
 }
 
@@ -519,15 +534,24 @@ int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거�
 
 	win->temp = win->p_d;
 	win->idx_pix = 0;
-	start_degree = within_2_pi(win, win->p_d - (win->pov / 2));
-	end_degree = within_2_pi(win, win->p_d + (win->pov / 2));
+
+	//					  레이저 시작 각도 , 끝 각도 지정
+	start_degree = within_2_pi_return(win->p_d - (win->pov / 2));
+	end_degree = within_2_pi_return(win->p_d + (win->pov / 2));
+	//
+
+	printf("dir %.2f \n%.2f \n %.2f  \n %.2f \n\n\n", win->p_d, start_degree, end_degree, win->pov);
 	deg_index = start_degree;
 	deg_per_pix = win->pov / win->s_h;
+
+//	printf("laser dir %.2f\n", win->p_d);
+	win->p_d = start_degree;
 while (win->idx_pix < win->s_h)
 {
+	within_2_pi(win);
 //	printf("%.2f\n", win->p_d);		// 레이저 각도
 
-	within_2_pi(win, 0);
+	within_2_pi(win);
 	cal_quar(win);
 	x = 0.00001;
 	y = 0.00001;
@@ -544,7 +568,7 @@ while (win->idx_pix < win->s_h)
 			break;
 		}
 	}
-	win->p_d += deg_per_pix;		/////// 각도 전역변수 하나 만들면 될듯
+	win->p_d = win->p_d + deg_per_pix;		/////// 각도 전역변수 하나 만들면 될듯
 	win->idx_pix++;
 }
 	win->p_d = win->temp;
@@ -621,7 +645,7 @@ int		cal_quar(t_win *win)
 	return (0);
 }
 
-int		within_2_pi(t_win *win, double degree)
+int		within_2_pi(t_win *win)
 {
 	while (win->p_d < 0 || win->p_d > 2 * M_PI)
 	{
@@ -634,19 +658,25 @@ int		within_2_pi(t_win *win, double degree)
 			win->p_d -= 2 * M_PI;
 		}
 	}
+	return (0);
+}
 
+double	within_2_pi_return(double degree)
+{
 	while (degree < 0 || degree > 2 * M_PI)
 	{
 		if (degree < 0)
 		{
+			printf("%.2f degree\n", degree);
 			return(degree += 2 * M_PI);
 		}
 		else
 		{
+			printf("%.2f degree\n", degree);
 			return(degree -= 2 * M_PI);
 		}
 	}
-	return (0);
+	return (degree);
 }
 
 
@@ -722,7 +752,7 @@ int		init_cub3d(t_win *win)		// 변수 초기화하는 함수
 	init_m_xy(win);
 
 	// 사분면
-	within_2_pi(win, 0);
+	within_2_pi(win);
 	cal_quar(win);
 
 	// 키보드 플래그
