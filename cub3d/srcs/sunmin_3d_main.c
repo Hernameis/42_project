@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:11:31 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/13 17:36:50 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/16 15:58:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,10 @@ int		check_grid(t_win *win, int x, int y)
 
 int		ft_loop(t_win *win)
 {
-	ceiling_and_floor(win);		// 바닥, 천장 그리는 야매 함수
-	draw_grid(win);
+//	ceiling_and_floor(win);		// 바닥, 천장 그리는 야매 함수
+
 	if_key_pressed(win);
+	
 
 
 //	put_player(win);
@@ -300,7 +301,6 @@ int		if_key_ws(t_win *win)
 
 int		if_key_ad(t_win *win)
 {
-
 	if (win->press_d && !win->press_a)
 	{
 		win->key_ad = +1;
@@ -310,7 +310,7 @@ int		if_key_ad(t_win *win)
 	{
 		win->key_ad = -1;
 		return (-1);
-	
+	}
 	win->key_ad = 0;
 	return (0);
 }
@@ -328,10 +328,12 @@ int		if_key_pressed(t_win *win)
 	sense = 5;
 	degree_convert = M_PI / 180;
 	degree = degree_convert * sense;
+	within_2_pi(win);
+	cal_quar(win);
 	if (win->press_w || win->press_s)
 	{
-//		if(check_grid(win, (win->p_x * win->s_w_per_m), (win->p_y) * win->s_h_per_m) != 1)		// 축지법으로 확인
-//		{
+		if(check_grid(win, (win->p_x * (win->s_w_per_m + win->q_x * win->key_ws)), (win->p_y) * (win->s_h_per_m + win->q_y * win->key_ws)) != 1)		// 축지법으로 확인
+		{
 			if_key_ws(win);		
 			if (fabs(tan(win->p_d)) < fabs(win->m_y / win->m_x))
 			{
@@ -349,15 +351,15 @@ int		if_key_pressed(t_win *win)
 				}
 				win->m_y += (win->q_y) * (win->key_ws) * 1;
 			}
-//		}
+		}
 //	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n\n", (win->p_d * 180 / M_PI), win->p_x, win->p_y, win->p_x * win->s_w_per_m, win->p_y * win->s_h_per_m);
 	}
 	if (win->press_a || win->press_d)
 	{
 		if_key_ad(win);
-		win->p_d += (win->key_ad) * degree;		// 방향 전환
-		within_2_pi(win);
-		cal_quar(win);
+		win->p_d += (win->key_ad) * M_PI / 180; //* degree;		// 방향 전환
+
+
 //	printf("%.2f\n%.2f, %.2f\n%.2f, %.2f\n", (win->p_d * 180 / M_PI), win->m_x, win->m_y, win->p_x, win->p_y);
 	}
 //	printf("dir %.2f\n", win->p_d);
@@ -367,9 +369,15 @@ int		if_key_pressed(t_win *win)
 
 int		put_change(t_win *win)
 {
+
+
 	put_laser(win);
-	put_player(win);
 	put_dir(win);
+	put_player(win);
+
+	draw_grid(win);
+
+
 	return (0);
 }
 
@@ -450,24 +458,39 @@ int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기
 	double	deg_per_pix;
 
 	deg_per_pix = win->pov / win->s_h;
-//	printf("%.2f\n", dis);
-	wall_height_half = dis * (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len * cos(win->p_d);		// 어안렌즈 제거
+	printf("%.2f\n", dis);
+	wall_height_half = (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len / (dis / 10); //  * fabs(cos(win->p_d));		// 어안렌즈 제거 해도 이상하고 안하는게 나음(?)
 	start = (win->s_h / 2) - (int)wall_height_half;
 	if (start < 0)
 	{
 		start = 0;
 	}
-	end = (int)(wall_height_half) + (int)(win->s_w / 2);
+	end = (int)(wall_height_half) + (int)(win->s_h / 2);
 	if (end > win->s_h)
 	{
 		end = win->s_h;
 	}
 //	printf("%.2f %d %d\n", wall_height_half, start, end);
 
-	idx = start;		// 벽 그리기 시작하는 높이
-	while (idx < end)
+	idx = 0;		// 배경까지 같이 출력
+//	idx = start;		// 벽 그리기 시작하는 높이
+	while (idx < win->s_h)
 	{
-		ft_pixel_put(win, win->idx_pix, idx, 0xb22222);
+		if (idx >= start && idx < end)
+		{
+			ft_pixel_put(win, win->idx_pix, idx, 0xb22222);
+		}
+		else
+		{
+			if (idx < win->s_h / 2)
+			{
+				ft_pixel_put(win, win->idx_pix, idx, 0x50bcdf);
+			}
+			else
+			{
+				ft_pixel_put(win, win->idx_pix, idx, 0xc68a12);
+			}
+		}
 		idx++;
 	}
 
@@ -482,10 +505,10 @@ int		distance_from_player(t_win *win, int x, int y)		// 두 점 사이의 거리
 	int		width;
 	double	result;
 
-	height = fabs(win->p_x * win->s_h_per_m - x);
-	width = fabs(win->p_y * win->s_w_per_m - y);
+	height = fabs(win->p_x - x);
+	width = fabs(win->p_y - y);
 	result = sqrt(height * height + width * width);
-//	draw_wall(win, result);
+	draw_wall(win, result);		//벽 그리는 부분
 //	printf("%.2f\n", result);
 	return (0);
 }
@@ -504,9 +527,12 @@ int		draw_grid(t_win *win)
 	//		printf("%d %d\n", row, col);
 			if (row % (int)win->s_h_per_m  == 0 || col % (int)win->s_w_per_m  == 0)
 			{
-				ft_pixel_put(win, row, col, 0xfff5ee);
+				if (check_grid(win, row, col) == 1)
+				{
+					ft_pixel_put(win, row, col, 0xfff5ee);
+				}
 			}
-			fill_grid(win, row, col);
+//			fill_grid(win, row, col);
 			row++;
 		}
 		col++;
@@ -533,19 +559,20 @@ int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거�
 	double		deg_index;
 
 	win->temp = win->p_d;
-	win->idx_pix = 0;
+
 
 	//					  레이저 시작 각도 , 끝 각도 지정
 	start_degree = within_2_pi_return(win->p_d - (win->pov / 2));
 	end_degree = within_2_pi_return(win->p_d + (win->pov / 2));
 	//
 
-	printf("dir %.2f \n%.2f \n %.2f  \n %.2f \n\n\n", win->p_d, start_degree, end_degree, win->pov);
+//	printf("dir %.2f \n%.2f \n %.2f  \n %.2f \n\n\n", win->p_d, start_degree, end_degree, win->pov);
 	deg_index = start_degree;
 	deg_per_pix = win->pov / win->s_h;
 
 //	printf("laser dir %.2f\n", win->p_d);
-	win->p_d = start_degree;
+	win->p_d = start_degree;				////
+	win->idx_pix = 0;
 while (win->idx_pix < win->s_h)
 {
 	within_2_pi(win);
@@ -561,12 +588,13 @@ while (win->idx_pix < win->s_h)
 				x += 1;
 		else
 				y += 1;
-		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y), 0xffff00);
-		if (check_grid(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y)) == 1)
+		ft_pixel_put(win, (int)(win->p_x * win->s_h_per_m + x * win->q_x), (int)(win->p_y * win->s_w_per_m + y * win->q_y), 0xffff00);
+		if (check_grid(win, (int)(win->p_x * win->s_h_per_m + x * win->q_x), (int)(win->p_y * win->s_w_per_m + y * win->q_y)) == 1)
 		{
-			distance_from_player(win, win->s_h_per_m + x, win->s_w_per_m + y);
+			distance_from_player(win, win->s_h_per_m + (win->q_x) * x, win->s_w_per_m + (win->q_y) * y);
 			break;
 		}
+
 	}
 	win->p_d = win->p_d + deg_per_pix;		/////// 각도 전역변수 하나 만들면 될듯
 	win->idx_pix++;
@@ -580,16 +608,16 @@ int		put_dir(t_win *win)		// single ray
 {
 	double		x;
 	double		y;
-
-	x = 0.00001;
-	y = 0.00001;
+	cal_quar(win);
+	x = 0;		// 0.001;
+	y = 0;		// 0.001;
 	while (sqrt(x * x + y * y) < 25)
 	{
 		if (fabs(tan(win->p_d)) < fabs(y / x))
-				x += 1;
+				x += win->q_x;
 		else
-				y += 1;
-		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x * win->q_x), (int)(win->p_y * win->s_h_per_m + y * win->q_y), 0xff0000);
+				y += win->q_y;
+		ft_pixel_put(win, (int)(win->p_x * win->s_w_per_m + x), (int)(win->p_y * win->s_h_per_m + y), 0xff0000);
 	}
 	return (0);
 }
@@ -624,8 +652,8 @@ int		cal_quar(t_win *win)
 {
 	if (win->p_d >= 0 && win->p_d < M_PI / 2)
 	{
-		win->q_x = 1;
-		win->q_y = 1;
+		win->q_x = +1;
+		win->q_y = +1;
 	}
 	else if (win->p_d >= M_PI / 2 && win->p_d < M_PI)
 	{
@@ -637,7 +665,7 @@ int		cal_quar(t_win *win)
 		win->q_x = -1;
 		win->q_y = -1;
 	}
-	else
+	else // if (win->p_d >= M_PI * 3 / 2 && win->p_d < 2 * M_PI)
 	{
 		win->q_x = 1;
 		win->q_y = -1;
@@ -667,12 +695,10 @@ double	within_2_pi_return(double degree)
 	{
 		if (degree < 0)
 		{
-			printf("%.2f degree\n", degree);
 			return(degree += 2 * M_PI);
 		}
 		else
 		{
-			printf("%.2f degree\n", degree);
 			return(degree -= 2 * M_PI);
 		}
 	}
@@ -787,7 +813,7 @@ int		init_cub3d(t_win *win)		// 변수 초기화하는 함수
 	win->pov_v = win->pov * (win->s_h / win->s_w);
 
 	// 벽
-	win->wall_len = 0.8;
+	win->wall_len = 1000;
 
 	// 기타
 	return (0);
