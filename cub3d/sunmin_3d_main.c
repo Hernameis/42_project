@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:11:31 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/18 18:31:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/19 15:29:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,6 @@ int		if_key_ad(t_win *win)
 
 int		if_key_pressed(t_win *win)
 {
-	
 	double	degree;
 	double	degree_convert;
 	double	sense;
@@ -358,6 +357,7 @@ int		if_key_pressed(t_win *win)
 	}
 //	printf("dir %.2f\n", win->p_d);
 	put_change(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -365,11 +365,16 @@ int		put_change(t_win *win)
 {
 
 
-	put_laser(win);
+
+
 	put_dir(win);
 	put_player(win);
 
-	draw_grid(win);
+	put_laser(win);
+
+//	draw_grid(win);
+
+
 
 
 	return (0);
@@ -458,7 +463,7 @@ int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기
 
 	deg_per_pix = win->pov / win->s_h;
 //	printf("%.2f\n", dis);
-	wall_height_half = (win->pov_v / 2) * tan((win->pov_v * 180 / M_PI) / 2) * win->wall_len / (dis / 10); //  * fabs(cos(win->p_d));
+	wall_height_half = (win->pov_v / 2) * fabs(tan((win->pov_v * 180 / M_PI) / 2)) * win->wall_len / (dis / 10);	//  * fabs(cos(win->p_d));
 	start = (win->s_h / 2) - (int)wall_height_half;
 	if (start < 0)
 	{
@@ -469,6 +474,7 @@ int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기
 	{
 		end = win->s_h;
 	}
+//	printf("%.2f\n", wall_height_half);
 //	printf("%.2f %d %d\n", wall_height_half, start, end);
 
 	idx = 0;		// 배경까지 같이 출력
@@ -492,7 +498,6 @@ int		draw_wall(t_win *win, double dis) // 벽 한 줄기 그리기
 		}
 		idx++;
 	}
-
 //	*/
 	return (0);
 }
@@ -571,7 +576,7 @@ int		put_laser(t_win *win)		// put multi-ray	레이저 쏘는데서 바로 거�
 
 	win->p_d = start_degree;				////
 	win->idx_pix = 0;
-while (win->idx_pix < win->s_h)
+while (win->idx_pix < win->s_w)
 {
 
 	within_2_pi(win);
@@ -787,8 +792,8 @@ int		init_cub3d(t_win *win)		// 변수 초기화하는 함수
 
 
 	// 화면
-	win->s_w = 3500;
-	win->s_h = 3500;
+	win->s_w = 500;
+	win->s_h = 500;
 
 	// 맵
 	win->m_w = 10.0;
