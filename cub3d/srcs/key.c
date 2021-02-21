@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 09:36:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:29:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int		key_press(int key, t_win *win)
 			win->press_a = 1;
 		else if (key == key_d)
 			win->press_d = 1;
+		else if (key == key_q)
+			win->press_q = 1;
+		else if (key == key_e)
+			win->press_e = 1;
+		else if (key == key_m)
+		{
+			if (win->press_m == 1)
+				win->press_m = 0;
+			else
+				win->press_m = 1;
+		}
 	}
 	return (0);
 }
@@ -43,6 +54,10 @@ int		key_release(int key, t_win *win)
 		win->press_a = 0;
 	else if (key == key_d)
 		win->press_d = 0;
+	else if (key == key_q)
+		win->press_q = 0;
+	else if (key == key_e)
+		win->press_e = 0;
 	return (0);
 }
 
@@ -90,6 +105,22 @@ int		if_key_pressed(t_win *win)
 		win->player_x -= cos(win->player_dir);
 		win->player_y -= sin(win->player_dir);
 	}
+	if (win->press_q)
+	{
+		win->temp = win->player_dir;
+		win->player_dir -= M_PI / 2;
+		win->player_x += cos(win->player_dir);
+		win->player_y += sin(win->player_dir);
+		win->player_dir = win->temp;
+	}
+	else if (win->press_e)
+	{
+		win->temp = win->player_dir;
+		win->player_dir += M_PI / 2;
+		win->player_x += cos(win->player_dir);
+		win->player_y += sin(win->player_dir);
+		win->player_dir = win->temp;
+	}
 	if (win->press_d)
 	{
 		win->player_dir += 0.05;
@@ -98,10 +129,10 @@ int		if_key_pressed(t_win *win)
 	{
 		win->player_dir -= 0.05;
 	}
-	cjswkd(win);
+//	cjswkd(win);
+	put_laser(win);
 	put_grid(win);
 	put_player(win);
-	put_laser(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
