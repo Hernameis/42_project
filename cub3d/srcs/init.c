@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 16:30:27 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 19:22:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	struct_init(t_win *win)
 {
-	win->scr_height = 600;
-	win->scr_width = 800;
+	win->scr_height = 800;
+	win->scr_width = 600;
 	win->press_w = 0;
 	win->press_s = 0;
 	win->press_a = 0;
@@ -33,4 +33,5 @@ void	struct_init(t_win *win)
 	win->laser_dir = 0;
 	win->pov = 60;
 	win->minimap_size = 3;
+	win->cub_size = 200;
 }

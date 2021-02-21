@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 16:58:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 19:58:25 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ void	put_player(t_win *win)
 
 void	put_laser(t_win *win)
 {
-	int		i;
 	double	temp;
 	double	dis;
 
 	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
-	i = 0;
-	while (i < win->scr_width)
+	win->i = 0;
+	while (win->i < win->scr_width)
 	{
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
@@ -75,8 +74,8 @@ void	put_laser(t_win *win)
 		}
 		dis = (distance(win, win->player_x - (int)win->laser_x + 0.5, win->player_y - (int)win->laser_y)) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
 //		printf("%f\n", dis);
-		draw_wall(win, i, dis);
-		i++;
+		draw_wall(win, win->i, dis);
+		win->i++;
 		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
 	}
 }
@@ -89,16 +88,20 @@ void	draw_wall(t_win *win, int i, double dis)
 	int		color;
 	double	wall_half_height;
 	double	degree;
+	int		k;
 
-	wall_half_height = win->scr_height * 10 * 5 / 2 / dis;
+	wall_half_height = win->scr_height * 10 * 5 / dis;
 	start = win->scr_height / 2 - wall_half_height;
 	end = win->scr_height / 2 + wall_half_height;
 	j = 0;
+	k = 0;
 	while (j < win->scr_height)
 	{
 		if (j >= start && j <= end)
 		{
-			pixel_wall(i, j ,start, end);
+			color = wall_color(k, wall_half_height, win);
+			draw_pixel(win, i, j , color);
+			k++;
 		}
 		else
 		{
@@ -107,7 +110,7 @@ void	draw_wall(t_win *win, int i, double dis)
 			else
 				color = 0xffd700;
 		}
-//			draw_pixel(win, i, j, color);
+			draw_pixel(win, i, j, color);
 		j++;
 	}
 }

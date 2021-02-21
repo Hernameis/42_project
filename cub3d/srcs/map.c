@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:14:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 09:54:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:17:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		check_map(t_win *win, double x, double y)
 
 
 	win->map_width = 10;
-	win->map_height = 10;
+	win->map_height = 15;
 
 
-	int	map[10][10] = 
+	int	map[15][10] = 
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -41,6 +41,6 @@ int		check_map(t_win *win, double x, double y)
 //	printf("%d, %d\n", (int)(y / (win->scr_height / map_height)), (int)(x / (win->scr_width / map_width)));
 //	printf("\n");
 //	printf("%d\n", map[(int)(y / (win->scr_height / map_height))][(int)(x / (win->scr_width / map_width))]);
-	return (map[(int)(y / (win->scr_height /win->map_height))][(int)(x / (win->scr_width / win->map_width))]);
+	return (map[(int)(y / win->cub_size)][(int)(x / win->cub_size)]);
 
 }
