@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 09:49:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 09:52:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	put_grid(t_win *win)
 		j = 0;
 		while (j < win->scr_width)
 		{
-			if (j % (int)(win->scr_width / win->map_width) == 1)
+			if (check_map(win, (double)j, (double)i) == 1)
 			{
 				draw_pixel(win, j, i, 0x888888);
 			}
