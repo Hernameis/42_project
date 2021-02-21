@@ -6,11 +6,11 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/19 14:04:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/21 09:36:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/cub3d.h"
+#include "cub3d.h"
 
 int		key_press(int key, t_win *win)
 {
@@ -26,8 +26,8 @@ int		key_press(int key, t_win *win)
 			win->press_a = 1;
 		else if (key == key_d)
 			win->press_d = 1;
-		return (0);
 	}
+	return (0);
 }
 
 int		key_release(int key, t_win *win)
@@ -78,17 +78,30 @@ int		if_key_ws(t_win *win)
 	return (0);
 }
 
-int		if_key_pressed()
+int		if_key_pressed(t_win *win)
 {
-	if (win->press_w || win->press_s)
+	if (win->press_w)
 	{
-		;
+		win->player_x += cos(win->player_dir);
+		win->player_y += sin(win->player_dir);
 	}
-	if (win->press_a || win->press_d)
+	else if (win->press_s)
 	{
-		;
+		win->player_x -= cos(win->player_dir);
+		win->player_y -= sin(win->player_dir);
 	}
-	put_change(win);
+	if (win->press_d)
+	{
+		win->player_dir += 0.05;
+	}
+	if (win->press_a)
+	{
+		win->player_dir -= 0.05;
+	}
+	cjswkd(win);
+	put_grid(win);
+	put_player(win);
+	put_laser(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
