@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 16:49:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 15:31:04 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int		main(void)
 	win.wall_e_data = (int *)mlx_get_data_addr(win.wall_e_ptr, &win.wall_e_bpp, &win.wall_e_size_l, &win.wall_e_endian);
 	win.wall_w_ptr = mlx_xpm_file_to_image(win.mlx, "wall/wall_w.xpm", &win.wall_w_width, &win.wall_w_height);
 	win.wall_w_data = (int *)mlx_get_data_addr(win.wall_w_ptr, &win.wall_w_bpp, &win.wall_w_size_l, &win.wall_w_endian);
+
+	sprite.ptr = mlx_xpm_file_to_image(win.mlx, "wall/sprite.xpm", &sprite.width, &sprite.height);
+	sprite.data = (int *)mlx_get_data_addr(sprite.ptr, &sprite.bpp, &sprite.size_l, &sprite.endian);
 
 	win.win = mlx_new_window(win.mlx, win.scr_width, win.scr_height, "cub3d");
 	mlx_loop_hook(win.mlx, ft_loop, &win);

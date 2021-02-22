@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 14:23:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 17:10:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	put_laser(t_win *win)
 	double	temp;
 	double	dis;
 
+	win->sprite_num = 0;
 	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
 	win->i = 0;
 	while (win->i < win->scr_width)
@@ -69,12 +70,17 @@ void	put_laser(t_win *win)
 			win->laser_y += sin(win->player_dir + win->laser_dir);
 //			if (win->press_m && i >= win->scr_width / 2 - 1 && i <= win->scr_width / 2 + 1)
 //				draw_pixel(win, mini_x(win, (int)(win->laser_x)), mini_y(win, (int)(win->laser_y)), 0xffff00);
+			if (win->if_sprite == 0 && check_map(win, (int)win->laser_x, (int)win->laser_y) == 2)
+				start_sprite(win);
+			if (win->if_sprite == 1 && check_map(win, (int)win->laser_x, (int)win->laser_y) != 2)
+				end_sprite(win);
 			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
 				break;
 		}
 		dis = (distance(win, win->player_x - (int)win->laser_x + 0.5, win->player_y - (int)win->laser_y)) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
 //		printf("%f\n", dis);
 		draw_wall(win, win->i, dis);
+		draw_sprite(win);
 		win->i++;
 		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
 	}
@@ -123,24 +129,4 @@ int		mini_x(t_win *win, int x)
 int		mini_y(t_win *win, int y)
 {
 	return (y / win->minimap_size);
-}
-
-/// 나중에 지울 함수
-//
-//
-void	cjswkd(t_win *win)
-{
-	int	i;
-	int	j;
-	i = 0;
-	while (i < win->scr_height)
-	{
-		j = 0;
-		while (j < win->scr_width)
-		{
-			draw_pixel(win, j, i, 0x000000);
-			j++;
-		}
-		i++;
-	}
 }

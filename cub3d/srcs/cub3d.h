@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 14:23:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 17:06:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_win
 	double		player_x;
 	double		player_y;
 	double		player_dir;
+	double		player_move_speed;
 
 	double		laser_x;
 	double		laser_y;
@@ -114,6 +115,16 @@ typedef struct		s_win
 	int			wall_e_size_l;
 	int			wall_e_bpp;
 	int			wall_e_endian;
+
+	int			if_sprite;
+	double		sprite_x1;
+	double		sprite_x2;
+	double		sprite_y1;
+	double		sprite_y2;
+	double		*sprite_x;
+	double		*sprite_y;
+	int			sprite_num;
+	double		*sprite_distance;
 }					t_win;
 
 typedef struct		s_img
@@ -153,8 +164,5 @@ int		wall_w_color(int k,int height, t_win *win);
 int		wall_e_color(int k,int height, t_win *win);
 int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
-
-// 지울 함수
-void	cjswkd(t_win *win);
-
+int		which_wall(t_win *win);
 #endif

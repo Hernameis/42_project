@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 16:29:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 16:50:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int		if_key_pressed(t_win *win)
 {
 	if (win->press_w)
 	{
-		win->player_x += cos(win->player_dir);
-		win->player_y += sin(win->player_dir);
+		win->player_x += cos(win->player_dir) * win->player_move_speed;
+		win->player_y += sin(win->player_dir) * win->player_move_speed;
 	}
 	else if (win->press_s)
 	{
@@ -129,7 +129,6 @@ int		if_key_pressed(t_win *win)
 	{
 		win->player_dir -= 0.05;
 	}
-//	cjswkd(win);
 	put_laser(win);
 	put_grid(win);
 	put_player(win);

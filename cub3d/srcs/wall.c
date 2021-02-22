@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 14:39:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 16:24:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 
 int		if_wall(int k, int height, t_win *win)
 {
-	if ((int)win->laser_x % win->cub_size == 0)
+	if (which_wall(win) == 1)
 		return (wall_w_color(k, height, win));
-	else if ((int)win->laser_x % win->cub_size == 199)
+	else if (which_wall(win) == 2)
 		return (wall_e_color(k, height, win));
-	else if ((int)win->laser_y % win->cub_size == 199)
+	else if (which_wall(win) == 3)
 		return (wall_s_color(k, height, win));
-	else
+	else if (which_wall(win) == 4)
 		return (wall_n_color(k, height, win));
+	return (0);
+}
+
+int		which_wall(t_win *win)
+{
+	if ((int)win->laser_x % win->cub_size == 0)
+		return (1);
+	else if ((int)win->laser_x % win->cub_size == 199)
+		return (2);
+	else if ((int)win->laser_y % win->cub_size == 199)
+		return (3);
+	else if ((int)win->laser_y % win->cub_size == 0)
+		return (4);
+	return (0);
 }
 
 int		wall_w_color(int k, int height, t_win *win)		// 서쪽 벽
