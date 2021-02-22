@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 17:08:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 20:29:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	struct_init(t_win *win)
 {
 	win->sprite_x = (double *)malloc(sizeof(double) * 1000);
 	win->sprite_y = (double *)malloc(sizeof(double) * 1000);
-	win->sprite_distance = (double *)malloc(sizeof(double) * 1000);
 
-	win->scr_height = 600;
-	win->scr_width = 400;
+	win->scr_height = 800;
+	win->scr_width = 600;
 	win->press_w = 0;
 	win->press_s = 0;
 	win->press_a = 0;

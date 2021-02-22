@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 17:10:53 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 20:30:17 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	put_grid(t_win *win)		// 그리드 그냥 채움
 				if (win->press_m)
 					draw_pixel(win, mini_x(win, j), mini_y(win, i), 0x888888);
 			}
+			else if (check_map(win, (double)j, (double)i) == 2)
+			{
+				if (win->press_m)
+					draw_pixel(win, mini_x(win, j), mini_y(win, i), 0x0ff5ee);
+			}
+
 			j++;
 		}
 		i++;
@@ -71,9 +77,16 @@ void	put_laser(t_win *win)
 //			if (win->press_m && i >= win->scr_width / 2 - 1 && i <= win->scr_width / 2 + 1)
 //				draw_pixel(win, mini_x(win, (int)(win->laser_x)), mini_y(win, (int)(win->laser_y)), 0xffff00);
 			if (win->if_sprite == 0 && check_map(win, (int)win->laser_x, (int)win->laser_y) == 2)
+			{
+				win->if_sprite = 1;
 				start_sprite(win);
-			if (win->if_sprite == 1 && check_map(win, (int)win->laser_x, (int)win->laser_y) != 2)
+			}
+			if (check_map(win, (int)win->laser_x, (int)win->laser_y) != 2)
+			{
+				win->if_sprite = 0;
 				end_sprite(win);
+				set_sprite(win);
+			}
 			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
 				break;
 		}

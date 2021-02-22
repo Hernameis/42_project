@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 17:06:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 19:11:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,14 @@ typedef struct		s_win
 	int			wall_e_bpp;
 	int			wall_e_endian;
 
+	void		*sprite_ptr;
+	int			*sprite_data;
+	int			sprite_height;
+	int			sprite_width;
+	int			sprite_size_l;
+	int			sprite_bpp;
+	int			sprite_endian;
+
 	int			if_sprite;
 	double		sprite_x1;
 	double		sprite_x2;
@@ -123,8 +131,8 @@ typedef struct		s_win
 	double		sprite_y2;
 	double		*sprite_x;
 	double		*sprite_y;
+	double		sprite_distance;
 	int			sprite_num;
-	double		*sprite_distance;
 }					t_win;
 
 typedef struct		s_img
@@ -165,4 +173,9 @@ int		wall_e_color(int k,int height, t_win *win);
 int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
 int		which_wall(t_win *win);
+void	start_sprite(t_win *win);
+void	end_sprite(t_win *win);
+int		set_sprite(t_win *win);
+int		draw_sprite(t_win *win);
+int		put_sprite(t_win *win);
 #endif
