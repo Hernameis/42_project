@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 19:58:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 14:23:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,11 @@ int		mini_y(t_win *win, int y);
 double	distance(t_win *win, double a, double b);
 void	draw_wall(t_win *win, int i, double dis);
 double	degree_from_xy(double x1, double x2, double y1, double y2);
-int		wall_color(int k,int height, t_win *win);
+int		if_wall(int k, int height, t_win *win);
+int		wall_w_color(int k,int height, t_win *win);
+int		wall_e_color(int k,int height, t_win *win);
+int		wall_s_color(int k,int height, t_win *win);
+int		wall_n_color(int k,int height, t_win *win);
 
 // 지울 함수
 void	cjswkd(t_win *win);

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/21 20:27:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/22 14:23:22 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	draw_wall(t_win *win, int i, double dis)
 	{
 		if (j > start && j < end)
 		{
-			color = wall_color(k, wall_half_height * 2, win);
+			color = if_wall(k, wall_half_height * 2, win);
 			draw_pixel(win, i, j , color);
 			k++;
 		}
