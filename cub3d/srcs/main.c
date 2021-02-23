@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 19:40:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/23 17:37:31 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		main(void)
 
 	struct_init(&win);
 	win.mlx = mlx_init();
-	win.img_ptr = mlx_new_image(win.mlx, win.scr_width, win.scr_height);
+	win.img_ptr = mlx_new_image(win.mlx, win.screen_width, win.screen_height);
 	win.data = (int *)mlx_get_data_addr(win.img_ptr, &win.bpp, &win.size_l, &win.endian);
 
 	win.wall_n_ptr = mlx_xpm_file_to_image(win.mlx, "wall/wall_1.xpm", &win.wall_n_width, &win.wall_n_height);
@@ -37,7 +37,7 @@ int		main(void)
 	win.sprite_ptr = mlx_xpm_file_to_image(win.mlx, "wall/sprite.xpm", &win.sprite_width, &win.sprite_height);
 	win.sprite_data = (int *)mlx_get_data_addr(win.sprite_ptr, &win.sprite_bpp, &win.sprite_size_l, &win.sprite_endian);
 
-	win.win = mlx_new_window(win.mlx, win.scr_width, win.scr_height, "cub3d");
+	win.win = mlx_new_window(win.mlx, win.screen_width, win.screen_height, "cub3d");
 	mlx_loop_hook(win.mlx, ft_loop, &win);
 	mlx_hook(win.win, 2, 1L<<0, key_press, &win);
 	mlx_hook(win.win, 3, 1L<<1, key_release, &win);
@@ -49,6 +49,7 @@ int		main(void)
 int		ft_loop(t_win *win)
 {
 	if_key_pressed(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
 

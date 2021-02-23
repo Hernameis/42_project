@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 20:29:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/23 18:10:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,18 @@ void	struct_init(t_win *win)
 {
 	win->sprite_x = (double *)malloc(sizeof(double) * 1000);
 	win->sprite_y = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_distance = (double *)malloc(sizeof(double) * 1000);
 
-	win->scr_height = 800;
-	win->scr_width = 600;
+
+	win->map_width = 10;
+	win->map_height = 15;
+	win->screen_height = 400;
+	win->screen_width = 400;
+	win->cub_size = 200;
+	win->cub_height = win->screen_height / win->map_height;
+	win->cub_width = win->screen_width / win->map_width;
+	win->scr_height = win->screen_height;
+	win->scr_width = win->screen_width;
 	win->press_w = 0;
 	win->press_s = 0;
 	win->press_a = 0;
@@ -37,6 +46,7 @@ void	struct_init(t_win *win)
 	win->laser_dir = 0;
 	win->pov = 60;
 	win->minimap_size = 3;
-	win->cub_size = 200;
+	win->i = 0;
 	win->if_sprite = 0;
+	win->one_sprite = 0;
 }

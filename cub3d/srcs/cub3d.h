@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 19:11:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/23 17:49:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct		s_win
 
 	double		scr_height;
 	double		scr_width;
+	double		screen_height;
+	double		screen_width;
 
 	int			*data;
 	int			height;
@@ -78,11 +80,14 @@ typedef struct		s_win
 	double		temp;
 
 	int			i;
+	int			s;
 
 	int			map_height;
 	int			map_width;
 	int			minimap_size;
 	int			cub_size;
+	int			cub_height;
+	int			cub_width;
 
 	void		*wall_n_ptr;
 	int			*wall_n_data;
@@ -124,6 +129,10 @@ typedef struct		s_win
 	int			sprite_bpp;
 	int			sprite_endian;
 
+	int			start_end;
+	int			start;
+	int			end;
+
 	int			if_sprite;
 	double		sprite_x1;
 	double		sprite_x2;
@@ -131,8 +140,9 @@ typedef struct		s_win
 	double		sprite_y2;
 	double		*sprite_x;
 	double		*sprite_y;
-	double		sprite_distance;
+	double		*sprite_distance;
 	int			sprite_num;
+	int			one_sprite;
 }					t_win;
 
 typedef struct		s_img
@@ -168,7 +178,7 @@ double	distance(t_win *win, double a, double b);
 void	draw_wall(t_win *win, int i, double dis);
 double	degree_from_xy(double x1, double x2, double y1, double y2);
 int		if_wall(int k, int height, t_win *win);
-int		wall_w_color(int k,int height, t_win *win);
+int		wall_w_color(double k,int height, t_win *win);
 int		wall_e_color(int k,int height, t_win *win);
 int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
@@ -176,6 +186,8 @@ int		which_wall(t_win *win);
 void	start_sprite(t_win *win);
 void	end_sprite(t_win *win);
 int		set_sprite(t_win *win);
-int		draw_sprite(t_win *win);
-int		put_sprite(t_win *win);
+int		draw_sprite(t_win *win, int i);
+int		put_sprite(t_win *win, int i);
+int		if_pass_wall(t_win *win, int key);
+
 #endif

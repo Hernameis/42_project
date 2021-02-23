@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/22 16:50:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/23 12:03:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,28 +97,40 @@ int		if_key_pressed(t_win *win)
 {
 	if (win->press_w)
 	{
-		win->player_x += cos(win->player_dir) * win->player_move_speed;
-		win->player_y += sin(win->player_dir) * win->player_move_speed;
+		if (if_pass_wall(win, key_w) != 1)
+		{
+			win->player_x += cos(win->player_dir) * win->player_move_speed;
+			win->player_y += sin(win->player_dir) * win->player_move_speed;
+		}
 	}
 	else if (win->press_s)
 	{
-		win->player_x -= cos(win->player_dir);
-		win->player_y -= sin(win->player_dir);
+		if (if_pass_wall(win, key_s) != 1)
+		{
+			win->player_x -= cos(win->player_dir);
+			win->player_y -= sin(win->player_dir);
+		}
 	}
 	if (win->press_q)
 	{
 		win->temp = win->player_dir;
 		win->player_dir -= M_PI / 2;
-		win->player_x += cos(win->player_dir);
-		win->player_y += sin(win->player_dir);
+		if (if_pass_wall(win, key_q) != 1)
+		{
+			win->player_x += cos(win->player_dir);
+			win->player_y += sin(win->player_dir);
+		}
 		win->player_dir = win->temp;
 	}
 	else if (win->press_e)
 	{
 		win->temp = win->player_dir;
 		win->player_dir += M_PI / 2;
-		win->player_x += cos(win->player_dir);
-		win->player_y += sin(win->player_dir);
+		if (if_pass_wall(win, key_e) != 1)
+		{
+			win->player_x += cos(win->player_dir);
+			win->player_y += sin(win->player_dir);
+		}
 		win->player_dir = win->temp;
 	}
 	if (win->press_d)
@@ -132,6 +144,6 @@ int		if_key_pressed(t_win *win)
 	put_laser(win);
 	put_grid(win);
 	put_player(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
+
 	return (0);
 }
