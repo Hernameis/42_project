@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/23 18:10:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 13:50:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	struct_init(t_win *win)
 
 
 	win->map_width = 10;
-	win->map_height = 15;
-	win->screen_height = 400;
-	win->screen_width = 400;
-	win->cub_size = 200;
+	win->map_height = 10;
+	win->screen_width = 500;
+	win->screen_height = 500;
+	win->cub_size_w = (win->scr_width / win->map_width);
+	win->cub_size_h = (win->scr_height / win->map_height);
 	win->cub_height = win->screen_height / win->map_height;
 	win->cub_width = win->screen_width / win->map_width;
 	win->scr_height = win->screen_height;

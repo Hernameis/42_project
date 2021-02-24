@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/23 16:56:47 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 12:21:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ void	put_laser(t_win *win)
 				end_sprite(win);
 				win->if_sprite = 0;
 				set_sprite(win);
-				printf("%d\n", win->sprite_num);
 			}
-			if (win->i == -1)
-				printf("%d\n", win->sprite_num);
 			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
 				break;
 		}

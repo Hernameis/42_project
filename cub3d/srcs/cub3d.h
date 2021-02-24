@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/23 17:49:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 13:50:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct		s_win
 	int			cub_size;
 	int			cub_height;
 	int			cub_width;
+	double		cub_size_w;
+	double		cub_size_h;
 
 	void		*wall_n_ptr;
 	int			*wall_n_data;
@@ -187,7 +189,8 @@ void	start_sprite(t_win *win);
 void	end_sprite(t_win *win);
 int		set_sprite(t_win *win);
 int		draw_sprite(t_win *win, int i);
-int		put_sprite(t_win *win, int i);
+int		put_sprite(t_win *win);
 int		if_pass_wall(t_win *win, int key);
-
+void	sprite_pixel(t_win *win, int start, int end, int i);
+int		sprite_color(t_win *win, int i, int j);
 #endif
