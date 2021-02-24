@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 13:50:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:48:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ typedef struct		s_win
 	double		*sprite_distance;
 	int			sprite_num;
 	int			one_sprite;
+
+	//		보너스
+	double		player_life;
 }					t_win;
 
 typedef struct		s_img
@@ -193,4 +196,11 @@ int		put_sprite(t_win *win);
 int		if_pass_wall(t_win *win, int key);
 void	sprite_pixel(t_win *win, int start, int end, int i);
 int		sprite_color(t_win *win, int i, int j);
+
+
+// 보너스
+void	cub3d_bonus(t_win *win);
+void	player_life(t_win *win);
+int		player_life_check(t_win *win, int w_idx, int h_dix);
+
 #endif

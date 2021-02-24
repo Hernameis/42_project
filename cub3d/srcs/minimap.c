@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 12:21:34 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:48:15 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ void	draw_wall(t_win *win, int i, double dis)
 			}
 			else
 				color = if_wall(k, wall_half_height * 2, win);
-			draw_pixel(win, i, j, color);
+			if (player_life_check(win, i, j) != 1)
+				draw_pixel(win, i, j, color);
 		k++;
 		}
 		else

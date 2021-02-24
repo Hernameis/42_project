@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 13:50:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:07:42 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,7 @@ void	struct_init(t_win *win)
 	win->i = 0;
 	win->if_sprite = 0;
 	win->one_sprite = 0;
+
+	// 보너스
+	win->player_life = 100;
 }

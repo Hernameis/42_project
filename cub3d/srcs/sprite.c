@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:07:35 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 13:59:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:06:41 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	start_sprite(t_win *win)
 
 void	end_sprite(t_win *win)
 {
-//	return ;
+//a	return ;
 	win->sprite_x2 = win->laser_x;
 	win->sprite_y2 = win->laser_y;
 }
@@ -57,17 +57,17 @@ int		put_sprite(t_win *win)
 	double		i;
 	int			color;
 
-
-	half_height = win->scr_height * 50 / win->sprite_distance[win->sprite_num];
+	half_height = win->scr_height * 15 / win->sprite_distance[win->sprite_num]; // 해상도가 달라지면 start 값이 음수가 되는 경우도 ㄴ있음
 	start = win->scr_height / 2 - half_height;
 	end = win->scr_height / 2 + half_height;
 	start_end = end - start;
 	i = 0;
-	while (i < start_end)
+	while (i < start_end && start + i < win->scr_height)	// scr_height 조건 없으면 버스에러 발생
 	{
-		if (win->sprite_data[(int)((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 64))])
+		if (win->sprite_data[((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 50))])
 		{
-			color = win->sprite_data[(int)((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 64))];
+//		color = 0x777777;
+			color = win->sprite_data[((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 50))];
 			draw_pixel(win, win->i, start + i, color);
 		}
 		i++;
