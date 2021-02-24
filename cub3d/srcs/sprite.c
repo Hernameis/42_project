@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:07:35 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:06:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 07:14:45 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,21 @@ int		put_sprite(t_win *win)
 
 	half_height = win->scr_height * 15 / win->sprite_distance[win->sprite_num]; // 해상도가 달라지면 start 값이 음수가 되는 경우도 ㄴ있음
 	start = win->scr_height / 2 - half_height;
+	if (start < 0)
+		start = 0;
 	end = win->scr_height / 2 + half_height;
+	if (end > win->scr_height)
+		end = win->scr_height - 1;		// start, end 안막아주면 팅김
 	start_end = end - start;
 	i = 0;
-	while (i < start_end && start + i < win->scr_height)	// scr_height 조건 없으면 버스에러 발생
+	while (i < start_end)
 	{
 		if (win->sprite_data[((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 50))])
 		{
 //		color = 0x777777;
 			color = win->sprite_data[((int)(i / start_end * 64) * 64 + ((int)win->laser_x % 50))];
-			draw_pixel(win, win->i, start + i, color);
+			printf("%d %f %d\n", win->i, start + i, color);
+			draw_pixel(win, win->i, (start + i), color);
 		}
 		i++;
 	}
