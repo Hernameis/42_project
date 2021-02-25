@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:07:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 15:33:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@ void	struct_init(t_win *win)
 {
 	win->sprite_x = (double *)malloc(sizeof(double) * 1000);
 	win->sprite_y = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_start_x = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_start_y = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_end_x = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_end_y = (double *)malloc(sizeof(double) * 1000);
 	win->sprite_distance = (double *)malloc(sizeof(double) * 1000);
-
+	win->sprite_len = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_start_i = (int *)malloc(sizeof(int) * 1000);
+	win->sprite_end_i = (int *)malloc(sizeof(int) * 1000);
 
 	win->map_width = 10;
 	win->map_height = 10;

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:48:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 16:15:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,34 @@ void	put_laser(t_win *win)
 		{
 			win->laser_x += cos(win->player_dir + win->laser_dir);
 			win->laser_y += sin(win->player_dir + win->laser_dir);
-			if (win->if_sprite == 0 && check_map(win, (int)win->laser_x, (int)win->laser_y) == 2)
+			if (win->press_m)
+//				draw_pixel(win, mini_x(win, win->laser_x) ,mini_y(win, win->laser_y), 0xffff00);		// 레이저 출력
+			if (win->if_sprite == 0 && check_map(win, (int)win->laser_x, (int)win->laser_y) == 2 && (((int)win->laser_x % 40 == 20 && win->laser_y >= 20) || (((int)win->laser_y % 40 == 20) && win->laser_x >= 20)))
 			{
-				win->if_sprite = 1;
-				win->one_sprite = 1;
-				start_sprite(win);
-			}
-			if (check_map(win, (int)(win->laser_x + cos(win->player_dir + win->laser_dir)), (int)(win->laser_y + sin(win->player_dir + win->laser_dir))) != 2 && win->if_sprite)
-			{
-				end_sprite(win);
-				win->if_sprite = 0;
+				if (win->if_sprite == 0)
+				{
+					win->sprite_start_x[win->sprite_num] = win->laser_x;
+					win->sprite_start_y[win->sprite_num] = win->laser_y;
+					win->sprite_start_i[win->sprite_num] = win->i;
 				set_sprite(win);
+				}
+				win->one_sprite = 1;	// 스프라이트가 하나 이상
+			}
+			if (!(win->if_sprite == 0 && check_map(win, (int)win->laser_x, (int)win->laser_y) == 2 && (((int)win->laser_x % 40 == 20 && win->laser_y >= 20) || (((int)win->laser_y % 40 == 20) && win->laser_x >= 20))))
+			{
+				if (win->if_sprite)
+				{
+					win->if_sprite = 0;
+//					win->sprite_end_x[win->sprite_num] = win->laser_x;
+//					win->sprite_end_y[win->sprite_num] = win->laser_y;
+					win->sprite_end_i[win->sprite_num] += 1;
+				}
 			}
 			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
 				break;
 		}
 		dis = (distance(win, win->player_x - (int)win->laser_x + 0.5, win->player_y - (int)win->laser_y)) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
+
 
 		draw_wall(win, win->i, dis);
 		if (win->one_sprite)
@@ -108,6 +120,7 @@ void	put_laser(t_win *win)
 
 void	draw_wall(t_win *win, int i, double dis)
 {
+//	return ;
 	double	start;
 	double	end;
 	int		j;
@@ -140,7 +153,10 @@ void	draw_wall(t_win *win, int i, double dis)
 			else
 				color = if_wall(k, wall_half_height * 2, win);
 			if (player_life_check(win, i, j) != 1)
-				draw_pixel(win, i, j, color);
+			{
+				if (check_pixel(win, i, j, 0xffff00) == 0)	// 레이저랑 안겹치게
+					draw_pixel(win, i, j, color);
+			}
 		k++;
 		}
 		else

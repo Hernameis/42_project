@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:46:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 11:57:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,38 @@ int		if_key_pressed(t_win *win)
 	{
 		win->player_dir -= 0.05;
 	}
+//	ceiling(win);
+
 	put_laser(win);
 	put_grid(win);
+
 	put_player(win);
 	cub3d_bonus(win);
 
+
 	return (0);
+}
+
+// 1/2 바닥 천장
+void	ceiling(t_win *win)
+{
+	int		i;
+	int		j;
+	int		color;
+
+	i = 0;
+	while (i < (int)win->scr_height)
+	{
+		if (i < win->scr_height / 2)
+			color = 0x87ceeb;
+		else
+			color = 0x111111;
+		j = 0;
+		while (j < win->scr_width)
+		{
+			draw_pixel(win, j, i, color);
+			j++;
+		}
+		i++;
+	}
 }

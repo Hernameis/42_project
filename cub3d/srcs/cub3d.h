@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:48:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 14:21:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,13 @@ typedef struct		s_win
 	double		*sprite_distance;
 	int			sprite_num;
 	int			one_sprite;
+	double		*sprite_start_x;
+	double		*sprite_start_y;
+	double		*sprite_end_x;
+	double		*sprite_end_y;
+	double		*sprite_len;
+	int			*sprite_start_i;
+	int			*sprite_end_i;
 
 	//		보너스
 	double		player_life;
@@ -166,6 +173,7 @@ typedef struct		s_img
 //	함수 프로토 타입 선언
 
 int		draw_pixel(t_win *win, int x, int y, int color);
+int		check_pixel(t_win *win, int x, int y, int color);
 int		if_key_pressed(t_win *win);
 int		key_press(int key, t_win *win);
 int		key_release(int key, t_win *win);
@@ -198,9 +206,14 @@ void	sprite_pixel(t_win *win, int start, int end, int i);
 int		sprite_color(t_win *win, int i, int j);
 
 
+
 // 보너스
 void	cub3d_bonus(t_win *win);
 void	player_life(t_win *win);
 int		player_life_check(t_win *win, int w_idx, int h_dix);
+
+// 지울거
+void	ceiling(t_win *win);
+
 
 #endif

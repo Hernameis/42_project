@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/24 20:32:10 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/25 15:30:25 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ int		draw_pixel(t_win *win, int x, int y, int color)
 {
 	win->data[(win->size_l / (win->bpp / 8) * y) + x] = color;
 	return (color);
+}
+
+int		check_pixel(t_win *win, int x, int y, int color)
+{
+	if (win->data[(win->size_l / (win->bpp / 8) * y) + x] == color)
+		return (1);
+	return (0);
 }
