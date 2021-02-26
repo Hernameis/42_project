@@ -6,13 +6,13 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:07:35 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 15:35:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/26 18:31:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		set_sprite(t_win *win)
+int		set_sprite(t_win *win)	// 스프라이트를 만나는 중간 레이저의 절편 중간 값을 구해서 거기를 기준으로 카메라 평면에 수직으로 레이저 하나의 각도만큼 가면서 체크 하면서 그 점을 저장
 {
 	win->sprite_x[win->sprite_num] = win->laser_x;
 	win->sprite_y[win->sprite_num] = win->laser_y;
@@ -52,13 +52,10 @@ int		put_sprite(t_win *win)
 	half_height = win->scr_height * 15 / win->sprite_distance[win->sprite_num]; // 해상도가 달라지면 start 값이 음수가 되는 경우도 ㄴ있음
 
 	start = win->scr_height / 2 - half_height;
-//	if (start < 0)
-//		start = 0;
 	end = win->scr_height / 2 + half_height;
 	if (end > win->scr_height)
 		end = win->scr_height - 1;		// start, end 안막아주면 팅김
 	start_end = end - start;
-//	printf("%f, %f, %f\n", start, end, half_height);
 	i = start;
 	while (i < start_end && i >= 0 && i < win->scr_height)
 	{

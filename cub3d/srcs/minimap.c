@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 16:15:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/26 17:13:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	put_laser(t_win *win)
 					win->sprite_start_x[win->sprite_num] = win->laser_x;
 					win->sprite_start_y[win->sprite_num] = win->laser_y;
 					win->sprite_start_i[win->sprite_num] = win->i;
+					printf("%f @@ %f\n", win->laser_x, win->laser_y);
 				set_sprite(win);
 				}
 				win->one_sprite = 1;	// 스프라이트가 하나 이상
