@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 14:21:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/28 23:14:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ typedef struct		s_win
 	int			map_width;
 	int			minimap_size;
 	int			cub_size;
-	int			cub_height;
-	int			cub_width;
+	double		cub_height;
+	double		cub_width;
 	double		cub_size_w;
 	double		cub_size_h;
 
@@ -144,7 +144,7 @@ typedef struct		s_win
 	double		*sprite_y;
 	double		*sprite_distance;
 	int			sprite_num;
-	int			one_sprite;
+	int			over_one_sprite;
 	double		*sprite_start_x;
 	double		*sprite_start_y;
 	double		*sprite_end_x;
@@ -152,6 +152,11 @@ typedef struct		s_win
 	double		*sprite_len;
 	int			*sprite_start_i;
 	int			*sprite_end_i;
+
+	double		*sprite_center_x;
+	double		*sprite_center_y;
+
+	int			sprite_end;
 
 	//		보너스
 	double		player_life;
@@ -196,16 +201,13 @@ int		wall_e_color(int k,int height, t_win *win);
 int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
 int		which_wall(t_win *win);
-void	start_sprite(t_win *win);
-void	end_sprite(t_win *win);
-int		set_sprite(t_win *win);
-int		draw_sprite(t_win *win, int i);
-int		put_sprite(t_win *win);
 int		if_pass_wall(t_win *win, int key);
 void	sprite_pixel(t_win *win, int start, int end, int i);
 int		sprite_color(t_win *win, int i, int j);
-
-
+void	check_sprite_center(t_win *win);
+void	draw_sprite(t_win *win);
+void	draw_sprite_pixel(t_win *win, double degree, double dis);
+void	within_degree(t_win *win);
 
 // 보너스
 void	cub3d_bonus(t_win *win);

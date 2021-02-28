@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 15:33:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/28 21:22:25 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	struct_init(t_win *win)
 	win->sprite_len = (double *)malloc(sizeof(double) * 1000);
 	win->sprite_start_i = (int *)malloc(sizeof(int) * 1000);
 	win->sprite_end_i = (int *)malloc(sizeof(int) * 1000);
+	win->sprite_center_x = (double *)malloc(sizeof(double) * 1000);
+	win->sprite_center_y = (double *)malloc(sizeof(double) * 1000);
 
 	win->map_width = 10;
 	win->map_height = 10;
 	win->screen_width = 500;
 	win->screen_height = 500;
-	win->cub_size_w = (win->scr_width / win->map_width);
-	win->cub_size_h = (win->scr_height / win->map_height);
 	win->cub_height = win->screen_height / win->map_height;
 	win->cub_width = win->screen_width / win->map_width;
 	win->scr_height = win->screen_height;
@@ -55,7 +55,7 @@ void	struct_init(t_win *win)
 	win->minimap_size = 3;
 	win->i = 0;
 	win->if_sprite = 0;
-	win->one_sprite = 0;
+	win->over_one_sprite = 0;
 
 	// 보너스
 	win->player_life = 100;

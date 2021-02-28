@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/23 12:07:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/28 23:15:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,15 @@ int		if_pass_wall(t_win *win, int key)
 		return (check_map(win, win->player_x - 15 * cos(win->player_dir), win->player_y - 15 * sin(win->player_dir)));
 	}
 	return (0);
+}
+
+void	within_degree(t_win *win)
+{
+	while (win->player_dir < -1 * M_PI || win->player_dir > M_PI)
+	{
+		if (win->player_dir < -1 * M_PI)
+			win->player_dir += 2 * M_PI;
+		if (win->player_dir > M_PI)
+			win->player_dir -= 2 * M_PI;
+	}
 }

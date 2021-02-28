@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 12:16:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/28 20:39:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int		if_wall(int k, int height, t_win *win)
 
 int		which_wall(t_win *win)
 {
-	if ((int)win->laser_x % win->cub_width == 0)
+	if ((int)win->laser_x % (int)win->cub_width == 0)
 		return (1);
-	else if ((int)win->laser_x % win->cub_width == win->cub_width - 1)
+	else if ((int)win->laser_x % (int)win->cub_width == win->cub_width - 1)
 		return (2);
-	else if ((int)win->laser_y % win->cub_height == win->cub_height -1)
+	else if ((int)win->laser_y % (int)win->cub_height == win->cub_height -1)
 		return (3);
-	else if ((int)win->laser_y % win->cub_height == 0)
+	else if ((int)win->laser_y % (int)win->cub_height == 0)
 		return (4);
 	return (0);
 }
@@ -45,7 +45,7 @@ int		wall_e_color(int k, int height, t_win *win)		// 동쪽 벽
 
 int		wall_w_color(double k, int height, t_win *win)		// 서쪽 벽
 {
-	return (win->wall_w_data[((int)(64.0 / height * k) * win->wall_w_height) + (int)(64.0 / win->cub_width * ((int)win->laser_y % win->cub_width))]);
+	return (win->wall_w_data[((int)(64.0 / height * k) * win->wall_w_height) + (int)(64.0 / win->cub_width * ((int)win->laser_y % (int)win->cub_width))]);
 }
 
 int		wall_s_color(int k, int height, t_win *win)		// 남쪽 벽

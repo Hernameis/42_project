@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/25 11:57:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/02/28 23:14:00 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,12 @@ int		if_key_pressed(t_win *win)
 	if (win->press_d)
 	{
 		win->player_dir += 0.05;
+		within_degree(win);
 	}
 	if (win->press_a)
 	{
 		win->player_dir -= 0.05;
+		within_degree(win);
 	}
 //	ceiling(win);
 
