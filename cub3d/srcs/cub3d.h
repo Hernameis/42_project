@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/28 23:14:21 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/01 15:03:30 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ typedef struct		s_win
 	double		*sprite_y;
 	double		*sprite_distance;
 	int			sprite_num;
-	int			over_one_sprite;
+	int			sprite_exist;
 	double		*sprite_start_x;
 	double		*sprite_start_y;
 	double		*sprite_end_x;
@@ -152,6 +152,9 @@ typedef struct		s_win
 	double		*sprite_len;
 	int			*sprite_start_i;
 	int			*sprite_end_i;
+	int			just_sprite;
+	double		wall_dis;
+	double		sprite_dis;
 
 	double		*sprite_center_x;
 	double		*sprite_center_y;
@@ -202,12 +205,23 @@ int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
 int		which_wall(t_win *win);
 int		if_pass_wall(t_win *win, int key);
+void	within_degree(t_win *win);
+void	check_sprite_center(t_win *win);
+int		if_sprite_plane(t_win *win);
+void	draw_sprite(t_win *win);
+void	put_laser_sprite(t_win *win);
+
+//	calc2.c
+double	equation_intercept_y(double a, double p, double q);
+double	meet_between_segments_x(double a, double b, double c, double d);
+double	meet_between_segments_y(double a, double b, double c, double d);
+
+/*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);
 int		sprite_color(t_win *win, int i, int j);
-void	check_sprite_center(t_win *win);
 void	draw_sprite(t_win *win);
 void	draw_sprite_pixel(t_win *win, double degree, double dis);
-void	within_degree(t_win *win);
+*/
 
 // 보너스
 void	cub3d_bonus(t_win *win);
