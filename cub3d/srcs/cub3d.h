@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/01 15:03:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/01 17:32:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ typedef struct		s_win
 
 	double		*sprite_center_x;
 	double		*sprite_center_y;
-
 	int			sprite_end;
 
 	//		보너스
@@ -208,13 +207,16 @@ int		if_pass_wall(t_win *win, int key);
 void	within_degree(t_win *win);
 void	check_sprite_center(t_win *win);
 int		if_sprite_plane(t_win *win);
+void	draw_sprite_plane(t_win *win);
 void	draw_sprite(t_win *win);
 void	put_laser_sprite(t_win *win);
+int		sprite_color(t_win *win, int j, double height);
 
 //	calc2.c
 double	equation_intercept_y(double a, double p, double q);
 double	meet_between_segments_x(double a, double b, double c, double d);
 double	meet_between_segments_y(double a, double b, double c, double d);
+
 
 /*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);

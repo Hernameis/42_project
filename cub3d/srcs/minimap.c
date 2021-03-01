@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/01 15:06:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/01 17:24:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	draw_wall(t_win *win, int i, double dis)
 
 void	put_laser_sprite(t_win *win)
 {
+
 	win->sprite_num = 0;
 	win->sprite_x[win->sprite_num] = 0;
 	win->sprite_y[win->sprite_num] = 0;
@@ -179,7 +180,9 @@ void	put_laser_sprite(t_win *win)
 				win->sprite_num++;
 			}
 			else
+			{
 				win->if_sprite = 0;
+			}
 		}
 			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
 			{
@@ -196,7 +199,10 @@ void	put_laser_sprite(t_win *win)
 				if_sprite_plane(win);
 				win->sprite_dis = distance(win, win->player_x - win->sprite_x[win->sprite_num], win->player_y - win->sprite_y[win->sprite_num]);
 				if (win->sprite_dis < win->wall_dis)
+				{
 					draw_sprite(win);
+					draw_sprite_plane(win);
+				}
 			}
 		}
 		win->i++;
