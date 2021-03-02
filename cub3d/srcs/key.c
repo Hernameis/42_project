@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/01 14:39:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/02 17:09:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		if_key_pressed(t_win *win)
 		win->player_dir -= 0.05;
 //		within_degree(win);
 	}
-	ceiling(win);
+//	ceiling(win);
 
 	put_laser(win);
 	put_grid(win);

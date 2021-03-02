@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/01 17:32:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/02 23:57:31 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct		s_win
 	double		*sprite_start_y;
 	double		*sprite_end_x;
 	double		*sprite_end_y;
-	double		*sprite_len;
+//	double		*sprite_len;
 	int			*sprite_start_i;
 	int			*sprite_end_i;
 	int			just_sprite;
@@ -159,6 +159,15 @@ typedef struct		s_win
 	double		*sprite_center_x;
 	double		*sprite_center_y;
 	int			sprite_end;
+	int			**sprite_start_check;
+	int			**sprite_end_check;
+	int			sprite_check_height;	// check_sprite_center
+	int			sprite_check_width;
+	int			sprite_start_idx;
+	int			sprite_end_idx;
+	double		sprite_p_dir;
+	double		sprite_len;
+	double		sprite_index;
 
 	//		보너스
 	double		player_life;
@@ -210,7 +219,15 @@ int		if_sprite_plane(t_win *win);
 void	draw_sprite_plane(t_win *win);
 void	draw_sprite(t_win *win);
 void	put_laser_sprite(t_win *win);
-int		sprite_color(t_win *win, int j, double height);
+int		sprite_color(t_win *win, int j, int start, int height);
+
+int		first_sprite(t_win *win);
+int		last_sprite(t_win *win);
+int		sprite_check_map(t_win *win, double x, double y);
+int		call_sprite_idx_first(t_win *win);
+int		call_sprite_idx_last(t_win *win);
+int		left_right_from_sprite(t_win *win);
+void	idx_between_sprite_center(t_win *win);
 
 //	calc2.c
 double	equation_intercept_y(double a, double p, double q);
