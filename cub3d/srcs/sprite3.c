@@ -6,12 +6,12 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 23:54:28 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/03 17:04:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:26:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
 void	idx_between_sprite_center(t_win *win)
 {
 	int		left_right;
@@ -28,3 +28,4 @@ int		check_other_sprite(t_win *win)
 		return (1);
 	return (0);
 }
+*/

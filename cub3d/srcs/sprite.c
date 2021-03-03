@@ -6,12 +6,12 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:07:35 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/03 17:03:27 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:26:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
 void	check_sprite_center(t_win *win)
 {
 	win->sprite_center_x[win->sprite_check_height][win->sprite_check_width] = (int)(win->laser_x / win->cub_width) * win->cub_width + (win->cub_width / 2);
@@ -112,3 +112,4 @@ int		sprite_color(t_win *win, int j, int start, int height)
 //	printf("%d\n", (int)((win->sprite_index / win->sprite_len) * win->sprite_width));
 	return (color);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/02 17:09:28 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:55:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		if_key_pressed(t_win *win)
 
 	put_laser(win);
 	put_grid(win);
-	put_laser_sprite(win);
+//	put_laser_sprite(win);
 
 
 	put_player(win);

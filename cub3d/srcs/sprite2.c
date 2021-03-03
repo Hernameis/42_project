@@ -6,12 +6,13 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 21:40:42 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/02 23:54:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:26:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
 int		first_sprite(t_win *win)
 {
 	if (win->i <= win->sprite_start_check[win->sprite_check_height][win->sprite_check_width])
@@ -51,3 +52,4 @@ int		left_right_from_sprite(t_win *win)
 	}
 	return (1);
 }
+*/

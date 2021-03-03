@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/03 17:22:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 18:00:10 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define key_q 12
 # define key_e 14
 # define key_m 46
-
+# define x_button 17
 
 
 //	구조체
@@ -135,6 +135,8 @@ typedef struct		s_win
 	int			start;
 	int			end;
 
+	double		wall_dis;
+
 
 	//		보너스
 	double		player_life;
@@ -181,20 +183,6 @@ int		wall_n_color(int k,int height, t_win *win);
 int		which_wall(t_win *win);
 int		if_pass_wall(t_win *win, int key);
 void	within_degree(t_win *win);
-void	check_sprite_center(t_win *win);
-int		if_sprite_plane(t_win *win);
-void	draw_sprite_plane(t_win *win);
-void	draw_sprite(t_win *win);
-void	put_laser_sprite(t_win *win);
-int		sprite_color(t_win *win, int j, int start, int height);
-
-int		first_sprite(t_win *win);
-int		last_sprite(t_win *win);
-int		sprite_check_map(t_win *win, double x, double y);
-int		call_sprite_idx_first(t_win *win);
-int		call_sprite_idx_last(t_win *win);
-int		left_right_from_sprite(t_win *win);
-void	idx_between_sprite_center(t_win *win);
 
 //	calc2.c
 double	equation_intercept_y(double a, double p, double q);
@@ -210,6 +198,7 @@ void	draw_sprite(t_win *win);
 void	draw_sprite_pixel(t_win *win, double degree, double dis);
 */
 
+int		ft_exit(int key, t_win *win);
 // 보너스
 void	cub3d_bonus(t_win *win);
 void	player_life(t_win *win);
