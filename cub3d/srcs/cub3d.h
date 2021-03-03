@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/02 23:57:31 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:22:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,39 +135,6 @@ typedef struct		s_win
 	int			start;
 	int			end;
 
-	int			if_sprite;
-	double		sprite_x1;
-	double		sprite_x2;
-	double		sprite_y1;
-	double		sprite_y2;
-	double		*sprite_x;
-	double		*sprite_y;
-	double		*sprite_distance;
-	int			sprite_num;
-	int			sprite_exist;
-	double		*sprite_start_x;
-	double		*sprite_start_y;
-	double		*sprite_end_x;
-	double		*sprite_end_y;
-//	double		*sprite_len;
-	int			*sprite_start_i;
-	int			*sprite_end_i;
-	int			just_sprite;
-	double		wall_dis;
-	double		sprite_dis;
-
-	double		*sprite_center_x;
-	double		*sprite_center_y;
-	int			sprite_end;
-	int			**sprite_start_check;
-	int			**sprite_end_check;
-	int			sprite_check_height;	// check_sprite_center
-	int			sprite_check_width;
-	int			sprite_start_idx;
-	int			sprite_end_idx;
-	double		sprite_p_dir;
-	double		sprite_len;
-	double		sprite_index;
 
 	//		보너스
 	double		player_life;
@@ -233,6 +200,7 @@ void	idx_between_sprite_center(t_win *win);
 double	equation_intercept_y(double a, double p, double q);
 double	meet_between_segments_x(double a, double b, double c, double d);
 double	meet_between_segments_y(double a, double b, double c, double d);
+int		check_other_sprite(t_win *win);
 
 
 /*		sprite_atan2.c

@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 15:07:35 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/03 00:10:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:03:27 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	check_sprite_center(t_win *win)
 {
-	win->sprite_center_x[win->sprite_num] = (int)(win->laser_x / win->cub_width) * win->cub_width + (win->cub_width / 2);
-	win->sprite_center_y[win->sprite_num] = (int)(win->laser_y / win->cub_height) * win->cub_height + (win->cub_height / 2);
+	win->sprite_center_x[win->sprite_check_height][win->sprite_check_width] = (int)(win->laser_x / win->cub_width) * win->cub_width + (win->cub_width / 2);
+	win->sprite_center_y[win->sprite_check_height][win->sprite_check_width] = (int)(win->laser_y / win->cub_height) * win->cub_height + (win->cub_height / 2);
 	win->sprite_check_height = (int)(win->laser_y / win->cub_height);
 	win->sprite_check_width = (int)(win->laser_x / win->cub_width);
 //	printf("%d %d\n", win->sprite_check_height, win->sprite_check_width);
-	draw_pixel(win, win->sprite_center_x[win->sprite_num], (int)win->sprite_center_y[win->sprite_num], 0xffff00);
+	draw_pixel(win, win->sprite_center_x[win->sprite_check_height][win->sprite_check_width], (int)win->sprite_center_y[win->sprite_check_height][win->sprite_check_width], 0xffff00);
 }
 
 int		if_sprite_plane(t_win *win)
@@ -35,7 +35,7 @@ int		if_sprite_plane(t_win *win)
 	tan_laser = tan(win->player_dir + win->laser_dir);
 	tan_sprite = tan(sprite_degree);
 	laser_b = equation_intercept_y(tan_laser, win->player_x, win->player_y);
-	sprite_b = equation_intercept_y(tan_sprite, win->sprite_center_x[win->sprite_num], win->sprite_center_y[win->sprite_num]);
+	sprite_b = equation_intercept_y(tan_sprite, win->sprite_center_x[win->sprite_check_height][win->sprite_check_width], win->sprite_center_y[win->sprite_height][win->sprite_width]);
 	win->sprite_x[win->sprite_num] = meet_between_segments_x(tan_laser, laser_b, tan(sprite_degree), sprite_b);
 	win->sprite_y[win->sprite_num] = meet_between_segments_y(tan_laser, laser_b, tan(sprite_degree), sprite_b);
 //	printf("%.2f %.2f %.2f %.2f %.2f (%.2f, %.2f) %d\n", win->laser_dir, tan_laser, tan_sprite, laser_b, sprite_b, win->sprite_x[win->sprite_num], win->sprite_y[win->sprite_num], win->sprite_num);
@@ -103,10 +103,12 @@ int		sprite_color(t_win *win, int j, int start, int height)
 	start_end = end_w - start_w;
 //	printf("%d %d\n", (int)((j - start / (double)height) * win->sprite_height) , (int)((int)((win->i - start_w))  / (double)start_end * win->sprite_width));		// 가로 세로 인덱스 64인지 각각 확인
 //	printf("%d %d ,,,, %d %d\n", j - start, height, win->i - start_w, start_end);
-	color = win->sprite_data[(int)(((j - start) / (double)height) * win->sprite_height) * win->sprite_width + (int)((win->sprite_index / win->sprite_len) * win->sprite_width)];
+
+//	color = win->sprite_data[(int)(((j - start) / (double)height) * win->sprite_height) * win->sprite_width + (int)((win->sprite_index / win->sprite_len) * win->sprite_width)];
 	// 가로 인덱스에 스프라이트 크기 곱해주기
 // 인덱스 침범 때문에 세그폴트 발생
-//	color = 0x555555;
+
+	color = 0x555555;
 //	printf("%d\n", (int)((win->sprite_index / win->sprite_len) * win->sprite_width));
 	return (color);
 }

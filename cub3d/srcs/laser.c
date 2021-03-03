@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/03 00:02:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/03 17:23:17 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,21 @@ void	put_laser(t_win *win)
 				first_sprite(win);
 				last_sprite(win);
 			}*/
-			if (check_map(win, win->laser_x, win->laser_y) == 2 && win->if_sprite == 0)		// 스프라이트를 만나면
+			if (check_map(win, win->laser_x, win->laser_y) == 2)		// 스프라이트를 만나면
 			{
 				win->sprite_exist = 1;
-				win->if_sprite = 1;
-				if (win->sprite_center_x[win->sprite_num] == 0)
-				{
+//				win->if_sprite = 1;
 					check_sprite_center(win);
+				if (check_other_sprite(win) == 1)
+				{
 					win->sprite_num++;
 				}
-				else
-				{
-					win->if_sprite = 0;
-				}
+//				else
+//				{
+//					win->if_sprite = 0;
+//				}
 			}
-			if (win->if_sprite)	// 스프라이트 인덱스
+			if (check_)	// 스프라이트 인덱스
 			{
 				check_sprite_center(win);
 				first_sprite(win);
@@ -189,78 +189,5 @@ void	draw_wall(t_win *win, int i, double dis)
 		}
 			draw_pixel(win, i, j, color);
 		j++;
-	}
-}
-
-void	put_laser_sprite(t_win *win)
-{
-
-	win->sprite_num = 0;
-	win->sprite_x[win->sprite_num] = 0;
-	win->sprite_y[win->sprite_num] = 0;
-
-	win->sprite_exist = 0;
-	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
-	win->i = 0;
-	while (win->i < win->scr_width)
-	{
-		win->sprite_center_x[win->sprite_num] = 0;
-		win->sprite_center_y[win->sprite_num] = 0;
-		win->if_sprite = 0;
-		win->sprite_end = 0;
-		win->laser_x = win->player_x;
-		win->laser_y = win->player_y;
-		while (win->laser_x >= 0 && win->laser_y >= 0 && win->laser_x <= win->scr_width && win->laser_y <= win->scr_height)
-		{
-			win->laser_x += cos(win->player_dir + win->laser_dir);
-			win->laser_y += sin(win->player_dir + win->laser_dir);
-		if (check_map(win, win->laser_x, win->laser_y) == 2 && win->if_sprite == 0)		// 스프라이트를 만나면
-		{
-			win->sprite_exist = 1;
-			win->if_sprite = 1;
-			if (win->sprite_center_x[win->sprite_num] == 0)
-			{
-				check_sprite_center(win);
-				win->sprite_num++;
-			}
-			else
-			{
-				win->if_sprite = 0;
-			}
-		}
-			if (check_map(win, (int)win->laser_x, (int)win->laser_y) == 1)
-			{
-				win->sprite_end = 1;
-				win->if_sprite = 0;
-				break;
-			}
-		}
-		if (win->sprite_exist && win->sprite_end == 1)
-		{
-			while (win->sprite_num != 0)
-			{
-				win->sprite_num--;
-				if_sprite_plane(win);
-				win->sprite_dis = distance(win, win->player_x - win->sprite_x[win->sprite_num], win->player_y - win->sprite_y[win->sprite_num]);
-				if (win->sprite_dis < win->wall_dis)
-				{
-					draw_sprite(win);
-					draw_sprite_plane(win);
-				}
-			}
-		}
-
-		/*
-		if(first_sprite(win))
-		{
-			win->sprite_start_idx = win->i;
-		}
-		if(last_sprite(win))
-		{
-			win->sprite_end_idx = win->i;
-		}
-		*/
-		win->i++;
-		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
 	}
 }
