@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 11:20:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/04 19:29:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct		s_win
 	double		laser_y;
 	double		laser_dir;
 
+	double		dist;
+
 	double		mini_x;
 	double		mini_y;
 
@@ -130,10 +132,6 @@ typedef struct		s_win
 	int			sprite_size_l;
 	int			sprite_bpp;
 	int			sprite_endian;
-
-	int			start_end;
-	int			start;
-	int			end;
 
 	double		wall_dis;
 

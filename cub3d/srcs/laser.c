@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 10:26:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/04 22:42:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ void	put_player(t_win *win)
 void	put_laser(t_win *win)
 {
 	int k = 0;
+	double	a_i = ((win->scr_width - 1) / -2);
+	win->dist = 1 / tan(win->pov *M_PI / 180 / 2) * win->scr_width / 2;
 
-	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
+//	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
+//	printf("%f\n", win->dist);
 	win->i = 0;
-	while (win->i < win->scr_width)
+	while (a_i < (int)win->scr_width / 2)
 	{
+		win->laser_dir = atan2(a_i, win->dist);
 		k++;
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
@@ -82,13 +86,12 @@ void	put_laser(t_win *win)
 			if (check_map(win, win->laser_x, win->laser_y) == 1)
 				break;
 		}
-
-		win->wall_dis = (distance(win, win->player_x - (int)win->laser_x + 0.5, win->player_y - (int)win->laser_y)) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
+		win->wall_dis = (distance(win, win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
-		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
+		a_i++;
+//		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
 	}
-
 }
 
 void	draw_wall(t_win *win, int i, double dis)
@@ -101,22 +104,20 @@ void	draw_wall(t_win *win, int i, double dis)
 	double	wall_half_height;
 	double	degree;
 	double	k;
+	double	scr_height;
+	double	pink;
 
-	wall_half_height = win->scr_height / dis * 5 * 2 ;
-	start = win->scr_height / 2 - wall_half_height;
-	win->start = start;
-//	if (start <= 0)
-//		start = 0;
-	end = win->scr_height / 2 + wall_half_height;
-	win->end = end;
-	win->start_end = end - start;
+	pink = 1;
+	scr_height = win->scr_height * pink;
+	wall_half_height = scr_height / dis * 5 * 5;
+	start = scr_height / pink - wall_half_height;
+	end = scr_height / pink + wall_half_height;
 //	printf("%f @@  %f @@  %f\n", start, end, start / (end - start));
-//	if (end >= win->scr_height - 1)
-//		end = win->scr_height - 1;
 	j = 0;
 	k = 0;
-	while (j < win->scr_height)
+	while (j < scr_height)
 	{
+//		printf("%d %f %f %f\n", j, win->scr_height * 10, start, end);
 		if (j > start && j < end)
 		{
 			if (start < 0)
@@ -125,21 +126,21 @@ void	draw_wall(t_win *win, int i, double dis)
 			}
 			else
 				color = if_wall(k, wall_half_height * 2, win);
-			if (player_life_check(win, i, j) != 1)
+			if (player_life_check(win, i, j / pink) != 1)
 			{
-				if (check_pixel(win, i, j, 0xffff00) == 0)	// 레이저랑 안겹치게
-					draw_pixel(win, i, j, color);
+				if (check_pixel(win, i, j / pink, 0xffff00) == 0)	// 레이저랑 안겹치게
+					draw_pixel(win, i, j / pink, color);
 			}
 		k++;
 		}
 		else
 		{
-			if (j < win->scr_height / 2)
+			if (j < scr_height / pink)
 				color = 0x87ceeb;
 			else
 				color = 0xffd700;
 		}
-			draw_pixel(win, i, j, color);
+			draw_pixel(win, i, j / pink, color);
 		j++;
 	}
 }
