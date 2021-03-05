@@ -6,13 +6,13 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/02/28 23:15:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:25:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	distance(t_win *win, double a, double b)
+double	distance(double a, double b)
 {
 	double	aa;
 	double	bb;

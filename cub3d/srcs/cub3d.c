@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 18:49:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:29:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@
 
 int		main(int argc, char **argv)
 {
-	if (argc == 2)
-	{
-		if (argv[1][0] == 's')
-			printf("qqq\n");
-	}
+
 
 	t_win		win;
-	t_img		img;
-	t_img		sprite;
 
 	struct_init(&win);
 	win.mlx = mlx_init();
@@ -43,19 +37,31 @@ int		main(int argc, char **argv)
 	win.sprite_ptr = mlx_xpm_file_to_image(win.mlx, "wall/sprite.xpm", &win.sprite_width, &win.sprite_height);
 	win.sprite_data = (int *)mlx_get_data_addr(win.sprite_ptr, &win.sprite_bpp, &win.sprite_size_l, &win.sprite_endian);
 
+	if (argc == 2 && check_save(argv))
+	{
+		make_bitmap(&win);
+	}
+//	else if (argc == 2 && check_cub_file(argv))
+//	{
+//		;
+//	}
 	win.win = mlx_new_window(win.mlx, win.screen_width, win.screen_height, "cub3d");
+
 	mlx_loop_hook(win.mlx, ft_loop, &win);
 	mlx_hook(win.win, 2, 1L<<0, key_press, &win);
 	mlx_hook(win.win, 3, 1L<<1, key_release, &win);
 	mlx_hook(win.win, 17, 0, ft_exit, &win);
+
 	mlx_loop(win.mlx);
+
 	return (0);
 }
 
-int		ft_exit(int key, t_win *win)
+int		ft_exit(int key)
 {
 	exit(0);
-	return (0);
+	// free
+	return (key);
 }
 
 int		ft_loop(t_win *win)
@@ -67,13 +73,13 @@ int		ft_loop(t_win *win)
 
 int		draw_pixel(t_win *win, int x, int y, int color)
 {
-	win->data[(win->size_l / (win->bpp / 8) * y) + x] = color;
+	win->data[((int)win->scr_width * y) + x] = color;
 	return (color);
 }
 
 int		check_pixel(t_win *win, int x, int y, int color)
 {
-	if (win->data[(win->size_l / (win->bpp / 8) * y) + x] == color)
+	if (win->data[((int)win->scr_width * y) + x] == color)
 		return (1);
 	return (0);
 }

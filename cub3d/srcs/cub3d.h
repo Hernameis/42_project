@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 19:29:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:29:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define key_e 14
 # define key_m 46
 # define x_button 17
+# define PIXEL_SIZE 3
+# define PIXEL_ALIGN 4
 
 
 //	구조체
@@ -135,6 +137,8 @@ typedef struct		s_win
 
 	double		wall_dis;
 
+	int			save;
+
 
 	//		보너스
 	double		player_life;
@@ -168,7 +172,7 @@ void	put_grid(t_win *win);
 int		check_map(t_win *win, double x, double y);
 int		mini_x(t_win *win, int x);
 int		mini_y(t_win *win, int y);
-double	distance(t_win *win, double a, double b);
+double	distance(double a, double b);
 void	draw_wall(t_win *win, int i, double dis);
 double	degree_from_xy(double x1, double x2, double y1, double y2);
 int		if_wall(int k, int height, t_win *win);
@@ -186,6 +190,12 @@ double	meet_between_segments_x(double a, double b, double c, double d);
 double	meet_between_segments_y(double a, double b, double c, double d);
 int		check_other_sprite(t_win *win);
 
+int		check_save(char **argv);
+void	make_bitmap(t_win *win);
+void	put_bitmap(t_win *win);
+int		put_bitmap_header(t_win *win, unsigned char *header);
+//	utils.c
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);
@@ -194,7 +204,7 @@ void	draw_sprite(t_win *win);
 void	draw_sprite_pixel(t_win *win, double degree, double dis);
 */
 
-int		ft_exit(int key, t_win *win);
+int		ft_exit(int key);
 // 보너스
 void	cub3d_bonus(t_win *win);
 void	player_life(t_win *win);

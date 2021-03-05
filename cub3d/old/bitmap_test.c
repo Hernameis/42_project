@@ -6,9 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 11:39:06 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 15:27:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 11:51:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
 
 #pragma pack(push, 1)
 
@@ -45,6 +49,9 @@ typedef struct _RGBTRIPLE            // 24비트 비트맵 이미지의 픽셀 �
 
 #pragma pack(pop)
 
+#define PIXEL_SIZE	3
+#define PIXEL_ALIGN 4
+
 int		main(void)
 {
 	FILE *fpBmp;							// 비트맵 파일 포인터
@@ -54,12 +61,12 @@ int		main(void)
 
 	unsigned char		*image;				// 픽셀 데이터 포인터
 	int					size;				// 픽셀 데이터 크기
-	int					width;	비트맵			// 비트맵 이미지의 가로
+	int					width;				// 비트맵 이미지의 가로
 	int					height;				// 비트맵 이미지의 세로
 	int					padding;			// 픽셀 데이터의 가로 크기가 4의 배수가 아닐 때 남는 공간의 크기
 
-	fbBmp = fopen("peppers80x80.bmp", "rb");
-	if (fbBmp == NULL)
+	fpBmp = fopen("Peppers80x80.bmp", "rb");
+	if (fpBmp == NULL)
 		return (0);
 
 	if (fread(&fileHeader, sizeof(BITMAPFILEHEADER), 1, fpBmp) < 1)
@@ -95,7 +102,7 @@ int		main(void)
 		size = (width * PIXEL_SIZE + padding) * height;
 	}
 	image = malloc(size);
-	fseek(fpBmp, fileHeader, bf0ffBits, SEEK_SET);
+	fseek(fpBmp, fileHeader.bfOffBits, SEEK_SET);
 
 	if (fread(image, size, 1, fpBmp) < 1)
 	{
@@ -113,6 +120,9 @@ int		main(void)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			int index = 
+			int index = (x * PIXEL_SIZE) + (y * (width * PIXEL_SIZE)) + (padding * y);
+		}
+	}
+
 	return (0);
 }

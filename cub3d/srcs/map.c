@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:14:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 15:27:45 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:26:48 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 int		check_map(t_win *win, double x, double y)
 {
-
-	int		i;
-	double	map_width;
-	double	map_height;
-
-
-	
-
-
 	int	map[10][10] = 
 	{
 		{3, 1, 1, 1, 1, 1, 1, 1, 1, 3},

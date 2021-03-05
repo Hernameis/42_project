@@ -1,10 +1,10 @@
 NAME = Cub3d
 
-CC = gcc
+CC = gcc -Wall -Wextra -Werror
 LIBS = -L minilibx_mms -lmlx -framework OpenGL -framework Appkit
 
 $(NAME)	:	${OBJS}
-	gcc ${LIBS} ${OBJS}
+	${CC} ${LIBS} ${OBJS}
 
 OBJS = ./srcs/*.c
 

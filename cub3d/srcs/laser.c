@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 10:59:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 17:27:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	put_laser(t_win *win)
 			if (check_map(win, win->laser_x, win->laser_y) == 1)
 				break;
 		}
-		win->wall_dis = (distance(win, win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
+		win->wall_dis = (distance(win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 		a_i++;
@@ -102,7 +102,6 @@ void	draw_wall(t_win *win, int i, double dis)
 	int		j;
 	int		color;
 	double	wall_half_height;
-	double	degree;
 	double	k;
 	double	scr_height;
 
