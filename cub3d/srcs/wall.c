@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 19:26:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 11:38:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,20 @@ int		if_wall(int k, int height, t_win *win)
 
 int		which_wall(t_win *win)
 {
-	if ((int)win->laser_x % (int)win->cub_width == 0)								// 동쪽 벽
-		return (1);
-	else if ((int)win->laser_x % (int)win->cub_width == win->cub_width - 1)			// 서쪽 벽
-		return (2);
-	else if ((int)win->laser_y % (int)win->cub_height == win->cub_height -1)		// 남쪽 벽
-		return (3);
-	else if ((int)win->laser_y % (int)win->cub_height == 0)							// 북쪽 벽
-		return (4);
+	if (check_map(win, win->laser_x, win->laser_y + 1) == 1 && check_map(win, win->laser_x, win->laser_y - 1))		// 동서인지
+	{
+		if ((int)win->laser_x % (int)win->cub_width == 0)								// 동쪽 벽
+			return (1);
+		else if ((int)win->laser_x % (int)win->cub_width == win->cub_width - 1)			// 서쪽 벽
+			return (2);
+	}
+	else		// 남북인지
+	{
+		if ((int)win->laser_y % (int)win->cub_height == win->cub_height -1)		// 남쪽 벽
+			return (3);
+		else if ((int)win->laser_y % (int)win->cub_height == 0)							// 북쪽 벽
+			return (4);
+	}
 	return (0);
 }
 

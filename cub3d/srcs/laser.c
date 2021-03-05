@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/04 22:42:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/05 10:59:15 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,11 @@ void	draw_wall(t_win *win, int i, double dis)
 	double	degree;
 	double	k;
 	double	scr_height;
-	double	pink;
 
-	pink = 1;
-	scr_height = win->scr_height * pink;
-	wall_half_height = scr_height / dis * 5 * 5;
-	start = scr_height / pink - wall_half_height;
-	end = scr_height / pink + wall_half_height;
+	scr_height = win->scr_height;
+	wall_half_height = scr_height / dis * 55;
+	start = scr_height / 2 - wall_half_height;
+	end = scr_height / 2 + wall_half_height;
 //	printf("%f @@  %f @@  %f\n", start, end, start / (end - start));
 	j = 0;
 	k = 0;
@@ -126,21 +124,21 @@ void	draw_wall(t_win *win, int i, double dis)
 			}
 			else
 				color = if_wall(k, wall_half_height * 2, win);
-			if (player_life_check(win, i, j / pink) != 1)
+			if (player_life_check(win, i, j) != 1)
 			{
-				if (check_pixel(win, i, j / pink, 0xffff00) == 0)	// 레이저랑 안겹치게
-					draw_pixel(win, i, j / pink, color);
+				if (check_pixel(win, i, j, 0xffff00) == 0)	// 레이저랑 안겹치게
+					draw_pixel(win, i, j, color);
 			}
 		k++;
 		}
 		else
 		{
-			if (j < scr_height / pink)
+			if (j < scr_height / 2)
 				color = 0x87ceeb;
 			else
 				color = 0xffd700;
 		}
-			draw_pixel(win, i, j / pink, color);
+			draw_pixel(win, i, j, color);
 		j++;
 	}
 }
