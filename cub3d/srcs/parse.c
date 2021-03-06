@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/05 12:24:02 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 12:25:39 by sunmin           ###   ########.fr       */
+/*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/06 17:49:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+void	get_cubfile(t_win *win, char **argv)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	int		fd;
+	int		i;
+	char	*line;
+	char	**split;
+	char	c;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (n--)
+	fd = open(argv[1], O_RDONLY);
+	while ((i = get_next_line(fd, &line)) > -1)
 	{
-		if (*str1 != *str2 || *str1 == '\0' || *str2 == '\0')
-			return ((int)(*str1 - *str2));
-		else
-		{
-			str1++;
-			str2++;
-		}
+		if (i == 0)
+			break;
 	}
+	close(fd);
+}
+
+int		check_cubfile(const char *str)
+{
+	size_t		len;
+
+	len = ft_strlen(str);
+	if (str[len - 4] == '.' && str[len - 3] == 'c' && str[len - 2] == 'u' && str[len - 1] == 'b')
+		return (1);
 	return (0);
 }

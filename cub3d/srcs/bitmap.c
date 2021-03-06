@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:24:50 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/06 18:34:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		check_save(char **argv)
 {
 	char	save[6] = "--save";
 
-	if (ft_strncmp(save, argv[1], 6) == 0)
+	if (ft_strncmp(save, argv[2], 6) == 0)
 		return (1);
 	return (0);
 }
@@ -25,7 +25,7 @@ void	make_bitmap(t_win *win)
 {
 	if_key_pressed(win);
 	put_bitmap(win);
-	printf("screen shot saved\n");
+	printf("screenshot saved\n");
 	exit(0);
 }
 
@@ -93,7 +93,7 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 	
 	// 예약공간(6~7)	00
 	// 예약공간(8~9)	00
-	// 비트맵 데이터 시작위치(10~13)
+	// 비트맵 데이터 시작위치(10~13)			123
 	header[10] = (unsigned char)54;
 	
 	// 비트맵 정보 헤더 크기(14~17)

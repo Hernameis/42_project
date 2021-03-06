@@ -6,13 +6,11 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:29:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/06 15:33:26 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
 
 int		main(int argc, char **argv)
 {
@@ -37,14 +35,37 @@ int		main(int argc, char **argv)
 	win.sprite_ptr = mlx_xpm_file_to_image(win.mlx, "wall/sprite.xpm", &win.sprite_width, &win.sprite_height);
 	win.sprite_data = (int *)mlx_get_data_addr(win.sprite_ptr, &win.sprite_bpp, &win.sprite_size_l, &win.sprite_endian);
 
-	if (argc == 2 && check_save(argv))
+	if (argc == 2 || argc == 3)
 	{
-		make_bitmap(&win);
+		if (argc == 2)
+		{
+			if (check_cubfile(argv[1]))
+			{
+				get_cubfile(&win, argv);		// 파싱 하는 부분
+			}
+			else
+			{
+				printf("not .cub file\n");
+				exit(0);
+			}
+		}
+		else		// argc가 3인 경우 -> 비트맵
+		{
+			if (check_save(argv))
+				make_bitmap(&win);
+			else
+			{
+				printf("save command error\n");
+				exit(0);
+			}
+		}
 	}
-//	else if (argc == 2 && check_cub_file(argv))
-//	{
-//		;
-//	}
+	else
+	{
+		printf("number of file error\n");
+		exit(0);
+	}
+
 	win.win = mlx_new_window(win.mlx, win.screen_width, win.screen_height, "cub3d");
 
 	mlx_loop_hook(win.mlx, ft_loop, &win);

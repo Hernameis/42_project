@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:27:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:54:48 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,10 @@ void	draw_wall(t_win *win, int i, double dis)
 	wall_half_height = scr_height / dis * 55;
 	start = scr_height / 2 - wall_half_height;
 	end = scr_height / 2 + wall_half_height;
-//	printf("%f @@  %f @@  %f\n", start, end, start / (end - start));
 	j = 0;
 	k = 0;
 	while (j < scr_height)
 	{
-//		printf("%d %f %f %f\n", j, win->scr_height * 10, start, end);
 		if (j > start && j < end)
 		{
 			if (start < 0)

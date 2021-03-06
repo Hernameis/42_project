@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:29:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/06 15:55:25 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,13 @@ int		check_save(char **argv);
 void	make_bitmap(t_win *win);
 void	put_bitmap(t_win *win);
 int		put_bitmap_header(t_win *win, unsigned char *header);
-//	utils.c
+
+//	libft.c
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*is_new(char *s, char c);
 
 /*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);
@@ -203,6 +208,21 @@ int		sprite_color(t_win *win, int i, int j);
 void	draw_sprite(t_win *win);
 void	draw_sprite_pixel(t_win *win, double degree, double dis);
 */
+
+//get_next_line.c
+static	int		push_gnl(char **remain, char *temp, char **line);
+int				get_next_line(int fd, char **line);
+
+//	ft_split.c
+static	int		ft_word_num(char *s, char c);
+static	int		chnum(char *s, int index, char c);
+static	char	**ft_push_split(char *s, char **split, int num, char c);
+char			**ft_split(char const *s, char c);
+
+// parse.c
+void	get_cubfile(t_win *win, char **argv);
+int		check_cubfile(const char *str);
+
 
 int		ft_exit(int key);
 // 보너스

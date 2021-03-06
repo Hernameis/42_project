@@ -4,7 +4,7 @@ CC = gcc -Wall -Wextra -Werror
 LIBS = -L minilibx_mms -lmlx -framework OpenGL -framework Appkit
 
 $(NAME)	:	${OBJS}
-	${CC} ${LIBS} ${OBJS}
+	gcc ${LIBS} ${OBJS}
 
 OBJS = ./srcs/*.c
 
