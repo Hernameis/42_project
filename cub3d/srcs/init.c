@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 13:39:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 17:22:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void	struct_init(t_win *win)
 {
-	win->map_width = 10;
-	win->map_height = 10;
+	//		파싱으로 처리할 부분
 	win->screen_width = 500;
 	win->screen_height = 500;
+
+
+	//
+	win->map_width = 10;
+	win->map_height = 10;
+
 	win->cub_height = win->screen_height / win->map_height;
 	win->cub_width = win->screen_width / win->map_width;
 	win->scr_height = win->screen_height;
@@ -38,7 +43,7 @@ void	struct_init(t_win *win)
 	win->laser_x = 0;
 	win->laser_y = 0;
 	win->laser_dir = 0;
-	win->pov = 60;
+	win->pov = 66;
 	win->minimap_size = 3;
 	win->i = 0;
 

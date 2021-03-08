@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 15:40:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 10:02:11 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		push_gnl(char **remain, char *temp, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	char		*remain[FILE_MAX];
+	static char	*remain[FILE_MAX];
 	char		*buff;
 	char		*temp;
 	int			n;

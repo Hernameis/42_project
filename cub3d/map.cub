@@ -1,10 +1,10 @@
 R 500 500
-NO ./
-SO ./
-WE ./
-EA ./
+NO "wall/wall_1.xpm"
+SO "wall/wall_2.xpm"
+WE "wall/wall_3.xpm"
+EA "wall/wall_4.xpm"
 
-S ./
+S "wall/sprite.xpm"
 F 220,100,0
 C 225,30,0
 

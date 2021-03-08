@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 15:55:25 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 17:49:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ typedef struct		s_win
 	int			i;
 	int			s;
 
+	int			floor_color;
+	int			ceiling_color;
+
 	int			map_height;
 	int			map_width;
 	int			minimap_size;
@@ -95,6 +98,7 @@ typedef struct		s_win
 	double		cub_size_w;
 	double		cub_size_h;
 
+	char		*wall_n_addr;
 	void		*wall_n_ptr;
 	int			*wall_n_data;
 	int			wall_n_height;
@@ -103,6 +107,7 @@ typedef struct		s_win
 	int			wall_n_bpp;
 	int			wall_n_endian;
 
+	char		*wall_s_addr;
 	void		*wall_s_ptr;
 	int			*wall_s_data;
 	int			wall_s_height;
@@ -111,6 +116,7 @@ typedef struct		s_win
 	int			wall_s_bpp;
 	int			wall_s_endian;
 
+	char		*wall_w_addr;
 	void		*wall_w_ptr;
 	int			*wall_w_data;
 	int			wall_w_height;
@@ -119,6 +125,7 @@ typedef struct		s_win
 	int			wall_w_bpp;
 	int			wall_w_endian;
 
+	char		*wall_e_addr;
 	void		*wall_e_ptr;
 	int			*wall_e_data;
 	int			wall_e_height;
@@ -127,6 +134,7 @@ typedef struct		s_win
 	int			wall_e_bpp;
 	int			wall_e_endian;
 
+	char		*sprite_addr;
 	void		*sprite_ptr;
 	int			*sprite_data;
 	int			sprite_height;
@@ -222,7 +230,12 @@ char			**ft_split(char const *s, char c);
 // parse.c
 void	get_cubfile(t_win *win, char **argv);
 int		check_cubfile(const char *str);
+void	get_word(char *line, t_win *win);
+void	get_floor_ceiling_color(char *line, t_win *win);
+void	get_map(char *line, t_win *win);
 
+//	ft_atoi.c
+int		ft_atoi(const char *str);
 
 int		ft_exit(int key);
 // 보너스

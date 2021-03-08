@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 15:33:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 17:21:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		main(int argc, char **argv)
 	win.img_ptr = mlx_new_image(win.mlx, win.screen_width, win.screen_height);
 	win.data = (int *)mlx_get_data_addr(win.img_ptr, &win.bpp, &win.size_l, &win.endian);
 
+	// 파싱 끝나면 파싱 다음 부분으로
 	win.wall_n_ptr = mlx_xpm_file_to_image(win.mlx, "wall/wall_1.xpm", &win.wall_n_width, &win.wall_n_height);
 	win.wall_n_data = (int *)mlx_get_data_addr(win.wall_n_ptr, &win.wall_n_bpp, &win.wall_n_size_l, &win.wall_n_endian);
 	win.wall_s_ptr = mlx_xpm_file_to_image(win.mlx, "wall/wall_2.xpm", &win.wall_s_width, &win.wall_s_height);
@@ -41,7 +42,8 @@ int		main(int argc, char **argv)
 		{
 			if (check_cubfile(argv[1]))
 			{
-				get_cubfile(&win, argv);		// 파싱 하는 부분
+				get_cubfile(&win, argv);		// 파싱 하는 부분 free malloc 에러 발생
+				printf("parse successed\n");
 			}
 			else
 			{
@@ -52,7 +54,9 @@ int		main(int argc, char **argv)
 		else		// argc가 3인 경우 -> 비트맵
 		{
 			if (check_save(argv))
+			{
 				make_bitmap(&win);
+			}
 			else
 			{
 				printf("save command error\n");
@@ -94,13 +98,15 @@ int		ft_loop(t_win *win)
 
 int		draw_pixel(t_win *win, int x, int y, int color)
 {
-	win->data[((int)win->scr_width * y) + x] = color;
+	win->data[win->size_l / (win->bpp / 8) * y + x] = color;		// 이런 식으로 사용 안하면 비율 안맞음
+//	win->data[((int)win->scr_width * y) + x] = color;
 	return (color);
 }
 
 int		check_pixel(t_win *win, int x, int y, int color)
 {
-	if (win->data[((int)win->scr_width * y) + x] == color)
+	if (win->data[win->size_l / (win->bpp / 8) * y + x] == color)
+//	if (win->data[((int)win->scr_width * y) + x] == color)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 16:04:55 by sunmin            #+#    #+#             */
-/*   Updated: 2020/11/17 11:40:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 10:03:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int		push_gnl(char **remain, char *temp, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	char		*remain[FILE_MAX];
+	static char	*remain[FILE_MAX];	// 스태틱으로 안하면 다른 함수에서 사용할 때 malloc free에러 발생
 	char		*buff;
 	char		*temp;
 	int			n;
