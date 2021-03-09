@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/08 20:47:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/09 14:09:45 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	if (line[0] == 'F')						//////////////////////////////////
 	{
 		split2 = ft_split(split[1], ',');
-		printf("%s %s %s\n", split2[0], split2[1], split2[2]);
 		win->floor_color = ft_atoi(split2[0]) * 256 * 256 + ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	}
 	else if (line[0] == 'C')
@@ -118,5 +117,5 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 void	get_map(char *line, t_win *win)
 {
-	
+
 }
