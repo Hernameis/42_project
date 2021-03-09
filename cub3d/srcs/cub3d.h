@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/08 17:49:47 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/09 15:33:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,14 @@ typedef struct		s_win
 	double		wall_dis;
 
 	int			save;
+
+	int			**parse_map1;
+	int			**parse_map2;
+	int			parse_map_width1;
+	int			parse_map_height1;
+	int			parse_map_width2;
+	int			parse_map_height2;
+	int			map_check;
 
 
 	//		보너스
