@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/09 17:34:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/09 17:37:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	get_map(char *line, t_win *win)
 			break;
 		}
 	}
-	printf("i %d, len %d, new_width %d prev_width %d new_height %d prev_width %d\n", i, len, new_map_width, prev_map_width, new_map_height, prev_map_height);
+
 
 	// malloc
 	new_map = (int **)malloc(sizeof(int *) * win->map_height);
@@ -176,8 +176,9 @@ void	get_map(char *line, t_win *win)
 		i++;
 	}
 
+	printf("i %d, len %d, new_width %d prev_width %d new_height %d prev_width %d\n", i, len, new_map_width, prev_map_width, new_map_height, prev_map_height);
 	//	1초기화
-	i = 0;								// 세그폴트 부분
+	i = 0;								// 세그폴트 부분??
 	while (i < new_map_height)
 	{
 		j = 0;
