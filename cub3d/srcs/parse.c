@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/08 18:05:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/08 20:47:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	get_cubfile(t_win *win, char **argv)
 		return ;
 	}
 	i = 0;
-	while ((a = get_next_line(fd, &line)) > -1 && i < 7)
+	while (i < 7 && (a = get_next_line(fd, &line)) > 0)
 	{
 		printf("1 %d %s\n", i, line);
 		get_word(line, win);
 		i++;
 	}
-	i++;
-	while ((a = get_next_line(fd, &line)) > -1 && i < 9)
+	while (i < 9 && (a = get_next_line(fd, &line)) > 0)
 	{
 			printf("2 %d %s\n", i, line);
 		get_floor_ceiling_color(line, win);
@@ -98,17 +97,19 @@ void	get_word(char *line, t_win *win)
 void	get_floor_ceiling_color(char *line, t_win *win)
 {
 	char	**split;		// 스플릿 두 번 쓰기 (',', ' ')
+	char	**split2;
 
-	split = ft_split(line, ',');
+	split = ft_split(line, ' ');
 	if (line[0] == 'F')						//////////////////////////////////
 	{
-		win->floor_color = ft_atoi(split[1]) * 256 * 256 + ft_atoi(split[2]) * 256 + ft_atoi(split[3]);
-		printf("floor_color %d\n", win->floor_color);
+		split2 = ft_split(split[1], ',');
+		printf("%s %s %s\n", split2[0], split2[1], split2[2]);
+		win->floor_color = ft_atoi(split2[0]) * 256 * 256 + ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	}
 	else if (line[0] == 'C')
 	{
-		win->ceiling_color = ft_atoi(split[1]) * 256 * 256 + ft_atoi(split[2]) * 256 + ft_atoi(split[3]);
-		printf("floor_color %d\n", win->ceiling_color);
+		split2 = ft_split(split[1], ',');
+		win->ceiling_color = ft_atoi(split2[0]) * 256 * 256 + ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	}
 	else
 		;
@@ -117,5 +118,5 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 void	get_map(char *line, t_win *win)
 {
-;
+	
 }
