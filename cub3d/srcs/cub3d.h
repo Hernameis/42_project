@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/09 15:33:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:45:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct		s_win
 	int			parse_map_width2;
 	int			parse_map_height2;
 	int			map_check;
+	int			parse_map_height;
 
 
 	//		보너스

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/09 16:11:03 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:00:22 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void	struct_init(t_win *win)
 	//		파싱으로 처리할 부분
 	win->screen_width = 500;
 	win->screen_height = 500;
-	win->parse_map1 = NULL;
-	win->parse_map2 = NULL;
 	win->map_check = 1;
 	win->parse_map_width1 = 0;
-	win->parse_map_height1 = 1;
 	win->parse_map_width2 = 0;
-	win->parse_map_height2 = 1;
+	win->parse_map1 = NULL;
+	win->parse_map2 = NULL;
+	win->parse_map_height = 0;
 
 
 	//
