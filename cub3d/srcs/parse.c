@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/10 13:45:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:14:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	get_cubfile(t_win *win, char **argv)
 		return ;
 	}
 	i = 0;
+	printf("aa\n");
 	while ((a = get_next_line(fd, &line)) > 0)		// 스프라이트 까지
 	{
 		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W' || line[0] == 'E' || line[0] == 'S')
@@ -44,6 +45,7 @@ void	get_cubfile(t_win *win, char **argv)
 		}
 		i++;
 	}
+	printf("a\n");
 	close(fd);
 }
 
@@ -129,6 +131,7 @@ void	get_map(char *line, t_win *win)
 	int		new_map_width;
 	int		new_map_height;
 
+	printf("line %s\n", line);
 	len = ft_strlen(line);
 	if (len == 0)
 	{
@@ -144,7 +147,7 @@ void	get_map(char *line, t_win *win)
 		new_map_width = win->parse_map_width1;
 		new_map_height = win->parse_map_height1;
 	}
-	else if (win->map_check == 2)
+	else //if (win->map_check == 2)
 	{
 		prev_map = win->parse_map1;
 		prev_map_width = win->parse_map_width1;
@@ -168,23 +171,23 @@ void	get_map(char *line, t_win *win)
 			}
 			else
 				win->parse_map_height2 = new_map_height;
-			printf("prev %d new %d\n", prev_map_height, new_map_height);
 			check = 1;
 			break;
 		}
 	}
-
 	// malloc
-	if (!(new_map = (int **)malloc(sizeof(int *) * 1)))
+	if (!(new_map = (int **)malloc(sizeof(int *) * new_map_height)))
 	{
 		printf("malloc error\n");
+		return ;
 	}
 	i = 0;
 	while (i < new_map_width)
 	{
-		if(!(new_map[i] = (int *)malloc(sizeof(int) * 10)))
+		if(!(new_map[i] = (int *)malloc(sizeof(int) * new_map_width)))
 		{
 			printf("malloc error2\n");
+			return ;
 		}
 		i++;
 	}
@@ -202,7 +205,7 @@ void	get_map(char *line, t_win *win)
 	}
 	// 맵 옮기기
 	i = 0;
-	if (prev_map)
+//	if (prev_map != NULL)
 	{
 		while (i < prev_map_height)
 		{
@@ -215,17 +218,35 @@ void	get_map(char *line, t_win *win)
 			i++;
 		}
 	}
-
 	j = 0;
 	while (j < new_map_width)
 	{
 		new_map[i][j] = line[j] - '0';
 		j++;
 	}
+
+	///////////////////////////////////////////
+	i = 0;									///
+	while (i < prev_map_height)				///
+	{										///
+		j = 0;								///
+		while (j < prev_map_width)			///
+		{									///
+			printf("%d", prev_map[i][j]);	///
+			j++;							///
+		}									///
+		printf("\n");						///
+		i++;								///
+	}										///
+	printf("\n");							///
+	///////////////////////////////////////////
+	
 	win->map_height = new_map_height;
 	win->map_width = new_map_width;
+
+/*
 	i = 0;
-	if (prev_map)
+	if (prev_map != NULL)
 	{
 		while (i < prev_map_height && prev_map)
 		{
@@ -234,6 +255,8 @@ void	get_map(char *line, t_win *win)
 		}
 		free(prev_map);
 	}
+*/
+
 	if (win->map_check == 1)
 	{
 		win->map_check = 2;
