@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 12:59:01 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/09 23:24:43 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/06 13:52:52 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/11 14:12:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int		ft_lstsize(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int size;
-
 	if (lst == NULL)
-		return (0);
-	size = 0;
+		return (NULL);
 	while (lst)
 	{
-		size++;
-		lst = lst->next;
+		if (lst->next)
+			lst = lst->next;
+		else
+			break ;
 	}
-	return (size);
+	return (lst);
 }

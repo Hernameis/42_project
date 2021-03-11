@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 15:19:58 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/15 15:31:40 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/06 13:07:59 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/11 14:12:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void		ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list		*temp;
-	t_list		*new;
+	t_list		*last;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	new = NULL;
-	while (lst)
-	{
-		temp = ft_lstnew(f(lst->content));
-		if (!temp)
-		{
-			ft_lstclear(&new, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&new, temp);
-		lst = lst->next;
-	}
-	return (new);
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+		*lst = new;
+	last = ft_lstlast(*lst);
+	last->next = new;
+	new->next = (NULL);
 }

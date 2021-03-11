@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/10 13:45:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/11 14:27:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@
 
 
 //	구조체
+
+typedef struct		s_list
+{
+	void				*content;
+	struct s_list		*prev;
+	struct s_list		*next;
+}					t_list;
+
 typedef struct		s_win
 {
 	void		*mlx;
@@ -146,16 +154,10 @@ typedef struct		s_win
 	double		wall_dis;
 
 	int			save;
+	int			check_map;
 
-	int			**parse_map1;
-	int			**parse_map2;
-	int			parse_map_width1;
-	int			parse_map_height1;
-	int			parse_map_width2;
-	int			parse_map_height2;
-	int			map_check;
+	struct t_list		*parse_map;
 	int			parse_map_height;
-
 
 	//		보너스
 	double		player_life;
@@ -171,6 +173,8 @@ typedef struct		s_img
 	int			bpp;
 	int			endian;
 }					t_img;
+
+
 
 //	함수 프로토 타입 선언
 
@@ -219,6 +223,12 @@ char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*is_new(char *s, char c);
 
+//	libft
+t_list	*ft_lstlast(t_list *lst);					//ft_lstlast
+t_list	*ft_lstnew(void *content);					//ft_lstnew
+void	ft_lstadd_back(t_list **lst, t_list *new);	//ft_lstadd_back
+int		ft_lstsize(t_list *lst);					//ft_lstsize
+
 /*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);
 int		sprite_color(t_win *win, int i, int j);
@@ -241,7 +251,8 @@ void	get_cubfile(t_win *win, char **argv);
 int		check_cubfile(const char *str);
 void	get_word(char *line, t_win *win);
 void	get_floor_ceiling_color(char *line, t_win *win);
-void	get_map(char *line, t_win *win);
+int		get_map(char *line, t_win *win);
+int		check_blank(char *line, t_win *win);
 
 //	ft_atoi.c
 int		ft_atoi(const char *str);

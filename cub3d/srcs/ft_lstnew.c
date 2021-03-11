@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 14:50:40 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/06 17:26:23 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/03 14:28:00 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/11 14:26:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+t_list	*ft_lstnew(void *content)
 {
-	if (lst == NULL || del == NULL)
-		return ;
-	del(lst->content);
-	free(lst);
+	t_list	*new;
+
+	if (!(new = (t_list *)malloc(sizeof(t_list))))
+		return (0);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

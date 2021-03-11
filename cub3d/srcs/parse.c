@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/10 17:14:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/11 14:33:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	get_cubfile(t_win *win, char **argv)
 		}
 		else
 		{
-			get_map(line, win);
+			if (get_map(line, win) == 0)
+				break;
 		}
 		i++;
 	}
@@ -118,149 +119,34 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	
 }
 
-void	get_map(char *line, t_win *win)
+int		get_map(char *line, t_win *win)
 {
-	int		check;
-	int		i;
-	int		j;
 	int		len;
-	int		**prev_map;
-	int		prev_map_width;
-	int		prev_map_height;
-	int		**new_map;
-	int		new_map_width;
-	int		new_map_height;
 
-	printf("line %s\n", line);
 	len = ft_strlen(line);
-	if (len == 0)
+	if (win->check_map == 0)
 	{
-		return ;
+		ft_lstnew(win->parse_map->line);
+		win->check_map = 1;
 	}
-	if (win->map_check == 1)
-	{
-		prev_map = win->parse_map2;
-		prev_map_width = win->parse_map_width2;
-		prev_map_height = win->parse_map_height2;
+//	check_maperror();			// 일단 맵 다 받고 유효성 검사
+	return (0);
+}
 
-		new_map = win->parse_map1;
-		new_map_width = win->parse_map_width1;
-		new_map_height = win->parse_map_height1;
-	}
-	else //if (win->map_check == 2)
-	{
-		prev_map = win->parse_map1;
-		prev_map_width = win->parse_map_width1;
-		prev_map_height = win->parse_map_height1;
+int		check_balnk(char *line, t_win *win)		// 리턴 1이면 맵의 값이 없다는 뜻
+{
+	int		len;
+	int		i;
 
-		new_map = win->parse_map2;
-		new_map_width = win->parse_map_width2;
-		new_map_height = win->parse_map_height2;
-	}
+	len = ft_strlen(line);
 	i = 0;
 	while (i < len)
 	{
-		if (line[i] == '1')
+		if (line[i] == '0' || line[i] == '1' || line[i] == '2' || line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
-			if (len > prev_map_width)
-				new_map_width = len;
-			new_map_height = prev_map_height + 1;
-			if (win->map_check == 1)
-			{
-				win->parse_map_height1 = new_map_height;
-			}
-			else
-				win->parse_map_height2 = new_map_height;
-			check = 1;
-			break;
-		}
-	}
-	// malloc
-	if (!(new_map = (int **)malloc(sizeof(int *) * new_map_height)))
-	{
-		printf("malloc error\n");
-		return ;
-	}
-	i = 0;
-	while (i < new_map_width)
-	{
-		if(!(new_map[i] = (int *)malloc(sizeof(int) * new_map_width)))
-		{
-			printf("malloc error2\n");
-			return ;
+			return (0);
 		}
 		i++;
 	}
-	//	1초기화
-	i = 0;
-	while (i < new_map_height)
-	{
-		j = 0;
-		while (j < new_map_width)
-		{
-			new_map[i][j] = 1;
-			j++;
-		}
-		i++;
-	}
-	// 맵 옮기기
-	i = 0;
-//	if (prev_map != NULL)
-	{
-		while (i < prev_map_height)
-		{
-			j = 0;
-			while (j < prev_map_width)
-			{
-				new_map[i][j] = prev_map[i][j];
-				j++;
-			}
-			i++;
-		}
-	}
-	j = 0;
-	while (j < new_map_width)
-	{
-		new_map[i][j] = line[j] - '0';
-		j++;
-	}
-
-	///////////////////////////////////////////
-	i = 0;									///
-	while (i < prev_map_height)				///
-	{										///
-		j = 0;								///
-		while (j < prev_map_width)			///
-		{									///
-			printf("%d", prev_map[i][j]);	///
-			j++;							///
-		}									///
-		printf("\n");						///
-		i++;								///
-	}										///
-	printf("\n");							///
-	///////////////////////////////////////////
-	
-	win->map_height = new_map_height;
-	win->map_width = new_map_width;
-
-/*
-	i = 0;
-	if (prev_map != NULL)
-	{
-		while (i < prev_map_height && prev_map)
-		{
-			free(prev_map[i]);
-			i++;
-		}
-		free(prev_map);
-	}
-*/
-
-	if (win->map_check == 1)
-	{
-		win->map_check = 2;
-	}
-	else
-		win->map_check = 1;
+	return (1);
 }

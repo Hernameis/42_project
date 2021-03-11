@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 14:28:00 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/10 14:51:15 by sunmin           ###   ########.fr       */
+/*   Created: 2020/10/06 12:59:01 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/11 14:12:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-t_list	*ft_lstnew(void *content)
+int		ft_lstsize(t_list *lst)
 {
-	t_list	*new;
+	int size;
 
-	if (!(new = (t_list *)malloc(sizeof(t_list))))
+	if (lst == NULL)
 		return (0);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
 }
