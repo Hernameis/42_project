@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/11 14:33:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/11 19:27:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,20 +116,11 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	}
 	else
 		;
-	
 }
 
 int		get_map(char *line, t_win *win)
 {
-	int		len;
 
-	len = ft_strlen(line);
-	if (win->check_map == 0)
-	{
-		ft_lstnew(win->parse_map->line);
-		win->check_map = 1;
-	}
-//	check_maperror();			// 일단 맵 다 받고 유효성 검사
 	return (0);
 }
 
