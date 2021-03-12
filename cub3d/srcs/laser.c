@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/08 20:14:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/12 18:06:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	put_grid(t_win *win)		// 그리드 그냥 채움
 		j = 0;
 		while (j < win->scr_width)
 		{
-			if (check_map(win, (double)j, (double)i) == 1)
+			if (check_map(win, (double)j, (double)i) == '1')
 			{
 				if (win->press_m)
 					draw_pixel(win, j, i, 0x888888);
 		//			draw_pixel(win, mini_x(win, j), mini_y(win, i), 0x888888);
 			}
-			else if (check_map(win, (double)j, (double)i) == 2)
+			else if (check_map(win, (double)j, (double)i) == '2')
 			{
 				if (win->press_m)
 					draw_pixel(win, j, i, 0x0ff5ee);
@@ -63,11 +63,10 @@ void	put_player(t_win *win)
 void	put_laser(t_win *win)
 {
 	int k = 0;
+
 	double	a_i = ((win->scr_width - 1) / -2);
 	win->dist = 1 / tan(win->pov *M_PI / 180 / 2) * win->scr_width / 2;
 
-//	win->laser_dir = - 1.0 / 2.0 * win->pov * M_PI / 180;
-//	printf("%f\n", win->dist);
 	win->i = 0;
 	while (a_i < (int)win->scr_width / 2)
 	{
@@ -79,24 +78,18 @@ void	put_laser(t_win *win)
 		{
 			win->laser_x += cos(win->player_dir + win->laser_dir);
 			win->laser_y += sin(win->player_dir + win->laser_dir);
-//			if (win->press_m)
-//				draw_pixel(win, mini_x(win, win->laser_x) ,mini_y(win, win->laser_y), 0xffff00);		// 미니맵 레이저 출력
-		//	if (!win->press_m)
-		//		draw_pixel(win, win->laser_x, win->laser_y, 0xfff00);		// 레이저 출력
-			if (check_map(win, win->laser_x, win->laser_y) == 1)
+			if (check_map(win, win->laser_x, win->laser_y) == '1')
 				break;
 		}
 		win->wall_dis = (distance(win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 		a_i++;
-//		win->laser_dir += win->pov * M_PI / 180 / win->scr_width;
 	}
 }
 
 void	draw_wall(t_win *win, int i, double dis)
 {
-//	return ;
 	double	start;
 	double	end;
 	int		j;

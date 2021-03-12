@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:18:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/12 18:11:19 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		if_key_pressed(t_win *win)
 {
 	if (win->press_w)
 	{
-		if (if_pass_wall(win, key_w) != 1)
+		if (if_pass_wall(win, key_w) != '1')
 		{
 			win->player_x += cos(win->player_dir) * win->player_move_speed;
 			win->player_y += sin(win->player_dir) * win->player_move_speed;
@@ -105,7 +105,7 @@ int		if_key_pressed(t_win *win)
 	}
 	else if (win->press_s)
 	{
-		if (if_pass_wall(win, key_s) != 1)
+		if (if_pass_wall(win, key_s) != '1')
 		{
 			win->player_x -= cos(win->player_dir);
 			win->player_y -= sin(win->player_dir);
@@ -115,7 +115,7 @@ int		if_key_pressed(t_win *win)
 	{
 		win->temp = win->player_dir;
 		win->player_dir -= M_PI / 2;
-		if (if_pass_wall(win, key_q) != 1)
+		if (if_pass_wall(win, key_q) != '1')
 		{
 			win->player_x += cos(win->player_dir);
 			win->player_y += sin(win->player_dir);
@@ -126,7 +126,7 @@ int		if_key_pressed(t_win *win)
 	{
 		win->temp = win->player_dir;
 		win->player_dir += M_PI / 2;
-		if (if_pass_wall(win, key_e) != 1)
+		if (if_pass_wall(win, key_e) != '1')
 		{
 			win->player_x += cos(win->player_dir);
 			win->player_y += sin(win->player_dir);
@@ -148,8 +148,7 @@ int		if_key_pressed(t_win *win)
 	put_laser(win);
 	put_grid(win);
 	put_player(win);
-	cub3d_bonus(win);
-
+//	cub3d_bonus(win);
 
 	return (0);
 }

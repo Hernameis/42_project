@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/11 19:27:28 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/12 18:12:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	get_cubfile(t_win *win, char **argv)
 		}
 		i++;
 	}
+	init_map(win);
+	make_map(win);
+	check_map_effect(win);
 	printf("a\n");
 	close(fd);
 }
@@ -120,11 +123,37 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 int		get_map(char *line, t_win *win)
 {
+	int		i;
+	int		len;
+	char	*index;
 
+	index = ft_strdup("a");
+	len = ft_strlen(line);
+	if (len > win->map_width)
+		win->map_width = len;
+	if (check_blank(line, win))
+	{
+		if (win->check_map == 1)
+		{
+			printf("cub map error\n");
+			return (0);
+		}
+		else
+			return (1);
+	}
+	else
+	{
+		win->map_height++;
+		win->check_map = 1;
+		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)line);
+		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)index);
+		printf("parse map\n%s\n", win->parse_map);
+		return (1);
+	}
 	return (0);
 }
 
-int		check_balnk(char *line, t_win *win)		// 리턴 1이면 맵의 값이 없다는 뜻
+int		check_blank(char *line, t_win *win)		// 리턴 1이면 맵의 값이 없다는 뜻
 {
 	int		len;
 	int		i;
@@ -140,4 +169,108 @@ int		check_balnk(char *line, t_win *win)		// 리턴 1이면 맵의 값이 없다
 		i++;
 	}
 	return (1);
+}
+
+void	init_map(t_win *win)
+{
+	int		i;
+	int		j;
+
+	win->map = (char **)malloc(sizeof(char *) * (win->map_height + 1));
+	i = 0;
+	while (i < win->map_height)
+	{
+		win->map[i] = (char *)malloc(sizeof(char) * (win->map_width + 1));
+		win->map[i][win->map_width] = '\0';
+		i++;
+	}
+	win->map[win->map_height] = NULL;
+	i = 0;
+	while (i < win->map_height)
+	{
+		j = 0;
+		while (j < win->map_width)
+		{
+			win->map[i][j] = ' ';
+			j++;
+		}
+		i++;
+	}
+}
+
+void	make_map(t_win *win)
+{
+	char	**split;
+	int		i;
+	int		j;
+
+	split = ft_split(win->parse_map, 'a');
+	i = 0;
+	while (split[i])
+	{
+		j = 0;
+		while (split[i][j])
+		{
+			win->map[i][j] = split[i][j];
+			j++;
+		}
+		i++;
+	}
+}
+
+int		check_map_effect(t_win *win)
+{
+	check_player(win);
+	// 벽체크와 플레이어 위치 방향 체크까지 같이
+	return (0);
+}
+
+int		check_player(t_win *win)
+{
+	int		i;
+	int		j;
+	int		check;
+	int		height;
+	int		width;
+	int		dir;
+
+	check = 0;
+	i = 0;
+	while (i < win->map_height)
+	{
+		j = 0;
+		while (j < win->map_width)
+		{
+			if (win->map[i][j] == 'N' || win->map[i][j] == 'S' || win->map[i][j] == 'W' || win->map[i][j] == 'E')
+			{
+				height = i;
+				width = j;
+				dir = win->map[i][j];
+				check++;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (check != 1)
+	{
+		printf("player location error\n");
+		exit(0);
+	}
+	else
+	{
+		win->player_x = width;
+		win->player_y = height;
+		win->player_dir = dir;
+		if (dir == 'N')
+			win->player_dir = 270;
+		else if (dir == 'S')
+			win->player_dir = 90;
+		else if (dir == 'W')
+			win->player_dir = 180;
+		else
+			win->player_dir = 0;
+	}
+	printf("%f %f %f\n", win->player_x, win->player_y, win->player_dir);
+	return (0);
 }

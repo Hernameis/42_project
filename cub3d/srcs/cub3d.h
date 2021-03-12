@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/11 19:18:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/12 17:46:16 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct		s_win
 	char		*parse_map;
 	char		**map;
 	int			parse_map_height;
+	int			parse_map_width;
 
 	//		보너스
 	double		player_life;
@@ -179,32 +180,46 @@ typedef struct		s_img
 
 //	함수 프로토 타입 선언
 
+//	cub3d.c
 int		draw_pixel(t_win *win, int x, int y, int color);
 int		check_pixel(t_win *win, int x, int y, int color);
+
 int		if_key_pressed(t_win *win);
 int		key_press(int key, t_win *win);
 int		key_release(int key, t_win *win);
 int		if_key_ad(t_win *win);
 int		if_key_ws(t_win *win);
 int		ft_loop(t_win *win);
+
+//	init.c
 void	struct_init(t_win *win);
+void	struct_init2(t_win *win);
+
+//	laser.c
 void	put_player(t_win *win);
 void	put_laser(t_win *win);
 void	put_grid(t_win *win);
-int		check_map(t_win *win, double x, double y);
+void	draw_wall(t_win *win, int i, double dis);
+
+//	map.c
+char	check_map(t_win *win, double x, double y);
+
 int		mini_x(t_win *win, int x);
 int		mini_y(t_win *win, int y);
+
+// calc.c
 double	distance(double a, double b);
-void	draw_wall(t_win *win, int i, double dis);
 double	degree_from_xy(double x1, double x2, double y1, double y2);
+int		if_pass_wall(t_win *win, int key);
+void	within_degree(t_win *win);
+
+//	if_wall
 int		if_wall(int k, int height, t_win *win);
 int		wall_w_color(double k,int height, t_win *win);
 int		wall_e_color(int k,int height, t_win *win);
 int		wall_s_color(int k,int height, t_win *win);
 int		wall_n_color(int k,int height, t_win *win);
 int		which_wall(t_win *win);
-int		if_pass_wall(t_win *win, int key);
-void	within_degree(t_win *win);
 
 //	calc2.c
 double	equation_intercept_y(double a, double p, double q);
@@ -254,6 +269,10 @@ void	get_word(char *line, t_win *win);
 void	get_floor_ceiling_color(char *line, t_win *win);
 int		get_map(char *line, t_win *win);
 int		check_blank(char *line, t_win *win);
+void	init_map(t_win *win);
+void	make_map(t_win *win);
+int		check_map_effect(t_win *win);
+int		check_player(t_win *win);
 
 //	ft_atoi.c
 int		ft_atoi(const char *str);
