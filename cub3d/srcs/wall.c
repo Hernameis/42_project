@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/12 18:16:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/14 15:37:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ int		which_wall(t_win *win)
 
 int		wall_e_color(int k, int height, t_win *win)		// 동쪽 벽
 {
-	return (win->wall_e_data[win->wall_e_height - (int)((double)(win->wall_e_width) / (int)win->cub_width * ((int)win->laser_y % (int)win->cub_width)) + ((int)((double)win->wall_e_height / height * k) * win->wall_e_height)]);
+	return (win->wall_e_data[win->wall_e_height - (int)((double)(win->wall_e_width) / (int)win->cub_width * ((int)win->laser_y % (int)win->cub_width)) + ((int)((double)win->wall_e_height / height * k) * win->wall_e_width)]);
 }
 
 int		wall_w_color(double k, int height, t_win *win)		// 서쪽 벽
 {
-	return (win->wall_w_data[((int)((double)win->wall_w_height / height * k) * win->wall_w_height) + (int)((double)win->wall_w_width / win->cub_width * ((int)win->laser_y % (int)win->cub_width))]);
+	return (win->wall_w_data[((int)((double)win->wall_w_height / (double)height * (double)k) * win->wall_w_width) + (int)((double)win->wall_w_width / win->cub_width * ((int)win->laser_y % (int)win->cub_width))]);
 }
 
 int		wall_s_color(int k, int height, t_win *win)		// 남쪽 벽
 {
-	return (win->wall_s_data[(int)((double)win->wall_s_width / (int)win->cub_width * ((int)win->laser_x % (int)win->cub_width)) + ((int)((double)win->wall_s_height / height * k) * win->wall_s_height)]);
+	return (win->wall_s_data[(int)((double)win->wall_s_width / (int)win->cub_width * ((int)win->laser_x % (int)win->cub_width)) + ((int)((double)win->wall_s_height / height * k) * win->wall_s_width)]);
 }
 
 int		wall_n_color(int k, int height, t_win *win)		// 북쪽 벽
 {
-	return (win->wall_n_data[win->wall_n_height - (int)((double)win->wall_n_height / (int)win->cub_height * ((int)win->laser_x % (int)win->cub_width)) + ((int)((double)win->wall_n_height / height * k) * win->wall_n_height)]);
+	return (win->wall_n_data[(int)(win->wall_n_height - (int)((double)win->wall_n_height / win->cub_height * ((int)win->laser_x % (int)win->cub_width)) + ((int)((double)win->wall_n_height / (double)height * (double)k) * (double)win->wall_n_width))]);
+
 }
