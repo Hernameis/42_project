@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/12 17:28:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 09:55:09 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		main(int argc, char **argv)
 			if (check_cubfile(argv[1]))
 			{
 				get_cubfile(&win, argv);
-				printf("parse successed\n");
 			}
 			else
 			{
@@ -59,7 +58,6 @@ int		main(int argc, char **argv)
 	win.img_ptr = mlx_new_image(win.mlx, win.scr_width, win.scr_height);
 	win.data = (int *)mlx_get_data_addr(win.img_ptr, &win.bpp, &win.size_l, &win.endian);
 
-	printf("1\n");
 
 	win.wall_n_ptr = mlx_xpm_file_to_image(win.mlx, win.wall_n_addr, &win.wall_n_width, &win.wall_n_height);
 	win.wall_n_data = (int *)mlx_get_data_addr(win.wall_n_ptr, &win.wall_n_bpp, &win.wall_n_size_l, &win.wall_n_endian);
@@ -70,15 +68,12 @@ int		main(int argc, char **argv)
 	win.wall_w_ptr = mlx_xpm_file_to_image(win.mlx, win.wall_w_addr, &win.wall_w_width, &win.wall_w_height);
 	win.wall_w_data = (int *)mlx_get_data_addr(win.wall_w_ptr, &win.wall_w_bpp, &win.wall_w_size_l, &win.wall_w_endian);
 
-	printf("2\n");
 	win.sprite_ptr = mlx_xpm_file_to_image(win.mlx, "wall/sprite.xpm", &win.sprite_width, &win.sprite_height);
 	win.sprite_data = (int *)mlx_get_data_addr(win.sprite_ptr, &win.sprite_bpp, &win.sprite_size_l, &win.sprite_endian);
 
-	printf("3\n");
 
 	win.win = mlx_new_window(win.mlx, win.scr_width, win.scr_height, "cub3d");
 
-	printf("4\n");
 	mlx_loop_hook(win.mlx, ft_loop, &win);
 	mlx_hook(win.win, 2, 1L<<0, key_press, &win);
 	mlx_hook(win.win, 3, 1L<<1, key_release, &win);

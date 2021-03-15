@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/12 18:12:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:20:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_cubfile(t_win *win, char **argv)
 		return ;
 	}
 	i = 0;
-	printf("aa\n");
 	while ((a = get_next_line(fd, &line)) > 0)		// 스프라이트 까지
 	{
 		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W' || line[0] == 'E' || line[0] == 'S')
@@ -49,7 +48,6 @@ void	get_cubfile(t_win *win, char **argv)
 	init_map(win);
 	make_map(win);
 	check_map_effect(win);
-	printf("a\n");
 	close(fd);
 }
 
@@ -66,55 +64,112 @@ int		check_cubfile(const char *str)
 void	get_word(char *line, t_win *win)
 {
 	char	**split;
+	int		num;
 
 	split = ft_split(line, ' ');
+	num = get_word_num(split, win);
+	printf("%d\n", num);
 	if (line[0] == 'R')
 	{
+		if (num != 3)
+		{
+			printf("resolution error\n");
+			exit(0);
+		}
 		win->scr_width = (double)ft_atoi(split[1]);
 		win->scr_height = (double)ft_atoi(split[2]);
 	}
 	else if (line[0] == 'N' && line[1] == 'O')
 	{
+		if (num != 2)
+		{
+			printf("northwall error\n");
+			exit(0);
+		}
 		win->wall_n_addr = split[1];
 	}
 	else if (line[0] == 'S')
 	{
 		if (line[1] == 'O')
 		{
+			if (num != 2)
+			{
+				printf("southwall error\n");
+				exit(0);
+			}
 			win->wall_s_addr= split[1];
 		}
 		else
+		{
+			if (num != 2)
+			{
+				printf("sprite error\n");
+				exit(0);
+			}
 			win->sprite_addr = split[1];
+		}
 	}
 	else if (line[0] == 'W' && line[1] == 'E')
 	{
+		if (num != 2)
+		{
+			printf("westwall error\n");
+			exit(0);
+		}
 		win->wall_w_addr = split[1];
 	}
 	else if (line[0] == 'E' && line[1] == 'A')
 	{
+		if (num != 2)
+		{
+			printf("eastwall error\n");
+			exit(0);
+		}
 		win->wall_e_addr = split[1];
 	}
 	else
 	{
 		;
-//		printf("blank\n");
 	}
+}
+
+int		get_word_num(char **split, t_win *win)
+{
+	int		i;
+	
+	i = 0;
+	while (split[i])
+	{
+		i++;
+	}
+	return (i);
 }
 
 void	get_floor_ceiling_color(char *line, t_win *win)
 {
 	char	**split;		// 스플릿 두 번 쓰기 (',', ' ')
 	char	**split2;
+	int		num;
 
 	split = ft_split(line, ' ');
+	split2 = ft_split(split[1], ',');
+	num = get_word_num(split2, win);
 	if (line[0] == 'F')						//////////////////////////////////
 	{
-		split2 = ft_split(split[1], ',');
+		if (num != 3)
+		{
+			printf("floor error\n");
+			exit(0);
+		}
 		win->floor_color = ft_atoi(split2[0]) * 256 * 256 + ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	}
 	else if (line[0] == 'C')
 	{
-		split2 = ft_split(split[1], ',');
+		if (num != 3)
+		{
+			printf("ceiling error\n");
+			exit(0);
+		}
 		win->ceiling_color = ft_atoi(split2[0]) * 256 * 256 + ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	}
 	else
@@ -136,7 +191,7 @@ int		get_map(char *line, t_win *win)
 		if (win->check_map == 1)
 		{
 			printf("cub map error\n");
-			return (0);
+			exit(0);
 		}
 		else
 			return (1);
@@ -147,7 +202,6 @@ int		get_map(char *line, t_win *win)
 		win->check_map = 1;
 		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)line);
 		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)index);
-		printf("parse map\n%s\n", win->parse_map);
 		return (1);
 	}
 	return (0);
@@ -221,7 +275,97 @@ void	make_map(t_win *win)
 int		check_map_effect(t_win *win)
 {
 	check_player(win);
+	check_map_wall(win);
 	// 벽체크와 플레이어 위치 방향 체크까지 같이
+	return (0);
+}
+
+int		check_map_wall(t_win *win)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+	int		check;
+
+	check = 0;
+	i = 0;
+	while (i < win->map_height)
+	{
+		j = 0;
+		while (j < win->map_width)
+		{
+				if (win->map[i][j] == '0' || win->map[i][j] == '2' || win->map[i][j] == 'N' || win->map[i][j] == 'S' || win->map[i][j] == 'W' || win->map[i][j] == 'E')
+				{
+					k = i;
+					check = 0;
+					while (k < win->map_height)
+					{
+						if (win->map[k][j] == '1')
+						{
+							check = 1;
+							break;
+						}
+						k++;
+					}
+					if (check == 0)
+					{
+						printf("invalid map1 %d %d %d\n", i, j, k);
+						exit(0);
+					}
+					k = i;
+					check = 0;
+					while (k >= 0)
+					{
+						if (win->map[k][j] == '1')
+						{
+							check = 1;
+							break;
+						}
+						k--;
+					}
+					if (check == 0)
+					{
+						printf("invalid map2 %d %d\n", i, j);
+						exit(0);
+					}
+					k = j;
+					check = 0;
+					while (k < win->map_width)
+					{
+						if (win->map[i][k] == '1')
+						{
+							check = 1;
+							break;
+						}
+						k++;
+					}
+					if (check == 0)
+					{
+						printf("invalid map3\n");
+						exit(0);
+					}
+					k = j;
+					check = 0;
+					while (k >= 0)
+					{
+						if (win->map[i][k] == '1')
+						{
+							check = 1;
+							break;
+						}
+						k--;
+					}
+					if (check == 0)
+					{
+						printf("invalid map4\n");
+						exit(0);
+					}
+				}
+			j++;
+		}
+		i++;
+	}
 	return (0);
 }
 
@@ -271,6 +415,5 @@ int		check_player(t_win *win)
 		else
 			win->player_dir = 0;
 	}
-	printf("%f %f %f\n", win->player_x, win->player_y, win->player_dir);
 	return (0);
 }

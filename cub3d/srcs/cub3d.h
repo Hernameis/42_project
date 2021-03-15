@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/14 15:30:09 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:09:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,8 @@ void	init_map(t_win *win);
 void	make_map(t_win *win);
 int		check_map_effect(t_win *win);
 int		check_player(t_win *win);
+int		check_map_wall(t_win *win);
+int		get_word_num(char **split, t_win *win);
 
 //	ft_atoi.c
 int		ft_atoi(const char *str);
