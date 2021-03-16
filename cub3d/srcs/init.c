@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/12 18:14:51 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:55:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,57 @@ void	struct_init2(t_win *win)
 
 	win->cub_height = win->scr_height / (double)win->map_height;
 	win->cub_width = win->scr_width / (double)win->map_width;
+	if (win->cub_height > win->cub_width)
+		win->sprite_size = win->cub_width;
+	else
+		win->sprite_size = win->cub_height;
 	win->player_x = win->player_x * win->cub_width + win->cub_width / 2.0;
 	win->player_y = win->player_y * win->cub_height + win->cub_height / 2.0;
 	win->player_dir = win->player_dir * M_PI / 180;
 	win->scr_height = win->scr_height;
 	win->scr_width = win->scr_width;
 	win->player_move_speed = (int)((win->scr_height + win->scr_width) / 500 + 1.5);
+}
 
 
+void	sprite_init(t_win *win)
+{
+	int		i;
+	int		j;
+	int		num;
+
+	num = 0;
+	i = 0;
+	while (i < win->map_height)
+	{
+		j = 0;
+		while (j < win->map_width)
+		{
+			if (win->map[i][j] == '2')
+				num++;
+			j++;
+		}
+		i++;
+	}
+	win->sprite_num = num;
+	win->sprite = (t_sprite *)malloc(sizeof(t_sprite) * win->sprite_num);
+
+
+	num = 0;
+	i = 0;
+	while (i < win->map_height)
+	{
+		j = 0;
+		while (j < win->map_width)
+		{
+			if (win->map[i][j] == '2')
+			{
+				win->sprite[num].center_x = j * win->cub_width + win->cub_width / 2;
+				win->sprite[num].center_y = i * win->cub_height + win->cub_height / 2;
+				num++;
+			}
+			j++;
+		}
+		i++;
+	}
 }

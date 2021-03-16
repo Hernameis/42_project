@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/12 18:11:19 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:37:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int		if_key_pressed(t_win *win)
 	put_laser(win);
 	put_grid(win);
 	put_player(win);
+	draw_sprite(win);
 //	cub3d_bonus(win);
 
 	return (0);

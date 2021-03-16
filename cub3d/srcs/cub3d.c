@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 09:55:09 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:37:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int argc, char **argv)
 			if (check_cubfile(argv[1]))
 			{
 				get_cubfile(&win, argv);
+				printf("start\n");
 			}
 			else
 			{
@@ -55,6 +56,7 @@ int		main(int argc, char **argv)
 		exit(0);
 	}
 	struct_init2(&win);
+	sprite_init(&win);
 	win.img_ptr = mlx_new_image(win.mlx, win.scr_width, win.scr_height);
 	win.data = (int *)mlx_get_data_addr(win.img_ptr, &win.bpp, &win.size_l, &win.endian);
 

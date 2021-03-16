@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 11:09:34 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:43:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ typedef struct		s_list
 	struct s_list		*prev;
 	struct s_list		*next;
 }					t_list;
+
+//	스프라이트 구조체
+typedef	struct		s_sprite
+{
+	double		center_x;
+	double		center_y;
+	double		distance;
+	double		degree;
+}					t_sprite;
 
 typedef struct		s_win
 {
@@ -161,6 +170,10 @@ typedef struct		s_win
 	int			parse_map_height;
 	int			parse_map_width;
 
+	int			sprite_num;
+	double		sprite_size;
+	t_sprite	*sprite;
+
 	//		보너스
 	double		player_life;
 }					t_win;
@@ -175,7 +188,6 @@ typedef struct		s_img
 	int			bpp;
 	int			endian;
 }					t_img;
-
 
 
 //	함수 프로토 타입 선언
@@ -194,12 +206,17 @@ int		ft_loop(t_win *win);
 //	init.c
 void	struct_init(t_win *win);
 void	struct_init2(t_win *win);
+void	sprite_init(t_win *win);
 
 //	laser.c
 void	put_player(t_win *win);
 void	put_laser(t_win *win);
 void	put_grid(t_win *win);
 void	draw_wall(t_win *win, int i, double dis);
+int		check_sprite(t_win *win, int num);
+void	put_sprite(t_win *win, int num);
+void	draw_sprite(t_win *win);
+void	sprite_pixel(t_win *win, int num);
 
 //	map.c
 char	check_map(t_win *win, double x, double y);

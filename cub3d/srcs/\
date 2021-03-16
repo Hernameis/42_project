@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 19:28:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 19:25:31 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,12 +173,11 @@ void	sprite_pixel(t_win *win, int num)
 	double	half;
 	int		start;
 	int		end;
-	double	center;
+	int		center;
 	int		start_w;
 	int		end_w;
 
-	center = win->sprite[num].degree / (win->pov * M_PI / 180) * win->scr_width;
-	printf("%f\n", center);
+	center = (int)win->sprite[num].degree / win->pov * M_PI / 180 * win->width;
 	half = win->scr_height / win->sprite[num].distance * 25;
 	start = (int)(win->scr_height / 2 - half);
 	end = (int)(win->scr_height / 2 + half);
@@ -187,8 +186,8 @@ void	sprite_pixel(t_win *win, int num)
 	if (end > win->scr_height)
 		end = win->scr_height;
 
-	start_w = (int)(center - half);
-	end_w = (int)(center + half);
+	start_w = center - half;
+	end_w = center + half;
 	if (start_w < 0)
 		start_w = 0;
 	if (end_w > win->scr_width)

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 11:20:06 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/15 17:35:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	get_word(char *line, t_win *win)
 
 	split = ft_split(line, ' ');
 	num = get_word_num(split, win);
-	printf("%d\n", num);
 	if (line[0] == 'R')
 	{
 		if (num != 3)
