@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 19:28:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/16 11:24:23 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,7 @@ void	sprite_pixel(t_win *win, int num)
 	int		start_w;
 	int		end_w;
 
-	center = win->sprite[num].degree / (win->pov * M_PI / 180) * win->scr_width;
-	printf("%f\n", center);
+	center = (win->sprite[num].degree - win->player_dir + (win->pov * M_PI / 180) / 2) / (win->pov * M_PI / 180) * win->scr_width;
 	half = win->scr_height / win->sprite[num].distance * 25;
 	start = (int)(win->scr_height / 2 - half);
 	end = (int)(win->scr_height / 2 + half);
@@ -200,9 +199,22 @@ void	sprite_pixel(t_win *win, int num)
 		j = start_w;
 		while (j < end_w)
 		{
-			draw_pixel(win, j, i, 0x000000);
+			if ((sprite_color(win, i - start, end - start, j - start_w, end_w - start_w)) != 0)
+				draw_pixel(win, j, i, sprite_color(win, i - start, end - start, j - start_w, end_w - start_w));
 			j++;
 		}
 		i++;
 	}
+}
+
+int		sprite_color(t_win *win, int i, int height, int j, int width)
+{
+	double	x;
+	double	y;
+	int		color;
+
+	x = i / (double)height;
+	y = j / (double)width;
+	color = win->sprite_data[(int)(x * win->sprite_width) + (int)(y * win->sprite_height) * win->sprite_width];
+	return (color);
 }

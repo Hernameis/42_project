@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 17:43:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/16 11:07:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int		check_sprite(t_win *win, int num);
 void	put_sprite(t_win *win, int num);
 void	draw_sprite(t_win *win);
 void	sprite_pixel(t_win *win, int num);
+int		sprite_color(t_win *win, int i, int height, int j, int width);
 
 //	map.c
 char	check_map(t_win *win, double x, double y);
