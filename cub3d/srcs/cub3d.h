@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 11:20:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:39:45 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,12 @@ typedef struct		s_img
 	int			endian;
 }					t_img;
 
-//	cub3d.c
+//	pixel.c
 int				draw_pixel(t_win *win, int x, int y, int color);
 int				check_pixel(t_win *win, int x, int y, int color);
+void			get_image_data(t_win *win);
 
+//	cub3d.c
 int				if_key_pressed(t_win *win);
 int				key_press(int key, t_win *win);
 int				key_release(int key, t_win *win);

@@ -5,7 +5,7 @@ SO ./wall/wall_s.xpm
 WE ./wall/wall_w.xpm
 EA ./wall/wall_e.xpm
 
-S "wall/sprite.xpm"
+S ./wall/sprite.xpm
 F 220,100,0
 C 225,30,0
 
