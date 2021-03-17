@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 17:55:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:03:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	struct_init2(t_win *win)
 	win->player_x = win->player_x * win->cub_width + win->cub_width / 2.0;
 	win->player_y = win->player_y * win->cub_height + win->cub_height / 2.0;
 	win->player_dir = win->player_dir * M_PI / 180;
-	win->scr_height = win->scr_height;
-	win->scr_width = win->scr_width;
 	win->player_move_speed = (int)((win->scr_height + win->scr_width) / 500 + 1.5);
+
+	win->dis_for_check = (double *)malloc(sizeof(double) * win->scr_width);
 }
 
 

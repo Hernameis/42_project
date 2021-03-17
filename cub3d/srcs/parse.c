@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/15 17:35:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:55:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	get_cubfile(t_win *win, char **argv)
 	int		a;
 	int		i;
 	char	*line;
-	char	**split;
 	char	c;
 
 	fd = open(argv[1], O_RDONLY);
@@ -43,6 +42,7 @@ void	get_cubfile(t_win *win, char **argv)
 			if (get_map(line, win) == 0)
 				break;
 		}
+		free(line);
 		i++;
 	}
 	init_map(win);
@@ -130,6 +130,7 @@ void	get_word(char *line, t_win *win)
 	{
 		;
 	}
+	free_split(split);
 }
 
 int		get_word_num(char **split, t_win *win)
@@ -173,6 +174,8 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	}
 	else
 		;
+	free_split(split);
+	free_split(split2);
 }
 
 int		get_map(char *line, t_win *win)
@@ -203,6 +206,7 @@ int		get_map(char *line, t_win *win)
 		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)index);
 		return (1);
 	}
+	free(index);
 	return (0);
 }
 
@@ -269,6 +273,7 @@ void	make_map(t_win *win)
 		}
 		i++;
 	}
+	free_split(split);
 }
 
 int		check_map_effect(t_win *win)
@@ -415,4 +420,15 @@ int		check_player(t_win *win)
 			win->player_dir = 0;
 	}
 	return (0);
+}
+
+void	free_split(char **split)
+{
+	int		i;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

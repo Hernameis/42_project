@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 11:39:45 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:44:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include "../minilibx_mms/mlx.h"
 
-# define key_esc 53
+# define key_esc 53		// define 한 것 모두 대문자로 바꿔주어야 함
 # define key_w 13
 # define key_a 0
 # define key_s 1
@@ -155,6 +155,7 @@ typedef struct		s_win
 	int			sprite_endian;
 
 	double		wall_dis;
+	double		*dis_for_check;
 
 	int			save;
 	int			check_map;
@@ -284,6 +285,7 @@ int				check_map_effect(t_win *win);
 int				check_player(t_win *win);
 int				check_map_wall(t_win *win);
 int				get_word_num(char **split, t_win *win);
+void			free_split(char **split);
 
 //	ft_atoi.c
 int				ft_atoi(const char *str);

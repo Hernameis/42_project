@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 11:10:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:07:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	put_laser(t_win *win)
 				break;
 		}
 		win->wall_dis = (distance(win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
+		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 		a_i++;
@@ -185,7 +186,7 @@ void	sprite_pixel(t_win *win, int num)
 	int		end_w;
 
 	center = (win->sprite[num].degree - win->player_dir + (win->pov * M_PI / 180) / 2) / (win->pov * M_PI / 180) * win->scr_width;
-	half = win->scr_height / win->sprite[num].distance * 25;
+	half = win->scr_height / win->sprite[num].distance * 55;
 	start = (int)(win->scr_height / 2 - half);
 	end = (int)(win->scr_height / 2 + half);
 	start_w = (int)(center - half);
@@ -199,7 +200,12 @@ void	sprite_pixel(t_win *win, int num)
 			if ((sprite_color(win, i - start, end - start, j - start_w, end_w - start_w)) != 0)
 			{
 				if (i >= 0 && j >= 0 && i < win->scr_height && j < win->scr_width)
-				draw_pixel(win, j, i, sprite_color(win, i - start, end - start, j - start_w, end_w - start_w));
+				{
+					if (win->dis_for_check[j] > win->sprite[num].distance)
+					{
+						draw_pixel(win, j, i, sprite_color(win, i - start, end - start, j - start_w, end_w - start_w));
+					}
+				}
 			}
 			j++;
 		}

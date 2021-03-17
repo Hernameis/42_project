@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 11:56:10 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 14:10:16 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(int argc, char **argv)
 
 void	parse_argv(t_win *win, int argc, char **argv)
 {
-	if (argc == 2)
+	if (argc == 2 || argc == 3)
 	{
 		if (check_cubfile(argv[1]))
 			get_cubfile(win, argv);
@@ -44,7 +44,7 @@ void	parse_argv(t_win *win, int argc, char **argv)
 			exit(0);
 		}
 	}
-	else if (argc == 3)
+	if (argc == 3)
 	{
 		if (check_save(argv))
 			make_bitmap(win);
@@ -54,7 +54,7 @@ void	parse_argv(t_win *win, int argc, char **argv)
 			exit(0);
 		}
 	}
-	else
+	if (!(argc == 2 || argc == 3))
 	{
 		printf("number of file error\n");
 		exit(0);

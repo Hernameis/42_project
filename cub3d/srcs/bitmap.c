@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 18:34:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 14:21:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int		check_save(char **argv)
 {
 	char	save[6] = "--save";
 
-	if (ft_strncmp(save, argv[2], 6) == 0)
+	if (ft_strncmp(save, argv[2], 6) == 0 && argv[2][6] == '\0')
 		return (1);
 	return (0);
 }
 
 void	make_bitmap(t_win *win)
 {
-	if_key_pressed(win);
+//	if_key_pressed(win);
 	put_bitmap(win);
 	printf("screenshot saved\n");
 	exit(0);
