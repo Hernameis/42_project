@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/16 14:31:53 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:10:41 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,33 +137,40 @@ void	draw_sprite(t_win *win)
 {
 	int		num;
 
-	num = 0;
-	while (num < win->sprite_num)
+	put_sprite(win);
+	num = win->sprite_num;
+	while (num > 0)
 	{
-		put_sprite(win, num);
 		if (check_sprite(win, num))
 		{
 			sprite_pixel(win, num);
 		}
-		num++;
+		num--;
 	}
 }
 
 int		check_sprite(t_win *win, int num)		//	보이는 스프라이트인지
 {
 	within_degree(win);
-	if (win->sprite[num].degree >= win->player_dir - (win->pov + 5) / 2 * M_PI / 180 && win->sprite[num].degree <= win->player_dir + (win->pov + 5) / 2 * M_PI / 180)// 각도 안에 들어오면
+	if (win->sprite[num].degree >= win->player_dir - (win->pov + 20) / 2 * M_PI / 180 && win->sprite[num].degree <= win->player_dir + (win->pov + 20) / 2 * M_PI / 180)// 각도 안에 들어오면	// 그리고 벽보다 가까우면
 	{
 		return (1);
 	}
 	return (0);
 }
 
-void	put_sprite(t_win *win, int num)
+void	put_sprite(t_win *win)
 {
-	win->sprite[num].distance = distance(win->player_x - win->sprite[num].center_x, win->player_y - win->sprite[num].center_y);
-	win->sprite[num].degree = degree_from_xy(win->player_x, win->sprite[num].center_x, win->player_y, win->sprite[num].center_y);
+	int		num;
 
+	num = 0;
+	while (num < win->sprite_num)
+	{
+		win->sprite[num].distance = distance(win->player_x - win->sprite[num].center_x, win->player_y - win->sprite[num].center_y);
+		win->sprite[num].degree = degree_from_xy(win->player_x, win->sprite[num].center_x, win->player_y, win->sprite[num].center_y);
+		num++;
+	}
+	compare_sprite(win, win->sprite_num);
 }
 
 void	sprite_pixel(t_win *win, int num)
@@ -181,18 +188,8 @@ void	sprite_pixel(t_win *win, int num)
 	half = win->scr_height / win->sprite[num].distance * 25;
 	start = (int)(win->scr_height / 2 - half);
 	end = (int)(win->scr_height / 2 + half);
-	if (start < 0)
-		start = 0;
-	if (end > win->scr_height)
-		end = win->scr_height;
-
 	start_w = (int)(center - half);
 	end_w = (int)(center + half);
-	if (start_w < 0)
-		start_w = 0;
-	if (end_w > win->scr_width)
-		end_w = win->scr_width;
-
 	i = start;
 	while (i < end)
 	{
@@ -200,7 +197,10 @@ void	sprite_pixel(t_win *win, int num)
 		while (j < end_w)
 		{
 			if ((sprite_color(win, i - start, end - start, j - start_w, end_w - start_w)) != 0)
+			{
+				if (i >= 0 && j >= 0 && i < win->scr_height && j < win->scr_width)
 				draw_pixel(win, j, i, sprite_color(win, i - start, end - start, j - start_w, end_w - start_w));
+			}
 			j++;
 		}
 		i++;
@@ -209,6 +209,7 @@ void	sprite_pixel(t_win *win, int num)
 
 int		sprite_color(t_win *win, int i, int height, int j, int width)
 {
+//	return (0x000001);
 	double	x;
 	double	y;
 	int		color;
@@ -217,4 +218,32 @@ int		sprite_color(t_win *win, int i, int height, int j, int width)
 	y = j / (double)width;
 	color = win->sprite_data[(int)(x * win->sprite_width) + (int)(y * win->sprite_height) * win->sprite_width];
 	return (color);
+}
+
+void	compare_sprite(t_win *win, int num)
+{
+	int		i;
+	int		j;
+	double	temp_distance;
+	double	temp_degree;
+
+	i = num;
+	while (i > 0)
+	{
+		j = 0;
+		while (j < num - 1)
+		{
+			if (win->sprite[j].distance > win->sprite[j + 1].distance)
+			{
+				temp_distance = win->sprite[j + 1].distance;
+				temp_degree = win->sprite[j + 1].degree;
+				win->sprite[j + 1].distance = win->sprite[j].distance;
+				win->sprite[j + 1].degree = win->sprite[j].degree;
+				win->sprite[j].distance = temp_distance;
+				win->sprite[j].degree = temp_degree;
+			}
+			j++;
+		}
+		i--;
+	}
 }

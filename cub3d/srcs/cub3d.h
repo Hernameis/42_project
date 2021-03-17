@@ -6,15 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/16 11:07:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:20:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define LIBFT_H
 
-
-//	라이브러리
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -34,9 +32,6 @@
 # define PIXEL_SIZE 3
 # define PIXEL_ALIGN 4
 
-
-//	구조체
-
 typedef struct		s_list
 {
 	void				*content;
@@ -44,7 +39,6 @@ typedef struct		s_list
 	struct s_list		*next;
 }					t_list;
 
-//	스프라이트 구조체
 typedef	struct		s_sprite
 {
 	double		center_x;
@@ -189,79 +183,74 @@ typedef struct		s_img
 	int			endian;
 }					t_img;
 
-
-//	함수 프로토 타입 선언
-
 //	cub3d.c
-int		draw_pixel(t_win *win, int x, int y, int color);
-int		check_pixel(t_win *win, int x, int y, int color);
+int				draw_pixel(t_win *win, int x, int y, int color);
+int				check_pixel(t_win *win, int x, int y, int color);
 
-int		if_key_pressed(t_win *win);
-int		key_press(int key, t_win *win);
-int		key_release(int key, t_win *win);
-int		if_key_ad(t_win *win);
-int		if_key_ws(t_win *win);
-int		ft_loop(t_win *win);
+int				if_key_pressed(t_win *win);
+int				key_press(int key, t_win *win);
+int				key_release(int key, t_win *win);
+int				if_key_ad(t_win *win);
+int				if_key_ws(t_win *win);
+int				ft_loop(t_win *win);
+void			parse_argv(t_win *win, int argc, char **argv);
 
 //	init.c
-void	struct_init(t_win *win);
-void	struct_init2(t_win *win);
-void	sprite_init(t_win *win);
+void			struct_init(t_win *win);
+void			struct_init2(t_win *win);
+void			sprite_init(t_win *win);
 
 //	laser.c
-void	put_player(t_win *win);
-void	put_laser(t_win *win);
-void	put_grid(t_win *win);
-void	draw_wall(t_win *win, int i, double dis);
-int		check_sprite(t_win *win, int num);
-void	put_sprite(t_win *win, int num);
-void	draw_sprite(t_win *win);
-void	sprite_pixel(t_win *win, int num);
-int		sprite_color(t_win *win, int i, int height, int j, int width);
+void			put_player(t_win *win);
+void			put_laser(t_win *win);
+void			put_grid(t_win *win);
+void			draw_wall(t_win *win, int i, double dis);
+int				check_sprite(t_win *win, int num);
+void			put_sprite(t_win *win);
+void			draw_sprite(t_win *win);
+void			sprite_pixel(t_win *win, int num);
+int				sprite_color(t_win *win, int i, int height, int j, int width);
+void			compare_sprite(t_win *win, int num);
 
 //	map.c
-char	check_map(t_win *win, double x, double y);
+char			check_map(t_win *win, double x, double y);
 
-int		mini_x(t_win *win, int x);
-int		mini_y(t_win *win, int y);
+int				mini_x(t_win *win, int x);
+int				mini_y(t_win *win, int y);
 
 // calc.c
-double	distance(double a, double b);
-double	degree_from_xy(double x1, double x2, double y1, double y2);
-int		if_pass_wall(t_win *win, int key);
-void	within_degree(t_win *win);
+double			distance(double a, double b);
+double			degree_from_xy(double x1, double x2, double y1, double y2);
+int				if_pass_wall(t_win *win, int key);
+void			within_degree(t_win *win);
 
 //	if_wall
-int		if_wall(int k, int height, t_win *win);
-int		wall_w_color(double k,int height, t_win *win);
-int		wall_e_color(int k,int height, t_win *win);
-int		wall_s_color(int k,int height, t_win *win);
-int		wall_n_color(int k,int height, t_win *win);
-int		which_wall(t_win *win);
+int				if_wall(int k, int height, t_win *win);
+int				wall_w_color(double k, int height, t_win *win);
+int				wall_e_color(int k, int height, t_win *win);
+int				wall_s_color(int k, int height, t_win *win);
+int				wall_n_color(int k, int height, t_win *win);
+int				which_wall(t_win *win);
 
 //	calc2.c
-double	equation_intercept_y(double a, double p, double q);
-double	meet_between_segments_x(double a, double b, double c, double d);
-double	meet_between_segments_y(double a, double b, double c, double d);
-int		check_other_sprite(t_win *win);
+double			equation_intercept_y(double a, double p, double q);
+double			meet_between_segments_x(double a, double b, double c, double d);
+double			meet_between_segments_y(double a, double b, double c, double d);
+int				check_other_sprite(t_win *win);
 
-int		check_save(char **argv);
-void	make_bitmap(t_win *win);
-void	put_bitmap(t_win *win);
-int		put_bitmap_header(t_win *win, unsigned char *header);
+int				check_save(char **argv);
+void			make_bitmap(t_win *win);
+void			put_bitmap(t_win *win);
+int				put_bitmap_header(t_win *win, unsigned char *header);
 
 //	libft.c
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*is_new(char *s, char c);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t			ft_strlen(const char *str);
+char			*ft_strdup(const char *s);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*is_new(char *s, char c);
 
 //	libft
-t_list	*ft_lstlast(t_list *lst);					//ft_lstlast
-t_list	*ft_lstnew(void *content);					//ft_lstnew
-void	ft_lstadd_back(t_list **lst, t_list *new);	//ft_lstadd_back
-int		ft_lstsize(t_list *lst);					//ft_lstsize
 
 /*		sprite_atan2.c
 void	sprite_pixel(t_win *win, int start, int end, int i);
@@ -281,30 +270,32 @@ static	char	**ft_push_split(char *s, char **split, int num, char c);
 char			**ft_split(char const *s, char c);
 
 // parse.c
-void	get_cubfile(t_win *win, char **argv);
-int		check_cubfile(const char *str);
-void	get_word(char *line, t_win *win);
-void	get_floor_ceiling_color(char *line, t_win *win);
-int		get_map(char *line, t_win *win);
-int		check_blank(char *line, t_win *win);
-void	init_map(t_win *win);
-void	make_map(t_win *win);
-int		check_map_effect(t_win *win);
-int		check_player(t_win *win);
-int		check_map_wall(t_win *win);
-int		get_word_num(char **split, t_win *win);
+void			get_cubfile(t_win *win, char **argv);
+int				check_cubfile(const char *str);
+void			get_word(char *line, t_win *win);
+void			get_floor_ceiling_color(char *line, t_win *win);
+int				get_map(char *line, t_win *win);
+int				check_blank(char *line, t_win *win);
+void			init_map(t_win *win);
+void			make_map(t_win *win);
+int				check_map_effect(t_win *win);
+int				check_player(t_win *win);
+int				check_map_wall(t_win *win);
+int				get_word_num(char **split, t_win *win);
 
 //	ft_atoi.c
-int		ft_atoi(const char *str);
+int				ft_atoi(const char *str);
 
-int		ft_exit(int key);
+//	calc3.c
+double			res_double(double a, double b);
+
+int				ft_exit(int key);
 // 보너스
-void	cub3d_bonus(t_win *win);
-void	player_life(t_win *win);
-int		player_life_check(t_win *win, int w_idx, int h_dix);
+void			cub3d_bonus(t_win *win);
+void			player_life(t_win *win);
+int				player_life_check(t_win *win, int w_idx, int h_dix);
 
 // 지울거
-void	ceiling(t_win *win);
-
+void			ceiling(t_win *win);
 
 #endif

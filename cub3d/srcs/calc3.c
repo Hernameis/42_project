@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   calc3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 13:52:52 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/11 14:12:34 by sunmin           ###   ########.fr       */
+/*   Created: 2021/03/17 09:00:42 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/17 09:04:57 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_list	*ft_lstlast(t_list *lst)
+double		res_double(double a, double b)
 {
-	if (lst == NULL)
-		return (NULL);
-	while (lst)
+	double res;
+
+	res = b;
+	while (res >= a)
 	{
-		if (lst->next)
-			lst = lst->next;
-		else
-			break ;
+		res -= a;
 	}
-	return (lst);
+	return (res);
 }

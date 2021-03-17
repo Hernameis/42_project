@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/16 13:00:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/17 09:33:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int		if_wall(int k, int height, t_win *win)
 	}
 	else if (which_wall(win) == 3)
 	{
-		return (wall_s_color(k, height, win));
+		return (wall_n_color(k, height, win));
 	}
 	else if (which_wall(win) == 4)
 	{
-		return (wall_n_color(k, height, win));
+		return (wall_s_color(k, height, win));
 	}
 	return (0);
 }
@@ -38,17 +38,21 @@ int		which_wall(t_win *win)
 {
 	if (check_map(win, win->laser_x, win->laser_y + 1) == '1' && check_map(win, win->laser_x, win->laser_y - 1) == '1')		// 동서인지
 	{
-		if ((int)win->laser_x % (int)win->cub_width == 0)								// 동쪽 벽
+		if (res_double(win->laser_x, win->cub_width) >= 0 && res_double(win->laser_x, win->cub_width) < 1)
+//		if ((int)win->laser_x % (int)win->cub_width == 0)								// 동쪽 벽
 			return (1);
-		else if ((int)win->laser_x % (int)win->cub_width == win->cub_width - 1)			// 서쪽 벽
+		else //if ((int)win->laser_x % (int)win->cub_width == win->cub_width - 1)			// 서쪽 벽
 			return (2);
 	}
 	else		// 남북인지
 	{
-		if ((int)win->laser_y % (int)win->cub_height == win->cub_height -1)		// 남쪽 벽
-			return (3);
-		else if ((int)win->laser_y % (int)win->cub_height == 0)							// 북쪽 벽
+		if (res_double(win->laser_y, win->cub_height) >= 0 && res_double(win->laser_x, win->cub_width) < 1)
+//		if ((int)win->laser_y % (int)win->cub_height == 0)							// 북쪽 벽
 			return (4);
+		else	//if ((int)win->laser_y % (int)win->cub_height == win->cub_height -1)		// 남쪽 벽
+			return (3);
+
+
 	}
 	return (0);
 }
