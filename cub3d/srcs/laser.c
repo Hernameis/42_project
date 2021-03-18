@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 09:50:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:52:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	draw_wall(t_win *win, int i, double dis)
 	double	wall_half_height;
 	double	k;
 	double	scr_height;
-	wall_half_height = win->scr_height / dis * 25;
+//	wall_half_height = win->scr_height / dis * 35;
+	wall_half_height = win->dist / dis * win->cub_height / 2;
 	start = win->scr_height / 2 - wall_half_height;
 	end = win->scr_height / 2 + wall_half_height;
 	j = 0;
@@ -151,7 +152,7 @@ void	draw_sprite(t_win *win)
 int		check_sprite(t_win *win, int num)		//	보이는 스프라이트인지
 {
 	within_degree(win);
-	if (win->sprite[num].degree >= win->player_dir - (win->pov + 20) / 2 * M_PI / 180 && win->sprite[num].degree <= win->player_dir + (win->pov + 20) / 2 * M_PI / 180)// 각도 안에 들어오면	// 그리고 벽보다 가까우면
+	if (win->sprite[num].degree >= win->player_dir - (win->pov + 30) / 2 * M_PI / 180 && win->sprite[num].degree <= win->player_dir + (win->pov + 30) / 2 * M_PI / 180)// 각도 안에 들어오면	// 그리고 벽보다 가까우면
 	{
 		return (1);
 	}

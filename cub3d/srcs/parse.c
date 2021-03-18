@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 10:53:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:05:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	get_cubfile(t_win *win, char **argv)
 	char	*line;
 	char	c;
 
+
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
@@ -27,11 +28,14 @@ void	get_cubfile(t_win *win, char **argv)
 		return ;
 	}
 	i = 0;
+
 	while ((a = get_next_line(fd, &line)) > 0)		// 스프라이트 까지
 	{
 		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W' || line[0] == 'E' || line[0] == 'S')
 		{
+
 			get_word(line, win);
+
 		}
 		else if (line[0] == 'F' || line[0] == 'C')
 		{
@@ -40,7 +44,10 @@ void	get_cubfile(t_win *win, char **argv)
 		else
 		{
 			if (get_map(line, win) == 0)
+			{
+				free(line);
 				break;
+			}
 		}
 		free(line);
 		i++;
@@ -184,6 +191,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	}
 	else
 		;
+
 	free_split(split);
 	free_split(split2);
 }
@@ -193,6 +201,7 @@ int		get_map(char *line, t_win *win)
 	int		i;
 	int		len;
 	char	*index;
+	char	*temp;
 
 	index = ft_strdup("a");
 	len = ft_strlen(line);
@@ -202,18 +211,29 @@ int		get_map(char *line, t_win *win)
 	{
 		if (win->check_map == 1)
 		{
+			free(index);
 			printf("cub map error\n");
 			exit(0);
 		}
 		else
+		{
+			free(index);
 			return (1);
+		}
 	}
 	else
 	{
 		win->map_height++;
 		win->check_map = 1;
-		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)line);
-		win->parse_map = ft_strjoin((const char *)win->parse_map, (const char *)index);
+		temp = ft_strdup(win->parse_map);
+		free(win->parse_map);
+		win->parse_map = ft_strjoin((const char *)temp, (const char *)line);
+		free(temp);
+		temp = ft_strdup(win->parse_map);
+		free(win->parse_map);
+		win->parse_map = ft_strjoin((const char *)temp, (const char *)index);
+		free(temp);
+		free(index);
 		return (1);
 	}
 	free(index);

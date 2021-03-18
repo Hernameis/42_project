@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 11:03:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:04:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 	pad_size = (width * PIXEL_SIZE) % PIXEL_ALIGN;
 	pad_size = (PIXEL_ALIGN - pad_size) % PIXEL_ALIGN;
 	size = (width * PIXEL_SIZE + pad_size) * height;
-
 	i = -1;
 	while (++i < 54)
 		header[i] = 0;

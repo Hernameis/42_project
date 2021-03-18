@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 10:33:02 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 13:59:48 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_bitmap(t_win *win, int argc, char **argv)
 }
 void	parse_argv(t_win *win, int argc, char **argv)
 {
+
 	if (argc == 2 || argc == 3)
 	{
 		if (check_cubfile(argv[1]))
@@ -58,11 +59,14 @@ void	parse_argv(t_win *win, int argc, char **argv)
 			exit(0);
 		}
 	}
+
 	if (!(argc == 2 || argc == 3))
 	{
 		printf("number of file error\n");
 		exit(0);
 	}
+
+
 }
 
 int		ft_exit(int key)
