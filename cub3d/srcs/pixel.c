@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:32:09 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 11:53:10 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:32:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	get_image_data(t_win *win)
 	win->wall_w_data = (int *)mlx_get_data_addr(win->wall_w_ptr, &win->wall_w_bpp, &win->wall_w_size_l, &win->wall_w_endian);
 	win->sprite_ptr = mlx_xpm_file_to_image(win->mlx, win->sprite_addr, &win->sprite_width, &win->sprite_height);
 	win->sprite_data = (int *)mlx_get_data_addr(win->sprite_ptr, &win->sprite_bpp, &win->sprite_size_l, &win->sprite_endian);
-
 }

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 14:10:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:33:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		main(int argc, char **argv)
 	win.img_ptr = mlx_new_image(win.mlx, win.scr_width, win.scr_height);
 	get_image_data(&win);
 	win.win = mlx_new_window(win.mlx, win.scr_width, win.scr_height, "cub3d");
+	ft_bitmap(&win, argc, argv);
 	mlx_loop_hook(win.mlx, ft_loop, &win);
 	mlx_hook(win.win, 2, 1L << 0, key_press, &win);
 	mlx_hook(win.win, 3, 1L << 1, key_release, &win);
@@ -32,6 +33,19 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
+void	ft_bitmap(t_win *win, int argc, char **argv)
+{
+	if (argc == 3)
+	{
+		if (check_save(argv))
+			make_bitmap(win);
+		else
+		{
+			printf("save command error\n");
+			exit(0);
+		}
+	}
+}
 void	parse_argv(t_win *win, int argc, char **argv)
 {
 	if (argc == 2 || argc == 3)
@@ -41,16 +55,6 @@ void	parse_argv(t_win *win, int argc, char **argv)
 		else
 		{
 			printf("not .cub file\n");
-			exit(0);
-		}
-	}
-	if (argc == 3)
-	{
-		if (check_save(argv))
-			make_bitmap(win);
-		else
-		{
-			printf("save command error\n");
 			exit(0);
 		}
 	}

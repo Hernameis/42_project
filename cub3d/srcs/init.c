@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 13:03:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:48:24 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	struct_init(t_win *win)
 	win->map_height = 0;
 	win->check_map = 0;
 	win->parse_map = ft_strdup("");
-
-	//
-
 
 	win->press_w = 0;
 	win->press_s = 0;

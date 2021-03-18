@@ -1,13 +1,11 @@
-R 500 500
-
+R 640 480
 NO ./wall/wall_1.xpm
 SO ./wall/wall_2.xpm
 WE ./wall/wall_3.xpm
 EA ./wall/wall_4.xpm
-
 S ./wall/sprite.xpm
-F 220,100,0
-C 225,30,0
+FF 00,153,15
+C 255,255,255
 
 1111111111111111
 1S00000000000011111

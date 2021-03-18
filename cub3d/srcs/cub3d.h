@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 13:44:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:44:42 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ typedef struct		s_win
 	int			save;
 	int			check_map;
 
+	char		*old_map;
+	char		*new_map;
 	char		*parse_map;
 	char		**map;
 	int			parse_map_height;
@@ -197,6 +199,7 @@ int				if_key_ad(t_win *win);
 int				if_key_ws(t_win *win);
 int				ft_loop(t_win *win);
 void			parse_argv(t_win *win, int argc, char **argv);
+void			ft_bitmap(t_win *win, int argc, char **argv);
 
 //	init.c
 void			struct_init(t_win *win);
@@ -228,11 +231,11 @@ int				if_pass_wall(t_win *win, int key);
 void			within_degree(t_win *win);
 
 //	if_wall
-int				if_wall(int k, int height, t_win *win);
-int				wall_w_color(double k, int height, t_win *win);
-int				wall_e_color(int k, int height, t_win *win);
-int				wall_s_color(int k, int height, t_win *win);
-int				wall_n_color(int k, int height, t_win *win);
+int				if_wall(int k, double height, t_win *win);
+int				wall_w_color(double k, double height, t_win *win);
+int				wall_e_color(int k, double height, t_win *win);
+int				wall_s_color(int k, double height, t_win *win);
+int				wall_n_color(int k, double height, t_win *win);
 int				which_wall(t_win *win);
 
 //	calc2.c
@@ -286,6 +289,7 @@ int				check_player(t_win *win);
 int				check_map_wall(t_win *win);
 int				get_word_num(char **split, t_win *win);
 void			free_split(char **split);
+void			check_resolution(t_win *win);
 
 //	ft_atoi.c
 int				ft_atoi(const char *str);

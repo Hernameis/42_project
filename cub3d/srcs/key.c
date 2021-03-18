@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 14:18:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:58:24 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ int		if_key_ws(t_win *win)
 int		if_key_pressed(t_win *win)
 {
 
+
 	if (win->press_w)
 	{
-		if (if_pass_wall(win, key_w) != '1')
+		if (if_pass_wall(win, key_w) != '1' && if_pass_wall(win, key_w) != '2')
 		{
 			win->player_x += cos(win->player_dir) * win->player_move_speed;
 			win->player_y += sin(win->player_dir) * win->player_move_speed;
@@ -106,7 +107,7 @@ int		if_key_pressed(t_win *win)
 	}
 	else if (win->press_s)
 	{
-		if (if_pass_wall(win, key_s) != '1')
+		if (if_pass_wall(win, key_s) != '1' && if_pass_wall(win, key_s) != '2')
 		{
 			win->player_x -= cos(win->player_dir);
 			win->player_y -= sin(win->player_dir);

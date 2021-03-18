@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 13:07:57 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 09:50:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ void	put_player(t_win *win)
 void	put_laser(t_win *win)
 {
 	int k = 0;
-
 	double	a_i = ((win->scr_width - 1) / -2);
 	win->dist = 1 / tan(win->pov *M_PI / 180 / 2) * win->scr_width / 2;
-
 	win->i = 0;
 	while (a_i < (int)win->scr_width / 2)
 	{
@@ -98,14 +96,12 @@ void	draw_wall(t_win *win, int i, double dis)
 	double	wall_half_height;
 	double	k;
 	double	scr_height;
-
-	scr_height = win->scr_height;
-	wall_half_height = scr_height / dis * 25;
-	start = scr_height / 2 - wall_half_height;
-	end = scr_height / 2 + wall_half_height;
+	wall_half_height = win->scr_height / dis * 25;
+	start = win->scr_height / 2 - wall_half_height;
+	end = win->scr_height / 2 + wall_half_height;
 	j = 0;
 	k = 0;
-	while (j < scr_height)
+	while (j < win->scr_height)
 	{
 		if (j > start && j < end)
 		{
@@ -114,7 +110,9 @@ void	draw_wall(t_win *win, int i, double dis)
 				color = if_wall(k - start / (end - start) * wall_half_height * 2, wall_half_height * 2, win);
 			}
 			else
+			{
 				color = if_wall(k, wall_half_height * 2, win);
+			}
 			if (player_life_check(win, i, j) != 1)
 			{
 				if (check_pixel(win, i, j, 0xffff00) == 0)	// 레이저랑 안겹치게
@@ -124,7 +122,7 @@ void	draw_wall(t_win *win, int i, double dis)
 		}
 		else
 		{
-			if (j < scr_height / 2)
+			if (j < win->scr_height / 2)
 				color = 0x87ceeb;
 			else
 				color = 0xffd700;
@@ -140,7 +138,7 @@ void	draw_sprite(t_win *win)
 
 	put_sprite(win);
 	num = win->sprite_num;
-	while (num > 0)
+	while (num >= 0)
 	{
 		if (check_sprite(win, num))
 		{

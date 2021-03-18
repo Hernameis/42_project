@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 13:55:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:53:48 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,20 @@ void	get_cubfile(t_win *win, char **argv)
 		free(line);
 		i++;
 	}
+	check_resolution(win);
 	init_map(win);
 	make_map(win);
 	check_map_effect(win);
 	close(fd);
+}
+
+void	check_resolution(t_win *win)
+{
+	if (win->scr_width < 200 || win->scr_height < 200 || win->scr_height > 1500 || win->scr_width > 1500)
+	{
+		printf("Resolution invalid (200 ~ 1500)\n");
+		exit(0);
+	}
 }
 
 int		check_cubfile(const char *str)
@@ -85,7 +95,7 @@ void	get_word(char *line, t_win *win)
 			printf("northwall error\n");
 			exit(0);
 		}
-		win->wall_n_addr = split[1];
+		win->wall_n_addr = ft_strdup(split[1]);
 	}
 	else if (line[0] == 'S')
 	{
@@ -96,7 +106,7 @@ void	get_word(char *line, t_win *win)
 				printf("southwall error\n");
 				exit(0);
 			}
-			win->wall_s_addr= split[1];
+			win->wall_s_addr= ft_strdup(split[1]);
 		}
 		else
 		{
@@ -105,7 +115,7 @@ void	get_word(char *line, t_win *win)
 				printf("sprite error\n");
 				exit(0);
 			}
-			win->sprite_addr = split[1];
+			win->sprite_addr = ft_strdup(split[1]);
 		}
 	}
 	else if (line[0] == 'W' && line[1] == 'E')
@@ -115,7 +125,7 @@ void	get_word(char *line, t_win *win)
 			printf("westwall error\n");
 			exit(0);
 		}
-		win->wall_w_addr = split[1];
+		win->wall_w_addr = ft_strdup(split[1]);
 	}
 	else if (line[0] == 'E' && line[1] == 'A')
 	{
@@ -124,7 +134,7 @@ void	get_word(char *line, t_win *win)
 			printf("eastwall error\n");
 			exit(0);
 		}
-		win->wall_e_addr = split[1];
+		win->wall_e_addr = ft_strdup(split[1]);
 	}
 	else
 	{
@@ -425,10 +435,13 @@ int		check_player(t_win *win)
 void	free_split(char **split)
 {
 	int		i;
+
+	i = 0;
 	while (split[i])
 	{
 		free(split[i]);
 		i++;
 	}
-	free(split);
+	if (split)
+		free(split);
 }
