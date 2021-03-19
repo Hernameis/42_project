@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 10:44:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/19 10:19:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,8 @@ void			put_player(t_win *win);
 void			put_laser(t_win *win);
 void			put_grid(t_win *win);
 void			draw_wall(t_win *win, int i, double dis);
+
+//	sprite.c
 int				check_sprite(t_win *win, int num);
 void			put_sprite(t_win *win);
 void			draw_sprite(t_win *win);
