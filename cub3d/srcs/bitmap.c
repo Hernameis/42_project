@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 11:04:38 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 09:53:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 int		check_save(char **argv)
 {
-	char	save[6] = "--save";
+	char			*save;
 
+	save = (char *)malloc(sizeof(char) * (6 + 1));
+	save = ft_strdup("--save");
 	if (ft_strncmp(save, argv[2], 6) == 0 && argv[2][6] == '\0')
+	{
+		free(save);
 		return (1);
+	}
 	return (0);
 }
 
 void	make_bitmap(t_win *win)
 {
 	if_key_pressed(win);
-	printf("bithgoggd");
 	put_bitmap(win);
 	printf("screenshot saved\n");
 	exit(0);
@@ -45,24 +49,17 @@ void	put_bitmap(t_win *win)
 		exit(0);
 	}
 	size = put_bitmap_header(win, &header[0]);
-	i = 0;
-	while (i < 54)
-	{
+	i = -1;
+	while (++i < 54)
 		write(fd, &header[i], 1);
-		i++;
-	}
 	i = (int)win->scr_height - 1;
 	while (i > -1)
 	{
-		j = 0;
-		while (j < win->scr_width)
-		{
+		j = -1;
+		while (++j < win->scr_width)
 			write(fd, &win->data[((int)(win->scr_width)) * i + j], 3);
-			j++;
-		}
 		i--;
 	}
-
 }
 
 int		put_bitmap_header(t_win *win, unsigned char *header)
@@ -82,6 +79,13 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 	i = -1;
 	while (++i < 54)
 		header[i] = 0;
+	set_bitmap_header(header, height, width, size);
+	return (size);
+}
+
+void	set_bitmap_header(unsigned char *header,
+		int height, int width, int size)
+{
 	header[0] = (unsigned char)'B';
 	header[1] = (unsigned char)'M';
 	header[2] = (unsigned char)size % 256;
@@ -100,5 +104,4 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 	header[25] = (unsigned char)((height / 256) / 256) / 256;
 	header[26] = (unsigned char)1;
 	header[28] = (unsigned char)24;
-	return (size);
 }

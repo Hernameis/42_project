@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/05 17:25:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 11:39:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ double	distance(double a, double b)
 	aa = a * a;
 	bb = b * b;
 	aabb = aa + bb;
-//	printf("%f @@  %f @@ %f\n", aa, bb, aabb);
 	c = sqrt(a * a + b * b);
 	return (c);
 }
@@ -34,13 +33,15 @@ double	degree_from_xy(double x1, double x2, double y1, double y2)
 
 int		if_pass_wall(t_win *win, int key)
 {
-	if (key == key_w || key == key_q)
+	if (key == KEY_W || key == KEY_Q)
 	{
-		return (check_map(win, win->player_x + 15 * cos(win->player_dir), win->player_y + 15 * sin(win->player_dir)));
+		return (check_map(win, win->player_x + 15 * cos(win->player_dir),
+					win->player_y + 15 * sin(win->player_dir)));
 	}
-	else if (key == key_s || key == key_e)	// e키일때는 뚫리는 상황 있음
+	else if (key == KEY_S || key == KEY_E)
 	{
-		return (check_map(win, win->player_x - 15 * cos(win->player_dir), win->player_y - 15 * sin(win->player_dir)));
+		return (check_map(win, win->player_x - 15 * cos(win->player_dir),
+					win->player_y - 15 * sin(win->player_dir)));
 	}
 	return (0);
 }

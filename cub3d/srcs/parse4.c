@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   parse4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 08:14:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 10:50:14 by sunmin           ###   ########.fr       */
+/*   Created: 2021/03/20 12:33:15 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/20 12:33:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	check_map(t_win *win, double x, double y)
+int		check_map_effect(t_win *win)
 {
-	return (win->map[(int)(y / win->scr_height
-				* win->map_height)][(int)(x / win->scr_width
-					* win->map_width)]);
+	check_player(win);
+	check_map_wall(win);
+	return (0);
 }

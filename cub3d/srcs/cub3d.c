@@ -6,15 +6,15 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 13:59:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 12:48:03 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	t_win		win;
+	t_win			win;
 
 	struct_init(&win);
 	win.mlx = mlx_init();
@@ -33,7 +33,7 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-void	ft_bitmap(t_win *win, int argc, char **argv)
+void				ft_bitmap(t_win *win, int argc, char **argv)
 {
 	if (argc == 3)
 	{
@@ -46,9 +46,9 @@ void	ft_bitmap(t_win *win, int argc, char **argv)
 		}
 	}
 }
-void	parse_argv(t_win *win, int argc, char **argv)
-{
 
+void				parse_argv(t_win *win, int argc, char **argv)
+{
 	if (argc == 2 || argc == 3)
 	{
 		if (check_cubfile(argv[1]))
@@ -59,23 +59,20 @@ void	parse_argv(t_win *win, int argc, char **argv)
 			exit(0);
 		}
 	}
-
 	if (!(argc == 2 || argc == 3))
 	{
 		printf("number of file error\n");
 		exit(0);
 	}
-
-
 }
 
-int		ft_exit(int key)
+int					ft_exit(int key)
 {
 	exit(0);
 	return (key);
 }
 
-int		ft_loop(t_win *win)
+int					ft_loop(t_win *win)
 {
 	if_key_pressed(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);

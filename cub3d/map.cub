@@ -1,9 +1,9 @@
 R 400 400
 
-NO ./wall/wall_1.xpm
-SO ./wall/wall_2.xpm
-WE ./wall/wall_3.xpm
-EA ./wall/wall_4.xpm
+NO ./wall/wall_n.xpm
+SO ./wall/wall_s.xpm
+WE ./wall/wall_w.xpm
+EA ./wall/wall_e.xpm
 
 S ./wall/sprite.xpm
 F 220,100,0

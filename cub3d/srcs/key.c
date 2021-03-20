@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/18 10:58:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 11:40:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int		key_press(int key, t_win *win)
 {
-	if (key == key_esc)
-		exit (0);
+	if (key == KEY_ESC)
+		exit(0);
 	else
 	{
-		if (key == key_w)
+		if (key == KEY_W)
 			win->press_w = 1;
-		else if (key == key_s)
+		else if (key == KEY_S)
 			win->press_s = 1;
-		else if (key == key_a)
+		else if (key == KEY_A)
 			win->press_a = 1;
-		else if (key == key_d)
+		else if (key == KEY_D)
 			win->press_d = 1;
-		else if (key == key_q)
+		else if (key == KEY_Q)
 			win->press_q = 1;
-		else if (key == key_e)
+		else if (key == KEY_E)
 			win->press_e = 1;
-		else if (key == key_m)
+		else if (key == KEY_M)
 		{
 			if (win->press_m == 1)
 				win->press_m = 0;
@@ -43,20 +43,20 @@ int		key_press(int key, t_win *win)
 
 int		key_release(int key, t_win *win)
 {
-	if (key == key_w || key == key_s)
+	if (key == KEY_W || key == KEY_S)
 	{
-		if (key == key_w)
+		if (key == KEY_W)
 			win->press_w = 0;
-		else if (key == key_s)
+		else if (key == KEY_S)
 			win->press_s = 0;
 	}
-	else if (key == key_a)
+	else if (key == KEY_A)
 		win->press_a = 0;
-	else if (key == key_d)
+	else if (key == KEY_D)
 		win->press_d = 0;
-	else if (key == key_q)
+	else if (key == KEY_Q)
 		win->press_q = 0;
-	else if (key == key_e)
+	else if (key == KEY_E)
 		win->press_e = 0;
 	return (0);
 }
@@ -95,87 +95,11 @@ int		if_key_ws(t_win *win)
 
 int		if_key_pressed(t_win *win)
 {
-
-
-	if (win->press_w)
-	{
-		if (if_pass_wall(win, key_w) != '1' && if_pass_wall(win, key_w) != '2')
-		{
-			win->player_x += cos(win->player_dir) * win->player_move_speed;
-			win->player_y += sin(win->player_dir) * win->player_move_speed;
-		}
-	}
-	else if (win->press_s)
-	{
-		if (if_pass_wall(win, key_s) != '1' && if_pass_wall(win, key_s) != '2')
-		{
-			win->player_x -= cos(win->player_dir);
-			win->player_y -= sin(win->player_dir);
-		}
-	}
-	if (win->press_q)
-	{
-		win->temp = win->player_dir;
-		win->player_dir -= M_PI / 2;
-		if (if_pass_wall(win, key_q) != '1')
-		{
-			win->player_x += cos(win->player_dir);
-			win->player_y += sin(win->player_dir);
-		}
-		win->player_dir = win->temp;
-	}
-	else if (win->press_e)
-	{
-		win->temp = win->player_dir;
-		win->player_dir += M_PI / 2;
-		if (if_pass_wall(win, key_e) != '1')
-		{
-			win->player_x += cos(win->player_dir);
-			win->player_y += sin(win->player_dir);
-		}
-		win->player_dir = win->temp;
-	}
-
-	if (win->press_d)
-	{
-		win->player_dir += 0.05;
-//		within_degree(win);
-	}
-	if (win->press_a)
-	{
-		win->player_dir -= 0.05;
-//		within_degree(win);
-	}
-//	ceiling(win);
+	key_pressed_ws(win);
+	key_pressed_qe(win);
+	key_pressed_ad(win);
 	put_laser(win);
-//	put_grid(win);
 	put_player(win);
 	draw_sprite(win);
-//	cub3d_bonus(win);
-
 	return (0);
-}
-
-// 1/2 바닥 천장
-void	ceiling(t_win *win)
-{
-	int		i;
-	int		j;
-	int		color;
-
-	i = 0;
-	while (i < (int)win->scr_height)
-	{
-		if (i < win->scr_height / 2)
-			color = 0x87ceeb;
-		else
-			color = 0x111111;
-		j = 0;
-		while (j < win->scr_width)
-		{
-			draw_pixel(win, j, i, color);
-			j++;
-		}
-		i++;
-	}
 }

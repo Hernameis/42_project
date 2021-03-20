@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   wall2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 08:14:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 10:50:14 by sunmin           ###   ########.fr       */
+/*   Created: 2021/03/20 11:05:18 by sunmin            #+#    #+#             */
+/*   Updated: 2021/03/20 11:06:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	check_map(t_win *win, double x, double y)
+int		if_wall(int k, double height, t_win *win)
 {
-	return (win->map[(int)(y / win->scr_height
-				* win->map_height)][(int)(x / win->scr_width
-					* win->map_width)]);
+	if (which_wall(win) == 1)
+	{
+		return (wall_w_color(k, height, win));
+	}
+	else if (which_wall(win) == 2)
+	{
+		return (wall_e_color(k, height, win));
+	}
+	else if (which_wall(win) == 3)
+	{
+		return (wall_n_color(k, height, win));
+	}
+	else if (which_wall(win) == 4)
+	{
+		return (wall_s_color(k, height, win));
+	}
+	return (0);
 }

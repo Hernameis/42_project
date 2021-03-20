@@ -6,45 +6,17 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/19 10:21:25 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 10:46:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_grid(t_win *win)		// 그리드 그냥 채움
+void				put_player(t_win *win)
 {
-	int i;
-	int j;
+	int				i;
+	int				j;
 
-	i = 0;
-	while (i < win->scr_height)
-	{
-		j = 0;
-		while (j < win->scr_width)
-		{
-			if (check_map(win, (double)j, (double)i) == '1')
-			{
-				if (win->press_m)
-					draw_pixel(win, j, i, 0x888888);
-		//			draw_pixel(win, mini_x(win, j), mini_y(win, i), 0x888888);
-			}
-			else if (check_map(win, (double)j, (double)i) == '2')
-			{
-				if (win->press_m)
-					draw_pixel(win, j, i, 0x0ff5ee);
-				//	draw_pixel(win, mini_x(win, j), mini_y(win, i), 0x0ff5ee);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	put_player(t_win *win)
-{
-	int		i;
-	int		j;
 	i = -7;
 	while (i < 7)
 	{
@@ -52,51 +24,59 @@ void	put_player(t_win *win)
 		while (j < 7)
 		{
 			if (win->press_m)
-				draw_pixel(win, (int)win->player_x + j, (int)win->player_y + i, 0x00ffee);
-//				draw_pixel(win, mini_x(win, (int)win->player_x + j), mini_y(win, (int)win->player_y + i), 0x00ffee);
+				draw_pixel(win, (int)win->player_x + j,
+						(int)win->player_y + i, 0x00ffee);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	put_laser(t_win *win)
+void				put_laser(t_win *win)
 {
-	int k = 0;
-	double	a_i = ((win->scr_width - 1) / -2);
-	win->dist = 1 / tan(win->pov *M_PI / 180 / 2) * win->scr_width / 2;
+	double			w_i;
+
+	w_i = ((win->scr_width - 1) / -2) - 1;
+	win->dist = 1 / tan(win->pov * M_PI / 180 / 2) * win->scr_width / 2;
 	win->i = 0;
-	while (a_i < (int)win->scr_width / 2)
+	while (++w_i < (int)win->scr_width / 2)
 	{
-		win->laser_dir = atan2(a_i, win->dist);
-		k++;
+		win->laser_dir = atan2(w_i, win->dist);
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
-		while (win->laser_x >= 0 && win->laser_y >= 0 && win->laser_x <= win->scr_width && win->laser_y <= win->scr_height)
-		{
-			win->laser_x += cos(win->player_dir + win->laser_dir);
-			win->laser_y += sin(win->player_dir + win->laser_dir);
-			if (check_map(win, win->laser_x, win->laser_y) == '1')
-				break;
-		}
-		win->wall_dis = (distance(win->player_x - win->laser_x, win->player_y - (win->laser_y))) * cos(degree_from_xy(win->player_x, win->laser_x, win->player_y, win->laser_y) - win->player_dir);
+		move_laser(win);
+		win->wall_dis = (distance(win->player_x - win->laser_x,
+					win->player_y - (win->laser_y)))
+			* cos(degree_from_xy(win->player_x, win->laser_x,
+						win->player_y, win->laser_y) - win->player_dir);
 		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
-		a_i++;
 	}
 }
 
-void	draw_wall(t_win *win, int i, double dis)
+void				move_laser(t_win *win)
 {
-	double	start;
-	double	end;
-	int		j;
-	int		color;
-	double	wall_half_height;
-	double	k;
-	double	scr_height;
-//	wall_half_height = win->scr_height / dis * 35;
+	while (win->laser_x >= 0 && win->laser_y >= 0
+			&& win->laser_x <= win->scr_width
+			&& win->laser_y <= win->scr_height)
+	{
+		win->laser_x += cos(win->player_dir + win->laser_dir);
+		win->laser_y += sin(win->player_dir + win->laser_dir);
+		if (check_map(win, win->laser_x, win->laser_y) == '1')
+			break ;
+	}
+}
+
+void				draw_wall(t_win *win, int i, double dis)
+{
+	double			start;
+	double			end;
+	int				j;
+	int				color;
+	double			wall_half_height;
+	double			k;
+
 	wall_half_height = win->dist / dis * win->cub_height / 2;
 	start = win->scr_height / 2 - wall_half_height;
 	end = win->scr_height / 2 + wall_half_height;
@@ -108,18 +88,16 @@ void	draw_wall(t_win *win, int i, double dis)
 		{
 			if (start < 0)
 			{
-				color = if_wall(k - start / (end - start) * wall_half_height * 2, wall_half_height * 2, win);
+				color = if_wall(k - start / (end - start)
+						* wall_half_height * 2, wall_half_height * 2, win);
 			}
 			else
 			{
 				color = if_wall(k, wall_half_height * 2, win);
 			}
-			if (player_life_check(win, i, j) != 1)
-			{
-				if (check_pixel(win, i, j, 0xffff00) == 0)	// 레이저랑 안겹치게
-					draw_pixel(win, i, j, color);
-			}
-		k++;
+			if (check_pixel(win, i, j, 0xffff00) == 0)
+				draw_pixel(win, i, j, color);
+			k++;
 		}
 		else
 		{
@@ -128,7 +106,7 @@ void	draw_wall(t_win *win, int i, double dis)
 			else
 				color = 0xffd700;
 		}
-			draw_pixel(win, i, j, color);
+		draw_pixel(win, i, j, color);
 		j++;
 	}
 }

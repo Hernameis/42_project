@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:24:02 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/06 15:33:37 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 10:49:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int					ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned char	*str1;
 	unsigned char	*str2;
@@ -32,9 +32,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-size_t		ft_strlen(const char *str)
+size_t				ft_strlen(const char *str)
 {
-	unsigned char i;
+	unsigned char	i;
 
 	i = 0;
 	while (str[i])
@@ -42,11 +42,11 @@ size_t		ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char				*ft_strdup(const char *s)
 {
-	char	*str;
-	int		len;
-	int		i;
+	char			*str;
+	int				len;
+	int				i;
 
 	len = ft_strlen(s);
 	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
@@ -61,13 +61,13 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char				*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	size_t	len1;
-	size_t	len2;
-	size_t	i;
-	size_t	j;
+	char			*str;
+	size_t			len1;
+	size_t			len2;
+	size_t			i;
+	size_t			j;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
@@ -88,7 +88,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*is_new(char *s, char c)
+char				*is_new(char *s, char c)
 {
 	int				i;
 
