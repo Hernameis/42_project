@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 12:48:03 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 20:51:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void				parse_argv(t_win *win, int argc, char **argv)
 	if (argc == 2 || argc == 3)
 	{
 		if (check_cubfile(argv[1]))
+		{
 			get_cubfile(win, argv);
+		}
 		else
 		{
 			printf("not .cub file\n");

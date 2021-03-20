@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 12:53:10 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 21:38:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ void	get_cubfile(t_win *win, char **argv)
 {
 	int		fd;
 	int		a;
-	int		i;
+	int		len;
 	char	*line;
 	char	c;
+	int		i;
+	int		check;
 
+	check = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		printf("map file error\n");
 		return ;
 	}
-	i = 0;
 	while ((a = get_next_line(fd, &line)) > 0)
 	{
 		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
@@ -46,7 +48,6 @@ void	get_cubfile(t_win *win, char **argv)
 			}
 		}
 		free(line);
-		i++;
 	}
 	free(line);
 	check_resolution(win);
@@ -74,9 +75,9 @@ void	get_word(char *line, t_win *win)
 
 	split = ft_split(line, ' ');
 	num = get_word_num(split, win);
-	if (line[0] == 'R')
+	if (split[0][0] == 'R')
 	{
-		if (num != 3)
+		if (num != 3 || split[0][1] != '\0')
 		{
 			printf("resolution error\n");
 			exit(0);
@@ -84,20 +85,20 @@ void	get_word(char *line, t_win *win)
 		win->scr_width = (double)ft_atoi(split[1]);
 		win->scr_height = (double)ft_atoi(split[2]);
 	}
-	else if (line[0] == 'N' && line[1] == 'O')
+	else if (split[0][0] == 'N' && split[0][1] == 'O')
 	{
-		if (num != 2)
+		if (num != 2 || split[0][2] != '\0')
 		{
 			printf("northwall error\n");
 			exit(0);
 		}
 		win->wall_n_addr = ft_strdup(split[1]);
 	}
-	else if (line[0] == 'S')
+	else if (split[0][0] == 'S')
 	{
-		if (line[1] == 'O')
+		if (split[0][1] == 'O')
 		{
-			if (num != 2)
+			if (num != 2 || split[0][2] != '\0')
 			{
 				printf("southwall error\n");
 				exit(0);
@@ -106,7 +107,7 @@ void	get_word(char *line, t_win *win)
 		}
 		else
 		{
-			if (num != 2)
+			if (num != 2 || split[0][1] != '\0')
 			{
 				printf("sprite error\n");
 				exit(0);
@@ -114,9 +115,9 @@ void	get_word(char *line, t_win *win)
 			win->sprite_addr = ft_strdup(split[1]);
 		}
 	}
-	else if (line[0] == 'W' && line[1] == 'E')
+	else if (split[0][0] == 'W' && split[0][1] == 'E')
 	{
-		if (num != 2)
+		if (num != 2 || split[0][2] != '\0')
 		{
 			printf("westwall error\n");
 			exit(0);

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 12:46:19 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/20 22:11:48 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,37 @@ int		get_map(char *line, t_win *win)
 	}
 	else
 	{
+			printf("8\n");
 		win->map_height++;
+			printf("8.1\n");
 		win->check_map = 1;
+			printf("8.2\n");
 		temp = ft_strdup(win->parse_map);
+			printf("8.3\n");
 		free(win->parse_map);
+			printf("8.4\n");
 		win->parse_map = ft_strjoin((const char *)temp, (const char *)line);
+			printf("8.5\n");
 		free(temp);
+			printf("8.6\n");
+			printf("pars %s\n", win->parse_map);
+			printf("temp %s\n", temp);
+			printf("inde %s\n", index);
+			//// ???????????????????????
 		temp = ft_strdup(win->parse_map);
+			printf("8.7\n");
 		free(win->parse_map);
+			printf("8.8\n");
 		win->parse_map = ft_strjoin((const char *)temp, (const char *)index);
+			printf("8.9\n");
 		free(temp);
+			printf("8.91\n");
 		free(index);
+			printf("8.92\n");
 		return (1);
 	}
 	free(index);
-	return (0);
+	return (1);
 }
 
 int		check_cubfile(const char *str)
