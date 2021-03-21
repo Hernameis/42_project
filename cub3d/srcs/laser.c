@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 10:46:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 09:21:26 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void				draw_wall(t_win *win, int i, double dis)
 	double			wall_half_height;
 	double			k;
 
-	wall_half_height = win->dist / dis * win->cub_height / 2;
+	wall_half_height = win->dist / dis * win->cub_height / 5;
 	start = win->scr_height / 2 - wall_half_height;
 	end = win->scr_height / 2 + wall_half_height;
 	j = 0;

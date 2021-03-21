@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 09:00:42 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/17 09:04:57 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 10:02:00 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 double		res_double(double a, double b)
 {
-	double res;
-
-	res = b;
-	while (res >= a)
+	while (b >= a)
 	{
-		res -= a;
+		b -= a;
 	}
-	return (res);
+	return (b);
 }

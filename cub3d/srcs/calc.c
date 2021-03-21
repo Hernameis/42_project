@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 11:39:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 10:24:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ void	within_degree(t_win *win)
 		if (win->player_dir > M_PI)
 			win->player_dir -= 2 * M_PI;
 	}
+}
+
+double	within_degree_double(double degree)
+{
+	while (degree < -1 * M_PI || degree > M_PI)
+	{
+		if (degree < -1 * M_PI)
+			degree += 2 * M_PI;
+		if (degree > M_PI)
+			degree -= 2 * M_PI;
+	}
+	return (degree);
 }

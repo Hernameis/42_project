@@ -1,14 +1,24 @@
-NAME = Cub3d
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
+#    Updated: 2021/03/21 10:36:54 by sunmin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = gcc -Wall -Wextra -Werror
-LIBS = -L minilibx_mms -lmlx -framework OpenGL -framework Appkit
+NAME = cub3D
 
-$(NAME)	:	${OBJS}
-	gcc ${LIBS} ${OBJS}
+SRCS = cub3d.c	\
 
-OBJS = ./srcs/*.c
+CC = gcc
 
-clean :
-	rm -f a.out
+all : $(NAME)
 
-re : clean $(NAME)
+$(NAME) : $(SRCS)
+	make -C minilibx_mms
+	make -C	minilibx_opengl
+	cp mlx_open

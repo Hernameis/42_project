@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:24:02 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 22:02:27 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 08:18:26 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n)
 
 size_t				ft_strlen(const char *str)
 {
-	unsigned char	i;
+	int				i;
 
 	i = 0;
 	while (str[i])

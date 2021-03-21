@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 11:41:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 09:24:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void		key_pressed_ad(t_win *win)
 {
 	if (win->press_d)
 	{
-		win->player_dir += 0.05;
+		win->player_dir += 0.08;
 	}
 	if (win->press_a)
 	{
-		win->player_dir -= 0.05;
+		win->player_dir -= 0.08;
 	}
 }
 

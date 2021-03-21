@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 22:11:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 08:42:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,25 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	num = get_word_num(split2, win);
 	if (line[0] == 'F')
 	{
-		if (num != 3)
+		if (num != 3 || split[0][1] != '\0' || win->f_check == 1)
 		{
 			printf("floor error\n");
 			exit(0);
 		}
 		win->floor_color = ft_atoi(split2[0]) * 256 * 256
 			+ ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
+		win->f_check = 1;
 	}
 	else if (line[0] == 'C')
 	{
-		if (num != 3)
+		if (num != 3 || split[0][1] != '\0' || win->c_check == 1)
 		{
 			printf("ceiling error\n");
 			exit(0);
 		}
 		win->ceiling_color = ft_atoi(split2[0]) * 256 * 256
 			+ ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
+		win->c_check = 1;
 	}
 	else
 		;
@@ -86,33 +88,17 @@ int		get_map(char *line, t_win *win)
 	}
 	else
 	{
-			printf("8\n");
 		win->map_height++;
-			printf("8.1\n");
 		win->check_map = 1;
-			printf("8.2\n");
 		temp = ft_strdup(win->parse_map);
-			printf("8.3\n");
 		free(win->parse_map);
-			printf("8.4\n");
 		win->parse_map = ft_strjoin((const char *)temp, (const char *)line);
-			printf("8.5\n");
 		free(temp);
-			printf("8.6\n");
-			printf("pars %s\n", win->parse_map);
-			printf("temp %s\n", temp);
-			printf("inde %s\n", index);
-			//// ???????????????????????
 		temp = ft_strdup(win->parse_map);
-			printf("8.7\n");
 		free(win->parse_map);
-			printf("8.8\n");
 		win->parse_map = ft_strjoin((const char *)temp, (const char *)index);
-			printf("8.9\n");
 		free(temp);
-			printf("8.91\n");
 		free(index);
-			printf("8.92\n");
 		return (1);
 	}
 	free(index);

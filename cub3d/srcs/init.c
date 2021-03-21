@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 10:07:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 08:40:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,25 @@ void			struct_init(t_win *win)
 	win->press_m = 0;
 	win->key_ad = 0;
 	win->key_ws = 0;
+	struct_init3(win);
+}
+
+void			struct_init3(t_win *win)
+{
 	win->laser_x = 0;
 	win->laser_y = 0;
 	win->laser_dir = 0;
 	win->pov = 66;
 	win->minimap_size = 3;
 	win->i = 0;
+	win->r_check = 0;
+	win->no_check = 0;
+	win->so_check = 0;
+	win->we_check = 0;
+	win->ea_check = 0;
+	win->s_check = 0;
+	win->f_check = 0;
+	win->c_check = 0;
 }
 
 void			struct_init2(t_win *win)

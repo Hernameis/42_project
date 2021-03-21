@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:20:45 by sunmin            #+#    #+#             */
-/*   Updated: 2020/10/05 20:50:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 08:18:41 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	unsigned int i;
+	int			 i;
 
 	i = 0;
 	while (str[i])

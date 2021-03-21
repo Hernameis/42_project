@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 12:32:45 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/21 09:33:03 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,15 @@ typedef struct			s_win
 	double				sprite_size;
 	t_sprite			*sprite;
 
+	int					r_check;
+	int					no_check;
+	int					so_check;
+	int					we_check;
+	int					ea_check;
+	int					s_check;
+	int					f_check;
+	int					c_check;
+
 }						t_win;
 
 typedef struct			s_img
@@ -207,6 +216,7 @@ void					key_pressed_ad(t_win *win);
 
 void					struct_init(t_win *win);
 void					struct_init2(t_win *win);
+void					struct_init3(t_win *win);
 void					sprite_init(t_win *win);
 void					sprite_init2(t_win *win);
 
@@ -233,6 +243,7 @@ double					degree_from_xy(double x1, double x2,
 		double y1, double y2);
 int						if_pass_wall(t_win *win, int key);
 void					within_degree(t_win *win);
+double					within_degree_double(double degree);
 
 int						if_wall(int k, double height, t_win *win);
 int						wall_w_color(double k, double height, t_win *win);
