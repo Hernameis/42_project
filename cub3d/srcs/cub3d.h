@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 09:33:03 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 08:58:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,12 +272,12 @@ char					*ft_strdup(const char *s);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*is_new(char *s, char c);
 
-static	int				push_gnl(char **remain, char *temp, char **line);
+//static	int				push_gnl(char **remain, char *temp, char **line);
 int						get_next_line(int fd, char **line);
 
-static	int				ft_word_num(char *s, char c);
-static	int				chnum(char *s, int index, char c);
-static	char			**ft_push_split(char *s, char **split, int num, char c);
+//static	int				ft_word_num(char *s, char c);
+//static	int				chnum(char *s, int index, char c);
+//static	char			**ft_push_split(char *s, char **split, int num, char c);
 char					**ft_split(char const *s, char c);
 
 void					get_cubfile(t_win *win, char **argv);
@@ -285,14 +285,14 @@ int						check_cubfile(const char *str);
 void					get_word(char *line, t_win *win);
 void					get_floor_ceiling_color(char *line, t_win *win);
 int						get_map(char *line, t_win *win);
-int						check_blank(char *line, t_win *win);
+int						check_blank(char *line);
 void					init_map(t_win *win);
 void					make_map(t_win *win);
 int						check_map_effect(t_win *win);
 int						check_player(t_win *win);
 void					check_player2(t_win *win, int dir);
 int						check_map_wall(t_win *win);
-int						get_word_num(char **split, t_win *win);
+int						get_word_num(char **split);
 void					free_split(char **split);
 void					check_resolution(t_win *win);
 

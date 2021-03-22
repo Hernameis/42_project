@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:08:14 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 21:08:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 08:58:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			init_map(t_win *win)
 	}
 }
 
-int				check_blank(char *line, t_win *win)
+int				check_blank(char *line)
 {
 	int			len;
 	int			i;

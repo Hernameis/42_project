@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 08:45:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 09:03:33 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void	get_cubfile(t_win *win, char **argv)
 {
 	int		fd;
 	int		a;
-	int		len;
 	char	*line;
-	char	c;
-	int		i;
 	int		check;
 
 	check = 0;
@@ -74,7 +71,7 @@ void	get_word(char *line, t_win *win)
 	int		num;
 
 	split = ft_split(line, ' ');
-	num = get_word_num(split, win);
+	num = get_word_num(split);
 	if (split[0][0] == 'R')
 	{
 		if (num != 3 || split[0][1] != '\0' || win->r_check == 1)
@@ -129,9 +126,9 @@ void	get_word(char *line, t_win *win)
 		win->wall_w_addr = ft_strdup(split[1]);
 		win->we_check = 1;
 	}
-	else if (line[0] == 'E' && line[1] == 'A' || win->ea_check == 1)
+	else if (line[0] == 'E' && line[1] == 'A')
 	{
-		if (num != 2)
+		if (num != 2 || split[0][2] != '\0' || win->ea_check == 1)
 		{
 			printf("eastwall error\n");
 			exit(0);
@@ -172,7 +169,6 @@ int		check_map_wall(t_win *win)
 	int		i;
 	int		j;
 	int		k;
-	int		l;
 	int		check;
 
 	check = 0;

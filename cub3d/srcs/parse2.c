@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 08:42:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 08:58:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		get_word_num(char **split, t_win *win)
+int		get_word_num(char **split)
 {
 	int		i;
 
@@ -32,7 +32,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 	split = ft_split(line, ' ');
 	split2 = ft_split(split[1], ',');
-	num = get_word_num(split2, win);
+	num = get_word_num(split2);
 	if (line[0] == 'F')
 	{
 		if (num != 3 || split[0][1] != '\0' || win->f_check == 1)
@@ -63,7 +63,6 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 int		get_map(char *line, t_win *win)
 {
-	int		i;
 	int		len;
 	char	*index;
 	char	*temp;
@@ -72,7 +71,7 @@ int		get_map(char *line, t_win *win)
 	len = ft_strlen(line);
 	if (len > win->map_width)
 		win->map_width = len;
-	if (check_blank(line, win))
+	if (check_blank(line))
 	{
 		if (win->check_map == 1)
 		{
