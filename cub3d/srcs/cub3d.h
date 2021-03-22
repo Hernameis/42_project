@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 08:58:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 09:23:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,12 +272,8 @@ char					*ft_strdup(const char *s);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*is_new(char *s, char c);
 
-//static	int				push_gnl(char **remain, char *temp, char **line);
 int						get_next_line(int fd, char **line);
 
-//static	int				ft_word_num(char *s, char c);
-//static	int				chnum(char *s, int index, char c);
-//static	char			**ft_push_split(char *s, char **split, int num, char c);
 char					**ft_split(char const *s, char c);
 
 void					get_cubfile(t_win *win, char **argv);
