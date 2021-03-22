@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 09:03:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:42:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	get_cubfile(t_win *win, char **argv)
 {
 	int		fd;
-	int		a;
-	char	*line;
 	int		check;
 
 	check = 0;
@@ -26,27 +24,7 @@ void	get_cubfile(t_win *win, char **argv)
 		printf("map file error\n");
 		return ;
 	}
-	while ((a = get_next_line(fd, &line)) > 0)
-	{
-		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
-				|| line[0] == 'E' || line[0] == 'S')
-		{
-			get_word(line, win);
-		}
-		else if (line[0] == 'F' || line[0] == 'C')
-		{
-			get_floor_ceiling_color(line, win);
-		}
-		else
-		{
-			if (get_map(line, win) == 0)
-			{
-				break ;
-			}
-		}
-		free(line);
-	}
-	free(line);
+	parse_gnl(win, fd);
 	check_resolution(win);
 	init_map(win);
 	make_map(win);
@@ -73,73 +51,17 @@ void	get_word(char *line, t_win *win)
 	split = ft_split(line, ' ');
 	num = get_word_num(split);
 	if (split[0][0] == 'R')
-	{
-		if (num != 3 || split[0][1] != '\0' || win->r_check == 1)
-		{
-			printf("resolution error\n");
-			exit(0);
-		}
-		win->scr_width = (double)ft_atoi(split[1]);
-		win->scr_height = (double)ft_atoi(split[2]);
-		win->r_check = 1;
-	}
+		parse_r(win, split, num);
 	else if (split[0][0] == 'N' && split[0][1] == 'O')
-	{
-		if (num != 2 || split[0][2] != '\0' || win->no_check == 1)
-		{
-			printf("northwall error\n");
-			exit(0);
-		}
-		win->wall_n_addr = ft_strdup(split[1]);
-		win->no_check = 1;
-	}
+		parse_no(win, split, num);
 	else if (split[0][0] == 'S')
-	{
-		if (split[0][1] == 'O')
-		{
-			if (num != 2 || split[0][2] != '\0' || win->so_check == 1)
-			{
-				printf("southwall error\n");
-				exit(0);
-			}
-			win->wall_s_addr = ft_strdup(split[1]);
-			win->so_check = 1;
-		}
-		else
-		{
-			if (num != 2 || split[0][1] != '\0' || win->s_check == 1)
-			{
-				printf("sprite error\n");
-				exit(0);
-			}
-			win->sprite_addr = ft_strdup(split[1]);
-			win->s_check = 1;
-		}
-	}
+		parse_s(win, split, num);
 	else if (split[0][0] == 'W' && split[0][1] == 'E')
-	{
-		if (num != 2 || split[0][2] != '\0' || win->we_check == 1)
-		{
-			printf("westwall error\n");
-			exit(0);
-		}
-		win->wall_w_addr = ft_strdup(split[1]);
-		win->we_check = 1;
-	}
-	else if (line[0] == 'E' && line[1] == 'A')
-	{
-		if (num != 2 || split[0][2] != '\0' || win->ea_check == 1)
-		{
-			printf("eastwall error\n");
-			exit(0);
-		}
-		win->wall_e_addr = ft_strdup(split[1]);
-		win->ea_check = 1;
-	}
+		parse_we(win, split, num);
+	else if (split[0][0] == 'E' && split[0][1] == 'A')
+		parse_ea(win, split, num);
 	else
-	{
 		;
-	}
 	free_split(split);
 }
 
@@ -169,87 +91,21 @@ int		check_map_wall(t_win *win)
 	int		i;
 	int		j;
 	int		k;
-	int		check;
 
-	check = 0;
-	i = 0;
-	while (i < win->map_height)
+	k = 0;
+	i = -1;
+	while (++i < win->map_height)
 	{
-		j = 0;
-		while (j < win->map_width)
+		j = -1;
+		while (++j < win->map_width)
 		{
 			if (win->map[i][j] == '0' || win->map[i][j] == '2'
 					|| win->map[i][j] == 'N' || win->map[i][j] == 'S'
 					|| win->map[i][j] == 'W' || win->map[i][j] == 'E')
 			{
-				k = i;
-				check = 0;
-				while (k < win->map_height)
-				{
-					if (win->map[k][j] == '1')
-					{
-						check = 1;
-						break ;
-					}
-					k++;
-				}
-				if (check == 0)
-				{
-					printf("invalid map1 %d %d %d\n", i, j, k);
-					exit(0);
-				}
-				k = i;
-				check = 0;
-				while (k >= 0)
-				{
-					if (win->map[k][j] == '1')
-					{
-						check = 1;
-						break ;
-					}
-					k--;
-				}
-				if (check == 0)
-				{
-					printf("invalid map2 %d %d\n", i, j);
-					exit(0);
-				}
-				k = j;
-				check = 0;
-				while (k < win->map_width)
-				{
-					if (win->map[i][k] == '1')
-					{
-						check = 1;
-						break ;
-					}
-					k++;
-				}
-				if (check == 0)
-				{
-					printf("invalid map3\n");
-					exit(0);
-				}
-				k = j;
-				check = 0;
-				while (k >= 0)
-				{
-					if (win->map[i][k] == '1')
-					{
-						check = 1;
-						break ;
-					}
-					k--;
-				}
-				if (check == 0)
-				{
-					printf("invalid map4\n");
-					exit(0);
-				}
+				set_invalid_map(win, k, i, j);
 			}
-			j++;
 		}
-		i++;
 	}
 	return (0);
 }

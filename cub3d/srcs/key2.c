@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 09:24:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:22:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void		key_pressed_ws(t_win *win)
 	{
 		if (if_pass_wall(win, KEY_S) != '1' && if_pass_wall(win, KEY_S) != '2')
 		{
-			win->player_x -= cos(win->player_dir);
-			win->player_y -= sin(win->player_dir);
+			win->player_x -= cos(win->player_dir) * win->player_move_speed;
+			win->player_y -= sin(win->player_dir) * win->player_move_speed;
 		}
 	}
 }
@@ -40,8 +40,8 @@ void		key_pressed_qe(t_win *win)
 		win->player_dir -= M_PI / 2;
 		if (if_pass_wall(win, KEY_Q) != '1')
 		{
-			win->player_x += cos(win->player_dir);
-			win->player_y += sin(win->player_dir);
+			win->player_x += cos(win->player_dir) * win->player_move_speed;
+			win->player_y += sin(win->player_dir) * win->player_move_speed;
 		}
 		win->player_dir = win->temp;
 	}
@@ -51,8 +51,8 @@ void		key_pressed_qe(t_win *win)
 		win->player_dir -= M_PI / 2;
 		if (if_pass_wall(win, KEY_E) != '1')
 		{
-			win->player_x -= cos(win->player_dir);
-			win->player_y -= sin(win->player_dir);
+			win->player_x -= cos(win->player_dir) * win->player_move_speed;
+			win->player_y -= sin(win->player_dir) * win->player_move_speed;
 		}
 		win->player_dir = win->temp;
 	}

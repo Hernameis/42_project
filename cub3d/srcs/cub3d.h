@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 09:23:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:42:18 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,18 @@ typedef struct			s_win
 	int					s_check;
 	int					f_check;
 	int					c_check;
-
+	char				*temp_map;
+	char				*index;
+	double				k;
+	int					j;
+	int					color;
+	double				half_height;
+	double				center;
+	int					start;
+	int					end;
+	int					start_w;
+	int					end_w;
+	double				half;
 }						t_win;
 
 typedef struct			s_img
@@ -229,7 +240,7 @@ int						check_sprite(t_win *win, int num);
 void					put_sprite(t_win *win);
 void					draw_sprite(t_win *win);
 void					sprite_pixel(t_win *win, int num);
-int						sprite_color(t_win *win, int i, int height,
+int						sprite_color(t_win *win, int i,
 		int j, int width);
 void					compare_sprite(t_win *win, int num);
 
@@ -291,11 +302,26 @@ int						check_map_wall(t_win *win);
 int						get_word_num(char **split);
 void					free_split(char **split);
 void					check_resolution(t_win *win);
-
+void					get_floor_color(t_win *win, char **split,
+		char **split2, int num);
+void					swap_map(t_win *win, char *line);
 int						ft_atoi(const char *str);
+void					sprite_start(t_win *win, int num);
 
+void					wall_pixel(t_win *win, double start, double end, int i);
 double					res_double(double a, double b);
-
+void					parse_gnl(t_win *win, int fd);
 int						ft_exit(int key);
+void					parse_r(t_win *win, char **split, int num);
+void					parse_no(t_win *win, char **split, int num);
+void					parse_s(t_win *win, char **split, int num);
+void					parse_we(t_win *win, char **split, int num);
+void					parse_ea(t_win *win, char **split, int num);
+
+void					invalid_map1(t_win *win, int k, int j, int check);
+void					invalid_map2(t_win *win, int k, int j, int check);
+void					invalid_map3(t_win *win, int k, int i, int check);
+void					invalid_map4(t_win *win, int k, int i, int check);
+void					set_invalid_map(t_win *win, int k, int i, int j);
 
 #endif

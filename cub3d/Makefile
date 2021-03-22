@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
-#    Updated: 2021/03/22 09:36:39 by sunmin           ###   ########.fr        #
+#    Updated: 2021/03/22 14:38:39 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,10 @@ SRCS = srcs/bitmap.c		\
 	   srcs/parse2.c		\
 	   srcs/parse3.c		\
 	   srcs/parse4.c		\
+	   srcs/parse5.c		\
+	   srcs/parse6.c		\
+	   srcs/parse7.c		\
+	   srcs/parse8.c		\
 	   srcs/pixel.c			\
 	   srcs/sprite.c		\
 	   srcs/sprite2.c		\

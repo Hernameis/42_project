@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 11:12:59 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 12:58:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ void				put_laser(t_win *win)
 		move_laser(win);
 		win->wall_dis = (distance(win->player_x - win->laser_x,
 					win->player_y - (win->laser_y)))
-			;
-		//	* cos(degree_from_xy(win->player_x, win->laser_x,
-		//				win->player_y, win->laser_y) - win->player_dir);
+			* cos(degree_from_xy(win->player_x, win->laser_x,
+						win->player_y, win->laser_y) - win->player_dir);
 		win->dis_for_check[win->i] = win->wall_dis;
-//		printf("(%f, %f) %f\n", win->laser_x, win->laser_y, win->wall_dis);
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 	}
@@ -74,42 +72,37 @@ void				draw_wall(t_win *win, int i, double dis)
 {
 	double			start;
 	double			end;
-	int				j;
-	int				color;
-	double			wall_half_height;
-	double			k;
 
-	wall_half_height = win->dist / dis * win->cub_height / 5;
-	start = win->scr_height / 2 - wall_half_height;
-	end = win->scr_height / 2 + wall_half_height;
-//	printf("idx %d dis %f start %f end %f height %f\n", i, dis, start, end, end - start);
-	j = 0;
-	k = 0;
-	while (j < win->scr_height)
+	win->half_height = win->dist / dis * win->cub_height / 5;
+	start = win->scr_height / 2 - win->half_height;
+	end = win->scr_height / 2 + win->half_height;
+	win->j = -1;
+	win->k = 0;
+	while (++win->j < win->scr_height)
 	{
-		if (j > start && j < end)
-		{
-			if (start < 0)
-			{
-				color = if_wall(k - start / (end - start)
-						* wall_half_height * 2, wall_half_height * 2, win);
-			}
-			else
-			{
-				color = if_wall(k, wall_half_height * 2, win);
-			}
-			if (check_pixel(win, i, j, 0xffff00) == 0)
-				draw_pixel(win, i, j, color);
-			k++;
-		}
+		if (win->j > start && win->j < end)
+			wall_pixel(win, start, end, i);
 		else
 		{
-			if (j < win->scr_height / 2)
-				color = 0x87ceeb;
+			if (win->j < win->scr_height / 2)
+				win->color = 0x87ceeb;
 			else
-				color = 0xffd700;
+				win->color = 0xffd700;
 		}
-		draw_pixel(win, i, j, color);
-		j++;
+		draw_pixel(win, i, win->j, win->color);
 	}
+}
+
+void				wall_pixel(t_win *win, double start, double end, int i)
+{
+	if (start < 0)
+	{
+		win->color = if_wall(win->k - start / (end - start)
+				* win->half_height * 2, win->half_height * 2, win);
+	}
+	else
+		win->color = if_wall(win->k, win->half_height * 2, win);
+	if (check_pixel(win, i, win->j, 0xffff00) == 0)
+		draw_pixel(win, i, win->j, win->color);
+	win->k++;
 }
