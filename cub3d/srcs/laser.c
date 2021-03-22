@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 09:21:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 11:12:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void				put_laser(t_win *win)
 		move_laser(win);
 		win->wall_dis = (distance(win->player_x - win->laser_x,
 					win->player_y - (win->laser_y)))
-			* cos(degree_from_xy(win->player_x, win->laser_x,
-						win->player_y, win->laser_y) - win->player_dir);
+			;
+		//	* cos(degree_from_xy(win->player_x, win->laser_x,
+		//				win->player_y, win->laser_y) - win->player_dir);
 		win->dis_for_check[win->i] = win->wall_dis;
+//		printf("(%f, %f) %f\n", win->laser_x, win->laser_y, win->wall_dis);
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 	}
@@ -80,6 +82,7 @@ void				draw_wall(t_win *win, int i, double dis)
 	wall_half_height = win->dist / dis * win->cub_height / 5;
 	start = win->scr_height / 2 - wall_half_height;
 	end = win->scr_height / 2 + wall_half_height;
+//	printf("idx %d dis %f start %f end %f height %f\n", i, dis, start, end, end - start);
 	j = 0;
 	k = 0;
 	while (j < win->scr_height)

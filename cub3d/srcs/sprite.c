@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:08:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 10:21:30 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 10:48:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		sprite_pixel(t_win *win, int num)
 	int		start_w;
 	int		end_w;
 
-	center = (win->sprite[num].degree - win->player_dir + (win->pov
+	center = (within_degree_double(win->sprite[num].degree - win->player_dir) + (win->pov
 				* M_PI / 180) / 2) / (win->pov * M_PI / 180) * win->scr_width;
 	half = win->scr_height / win->sprite[num].distance * 10;
 	start = (int)(win->scr_height / 2 - half);

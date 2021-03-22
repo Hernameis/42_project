@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/21 10:24:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 11:12:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double	distance(double a, double b)
 	aa = a * a;
 	bb = b * b;
 	aabb = aa + bb;
-	c = sqrt(a * a + b * b);
+	c = sqrt(aabb);
 	return (c);
 }
 

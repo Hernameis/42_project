@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:54:05 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 09:28:04 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/22 10:14:00 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ void			draw_sprite(t_win *win)
 int				check_sprite(t_win *win, int num)
 {
 	within_degree(win);
-	printf("pd %f sd %f dis %f\n", win->player_dir, win->sprite[num].degree, win->sprite[num].distance);
-	if (win->sprite[num].degree >= win->player_dir - (win->pov + 30) / 2
-			* M_PI / 180 && win->sprite[num].degree <= win->player_dir
-			+ (win->pov + 30) / 2 * M_PI / 180)
+	if (within_degree_double(win->player_dir - win->sprite[num].degree) >= (-1 * (win->pov / 2 + 15.0)
+			* M_PI / 180) && within_degree_double(win->player_dir - win->sprite[num].degree) <= ((win->pov / 2 + 15.0) * M_PI / 180))
 	{
 		return (1);
 	}
