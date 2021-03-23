@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/20 09:53:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/23 14:47:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	put_bitmap(t_win *win)
 	int				fd;
 	unsigned char	header[54];
 	int				i;
-	int				j;
 	int				size;
 
 	fd = open("./screenshot.bmp", O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 00777);
@@ -49,17 +48,26 @@ void	put_bitmap(t_win *win)
 		exit(0);
 	}
 	size = put_bitmap_header(win, &header[0]);
-	i = -1;
-	while (++i < 54)
+	i = 0;
+	while (i < 54)
+	{
 		write(fd, &header[i], 1);
+		i++;
+	}
 	i = (int)win->scr_height - 1;
+	/*
 	while (i > -1)
 	{
-		j = -1;
-		while (++j < win->scr_width)
+		j = 0;
+		while (j < (int)win->scr_width)
+		{
 			write(fd, &win->data[((int)(win->scr_width)) * i + j], 3);
+			j++;
+		}
 		i--;
 	}
+	*/
+	write(fd, win->data, size);
 }
 
 int		put_bitmap_header(t_win *win, unsigned char *header)
@@ -75,7 +83,9 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 	height = (int)win->scr_height;
 	pad_size = (width * PIXEL_SIZE) % PIXEL_ALIGN;
 	pad_size = (PIXEL_ALIGN - pad_size) % PIXEL_ALIGN;
-	size = (width * PIXEL_SIZE + pad_size) * height;
+	win->pad_size = pad_size;
+	//size = (width * PIXEL_SIZE + pad_size) * height;
+	size = width * height * 4;
 	i = -1;
 	while (++i < 54)
 		header[i] = 0;
@@ -86,12 +96,15 @@ int		put_bitmap_header(t_win *win, unsigned char *header)
 void	set_bitmap_header(unsigned char *header,
 		int height, int width, int size)
 {
+	int		a;
+
+	a = size + 54;
 	header[0] = (unsigned char)'B';
 	header[1] = (unsigned char)'M';
-	header[2] = (unsigned char)size % 256;
-	header[3] = (unsigned char)(size / 256) % 256;
-	header[4] = (unsigned char)((size / 256) / 256) % 256;
-	header[5] = (unsigned char)((size / 256) / 256) / 256;
+	header[2] = (unsigned char)a % 256;
+	header[3] = (unsigned char)(a / 256) % 256;
+	header[4] = (unsigned char)((a / 256) / 256) % 256;
+	header[5] = (unsigned char)((a / 256) / 256) / 256;
 	header[10] = (unsigned char)54;
 	header[14] = (unsigned char)40;
 	header[18] = (unsigned char)width % 256;
@@ -103,5 +116,5 @@ void	set_bitmap_header(unsigned char *header,
 	header[24] = (unsigned char)((height / 256) / 256) % 256;
 	header[25] = (unsigned char)((height / 256) / 256) / 256;
 	header[26] = (unsigned char)1;
-	header[28] = (unsigned char)24;
+	header[28] = (unsigned char)32;
 }

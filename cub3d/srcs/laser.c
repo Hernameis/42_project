@@ -6,31 +6,11 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 12:58:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/23 13:14:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void				put_player(t_win *win)
-{
-	int				i;
-	int				j;
-
-	i = -7;
-	while (i < 7)
-	{
-		j = -7;
-		while (j < 7)
-		{
-			if (win->press_m)
-				draw_pixel(win, (int)win->player_x + j,
-						(int)win->player_y + i, 0x00ffee);
-			j++;
-		}
-		i++;
-	}
-}
 
 void				put_laser(t_win *win)
 {
@@ -73,7 +53,7 @@ void				draw_wall(t_win *win, int i, double dis)
 	double			start;
 	double			end;
 
-	win->half_height = win->dist / dis * win->cub_height / 5;
+	win->half_height = 1 / dis * win->cub_height / 5 * win->dist;
 	start = win->scr_height / 2 - win->half_height;
 	end = win->scr_height / 2 + win->half_height;
 	win->j = -1;

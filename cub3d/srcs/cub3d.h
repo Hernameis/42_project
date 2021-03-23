@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 14:42:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/23 13:51:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 
 # define KEY_ESC		53
 # define KEY_W			13
-# define KEY_A			0
+# define KEY_A			123
 # define KEY_S			1
-# define KEY_D			2
-# define KEY_Q			12
-# define KEY_E			14
+# define KEY_D			124
+# define KEY_Q			0
+# define KEY_E			2
 # define KEY_M			46
 # define X_BUTTON		17
 # define PIXEL_SIZE		3
@@ -194,6 +194,7 @@ typedef struct			s_win
 	int					start_w;
 	int					end_w;
 	double				half;
+	int					pad_size;
 }						t_win;
 
 typedef struct			s_img
@@ -231,7 +232,6 @@ void					struct_init3(t_win *win);
 void					sprite_init(t_win *win);
 void					sprite_init2(t_win *win);
 
-void					put_player(t_win *win);
 void					put_laser(t_win *win);
 void					draw_wall(t_win *win, int i, double dis);
 void					move_laser(t_win *win);
