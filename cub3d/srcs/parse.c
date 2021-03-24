@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 14:42:28 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/24 13:55:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,19 @@ void	get_cubfile(t_win *win, char **argv)
 
 void	check_resolution(t_win *win)
 {
-	if (win->scr_width < 200 || win->scr_height < 200
-			|| win->scr_height > 1500 || win->scr_width > 1500)
+	int		size_x;
+	int		size_y;
+
+	if (win->scr_width < 1 || win->scr_height < 1)
 	{
-		printf("Resolution invalid (200 ~ 1500)\n");
+		printf("Resolution error\n");
 		exit(0);
 	}
+	mlx_get_screen_size(win->mlx, &size_x, size_y);
+	if (win->scr_width > size_x)
+		;
+	if (win->scr_height > size_y)
+		;
 }
 
 void	get_word(char *line, t_win *win)
