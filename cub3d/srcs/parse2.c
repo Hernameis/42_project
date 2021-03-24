@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 12:38:19 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 08:31:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	char	**split2;
 	int		num;
 
+	check_comma(win, line);
 	split = ft_split(line, ' ');
 	split2 = ft_split(split[1], ',');
 	num = get_word_num(split2);
