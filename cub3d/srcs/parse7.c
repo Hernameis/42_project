@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 14:43:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 07:32:19 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void		parse_gnl(t_win *win, int fd)
 	free(line);
 }
 
-void		invalid_map1(t_win *win, int k, int j, int check)
+void		invalid_map1(t_win *win, int i, int j, int check)
 {
+	int		k;
+
+	k = i;
 	while (k < win->map_height)
 	{
 		if (win->map[k][j] == '1')
@@ -58,8 +61,11 @@ void		invalid_map1(t_win *win, int k, int j, int check)
 	}
 }
 
-void		invalid_map2(t_win *win, int k, int j, int check)
+void		invalid_map2(t_win *win, int i, int j, int check)
 {
+	int		k;
+
+	k = i;
 	while (k >= 0)
 	{
 		if (win->map[k][j] == '1')
@@ -76,8 +82,11 @@ void		invalid_map2(t_win *win, int k, int j, int check)
 	}
 }
 
-void		invalid_map3(t_win *win, int k, int i, int check)
+void		invalid_map3(t_win *win, int i, int j, int check)
 {
+	int		k;
+
+	k = j;
 	while (k < win->map_width)
 	{
 		if (win->map[i][k] == '1')
@@ -94,8 +103,11 @@ void		invalid_map3(t_win *win, int k, int i, int check)
 	}
 }
 
-void		invalid_map4(t_win *win, int k, int i, int check)
+void		invalid_map4(t_win *win, int i, int j, int check)
 {
+	int		k;
+
+	k = j;
 	while (k >= 0)
 	{
 		if (win->map[i][k] == '1')

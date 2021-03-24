@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/23 13:51:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 07:59:51 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,9 @@ typedef struct			s_win
 	int					end_w;
 	double				half;
 	int					pad_size;
+
+	int					size_x;
+	int					size_y;
 }						t_win;
 
 typedef struct			s_img
@@ -318,10 +321,14 @@ void					parse_s(t_win *win, char **split, int num);
 void					parse_we(t_win *win, char **split, int num);
 void					parse_ea(t_win *win, char **split, int num);
 
-void					invalid_map1(t_win *win, int k, int j, int check);
-void					invalid_map2(t_win *win, int k, int j, int check);
-void					invalid_map3(t_win *win, int k, int i, int check);
-void					invalid_map4(t_win *win, int k, int i, int check);
-void					set_invalid_map(t_win *win, int k, int i, int j);
+void					invalid_map1(t_win *win, int i, int j, int check);
+void					invalid_map2(t_win *win, int i, int j, int check);
+void					invalid_map3(t_win *win, int i, int j, int check);
+void					invalid_map4(t_win *win, int i, int j, int check);
+void					invalid_map5(t_win *win, int i, int j, int check);
+void					invalid_map6(t_win *win, int i, int j, int check);
+void					invalid_map7(t_win *win, int i, int j, int check);
+void					invalid_map8(t_win *win, int i, int j, int check);
+void					set_invalid_map(t_win *win, int i, int j);
 
 #endif

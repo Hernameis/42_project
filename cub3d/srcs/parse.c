@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/24 13:55:53 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 08:04:04 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,20 @@ void	get_cubfile(t_win *win, char **argv)
 
 void	check_resolution(t_win *win)
 {
-	int		size_x;
-	int		size_y;
-
+	mlx_get_screen_size(win->mlx, &win->size_x, &win->size_y);
 	if (win->scr_width < 1 || win->scr_height < 1)
 	{
 		printf("Resolution error\n");
 		exit(0);
 	}
-	mlx_get_screen_size(win->mlx, &size_x, size_y);
-	if (win->scr_width > size_x)
-		;
-	if (win->scr_height > size_y)
-		;
+	if (win->scr_width > win->size_x)
+	{
+		win->scr_width = win->size_x;
+	}
+	if (win->scr_height > win->size_y)
+	{
+		win->scr_height = win->size_y;
+	}
 }
 
 void	get_word(char *line, t_win *win)
@@ -110,7 +111,7 @@ int		check_map_wall(t_win *win)
 					|| win->map[i][j] == 'N' || win->map[i][j] == 'S'
 					|| win->map[i][j] == 'W' || win->map[i][j] == 'E')
 			{
-				set_invalid_map(win, k, i, j);
+				set_invalid_map(win, i, j);
 			}
 		}
 	}
