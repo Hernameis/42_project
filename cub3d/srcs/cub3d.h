@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 08:57:49 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 10:00:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,7 @@ int						wall_e_color(int k, double height, t_win *win);
 int						wall_s_color(int k, double height, t_win *win);
 int						wall_n_color(int k, double height, t_win *win);
 int						which_wall(t_win *win);
+int						which_wall2(t_win *win);
 
 double					equation_intercept_y(double a, double p, double q);
 double					meet_between_segments_x(double a, double b,

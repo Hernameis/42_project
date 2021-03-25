@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 09:11:08 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 11:27:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void				move_laser(t_win *win)
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
 	}
-
-	if (which_wall(win) == 1)
+	if (which_wall2(win) == 1)
 		wall_e_location_fix(win);	
-	else if (which_wall(win) == 2)
+	else if (which_wall2(win) == 2)
 		wall_w_location_fix(win);	
-	else if (which_wall(win) == 3)
+	else if (which_wall2(win) == 3)
 		wall_n_location_fix(win);	
-	else
-		wall_s_location_fix(win);	
+	else if (which_wall2(win) == 4)
+		wall_s_location_fix(win);
+	printf("(%f, %f) c_w %f c_h %f\n", win->laser_x, win->laser_y, win->cub_width, win->cub_height);
 }
 
 void				draw_wall(t_win *win, int i, double dis)
