@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
-#    Updated: 2021/03/23 13:12:18 by sunmin           ###   ########.fr        #
+#    Updated: 2021/03/25 08:40:19 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = srcs/bitmap.c		\
 	   srcs/key.c			\
 	   srcs/key2.c			\
 	   srcs/laser.c			\
+	   srcs/laser2.c		\
 	   srcs/libft.c			\
 	   srcs/map.c			\
 	   srcs/parse.c			\

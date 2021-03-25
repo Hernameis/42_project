@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 08:28:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 08:57:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,5 +331,10 @@ void					invalid_map7(t_win *win, int i, int j, int check);
 void					invalid_map8(t_win *win, int i, int j, int check);
 void					set_invalid_map(t_win *win, int i, int j);
 void					check_comma(t_win *win, char *line);
+
+void					wall_n_location_fix(t_win *win);
+void					wall_s_location_fix(t_win *win);
+void					wall_w_location_fix(t_win *win);
+void					wall_e_location_fix(t_win *win);
 
 #endif

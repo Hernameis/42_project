@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/24 13:49:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/25 09:11:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void				put_laser(t_win *win)
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
 		move_laser(win);
-		win->wall_dis = (distance(win->player_x - (int)win->laser_x,
-					win->player_y - ((int)win->laser_y)))
-			* cos(degree_from_xy(win->player_x, (int)win->laser_x,
-						win->player_y, (int)win->laser_y) - win->player_dir);
+		win->wall_dis = (distance(win->player_x - win->laser_x,
+					win->player_y - (win->laser_y)))
+			* cos(degree_from_xy(win->player_x, win->laser_x,
+						win->player_y, win->laser_y) - win->player_dir);
 		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
@@ -46,6 +46,15 @@ void				move_laser(t_win *win)
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
 	}
+
+	if (which_wall(win) == 1)
+		wall_e_location_fix(win);	
+	else if (which_wall(win) == 2)
+		wall_w_location_fix(win);	
+	else if (which_wall(win) == 3)
+		wall_n_location_fix(win);	
+	else
+		wall_s_location_fix(win);	
 }
 
 void				draw_wall(t_win *win, int i, double dis)
