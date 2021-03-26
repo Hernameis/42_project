@@ -3,7 +3,7 @@ R 500 500
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
 WE ./wall/wall_wst.xpm
-EA ./wall/wall_est.xpm
+EA ./wall/wall_est333.xpm
 
 S ./wall/sprite.xpm
 F 220,100,0
