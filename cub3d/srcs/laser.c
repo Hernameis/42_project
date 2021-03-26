@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 13:07:15 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:04:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void				move_laser(t_win *win)
 		wall_n_location_fix(win);	
 	else if (which_wall2(win) == 4)
 		wall_s_location_fix(win);
-//	printf("(%f, %f) c_w %f c_h %f\n", win->laser_x, win->laser_y, win->cub_width, win->cub_height);
 }
 
 void				draw_wall(t_win *win, int i, double dis)
@@ -67,7 +66,6 @@ void				draw_wall(t_win *win, int i, double dis)
 	end = win->scr_height / 2 + win->half_height;
 	win->j = -1;
 	win->k = 0;
-//	printf("i %d  start %f dis %f (x y) (%f, %f) l_d %f l_d + p_d %f\n", i, start, dis, win->laser_x, win->laser_y, win->laser_dir * 180 / M_PI, (win->laser_dir + win->player_dir) * 180 / M_PI);
 	while (++win->j < win->scr_height)
 	{
 		if (win->j > start && win->j < end)

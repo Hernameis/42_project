@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 11:28:16 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:01:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@ int		which_wall(t_win *win)
 	if (check_map(win, win->laser_x, win->laser_y + 1) == '1'
 			&& check_map(win, win->laser_x, win->laser_y - 1) == '1')
 	{
-		if (res_double(win->cub_width, win->laser_x) < 1)
+//		printf("%f\n", res_double(win->cub_width, win->laser_x));
+		if (res_double(win->cub_width, win->laser_x) == (int)(win->cub_width - 1))
 		{
-			return (1);
+			return (1);		// 동
 		}
-		else
+		else				// else에서 더 많은 부분이 들어감 // if 문에서 처리가 제대로 안되는 듯
 		{
-			return (2);
+			return (2);		// 서
 		}
 	}
 	else
 	{
-		if (res_double(win->cub_height, win->laser_y) < 1)
+//		printf("%f\n", res_double(win->cub_height, win->laser_y));
+		if (res_double(win->cub_height, win->laser_y) == (int)(win->cub_height - 1))	//res_double(win->cub_height, win->laser_y) >= 0 && res_double(win->cub_height, win->laser_y) < 1)		//  북쪽 벽 판ㄱ별이 잘 안됨
 		{
 			{
-//			printf("333\n");
-				return (3);
+				return (3);		// 북
 			}
 		}
 		else
 		{
 			{
-//			printf("444\n");
-				return (4);
+				return (4);		// 남
 			}
 		}
 	}
@@ -74,7 +74,7 @@ int		wall_s_color(int k, double height, t_win *win)
 	double		y;
 	int			color;
 
-	x = ((int)win->laser_x % (int)win->cub_width) / win->cub_width;
+	x = 1 - ((int)win->laser_x % (int)win->cub_width) / win->cub_width;
 	y = k / height;
 	color = win->wall_s_data[(int)(x * win->wall_s_width)
 		+ (int)(y * win->wall_s_height) * win->wall_s_width];
