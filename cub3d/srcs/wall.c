@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/26 12:12:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:30:59 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,22 @@ int		which_wall(t_win *win)
 	if (check_map(win, win->laser_x, win->laser_y + 1) == '1'
 			&& check_map(win, win->laser_x, win->laser_y - 1) == '1')
 	{
-		if (res_double(win->cub_width, win->laser_x) == (int)(win->cub_width - 1))
-		{
+		if (res_double(win->cub_width, win->laser_x)
+				== (int)(win->cub_width - 1))
 			return (1);
-		}
 		else
-		{
 			return (2);
-		}
 	}
 	else
 	{
-		if (res_double(win->cub_height, win->laser_y) == (int)(win->cub_height - 1))
+		if (res_double(win->cub_height, win->laser_y)
+				== (int)(win->cub_height - 1))
 		{
-			{
-				return (3);
-			}
+			return (3);
 		}
 		else
 		{
-			{
-				return (4);
-			}
+			return (4);
 		}
 	}
 	return (0);
