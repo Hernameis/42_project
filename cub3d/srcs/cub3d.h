@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 10:00:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:23:41 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ typedef struct			s_img
 int						draw_pixel(t_win *win, int x, int y, int color);
 int						check_pixel(t_win *win, int x, int y, int color);
 void					get_image_data(t_win *win);
+void					get_image_data2(t_win *win);
 
 int						ft_loop(t_win *win);
 void					parse_argv(t_win *win, int argc, char **argv);

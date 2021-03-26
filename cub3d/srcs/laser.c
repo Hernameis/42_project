@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/26 12:04:59 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:13:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void				move_laser(t_win *win)
 			break ;
 	}
 	if (which_wall2(win) == 1)
-		wall_e_location_fix(win);	
+		wall_e_location_fix(win);
 	else if (which_wall2(win) == 2)
-		wall_w_location_fix(win);	
+		wall_w_location_fix(win);
 	else if (which_wall2(win) == 3)
-		wall_n_location_fix(win);	
+		wall_n_location_fix(win);
 	else if (which_wall2(win) == 4)
 		wall_s_location_fix(win);
 }

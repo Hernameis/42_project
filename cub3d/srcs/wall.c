@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/26 12:01:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:12:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,27 @@ int		which_wall(t_win *win)
 	if (check_map(win, win->laser_x, win->laser_y + 1) == '1'
 			&& check_map(win, win->laser_x, win->laser_y - 1) == '1')
 	{
-//		printf("%f\n", res_double(win->cub_width, win->laser_x));
 		if (res_double(win->cub_width, win->laser_x) == (int)(win->cub_width - 1))
 		{
-			return (1);		// 동
+			return (1);
 		}
-		else				// else에서 더 많은 부분이 들어감 // if 문에서 처리가 제대로 안되는 듯
+		else
 		{
-			return (2);		// 서
+			return (2);
 		}
 	}
 	else
 	{
-//		printf("%f\n", res_double(win->cub_height, win->laser_y));
-		if (res_double(win->cub_height, win->laser_y) == (int)(win->cub_height - 1))	//res_double(win->cub_height, win->laser_y) >= 0 && res_double(win->cub_height, win->laser_y) < 1)		//  북쪽 벽 판ㄱ별이 잘 안됨
+		if (res_double(win->cub_height, win->laser_y) == (int)(win->cub_height - 1))
 		{
 			{
-				return (3);		// 북
+				return (3);
 			}
 		}
 		else
 		{
 			{
-				return (4);		// 남
+				return (4);
 			}
 		}
 	}
