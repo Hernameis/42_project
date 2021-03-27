@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/27 11:45:33 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 13:25:08 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void				put_laser(t_win *win)
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 	}
+	draw_sprite(win);
 }
 
 void				move_laser(t_win *win)

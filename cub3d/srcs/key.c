@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/27 11:37:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 13:27:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,5 @@ int		if_key_pressed(t_win *win)
 	key_pressed_qe(win);
 	key_pressed_ad(win);
 	put_laser(win);
-	draw_sprite(win);
 	return (0);
 }
