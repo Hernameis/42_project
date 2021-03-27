@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 08:04:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 10:46:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ void			struct_init2(t_win *win)
 {
 	win->cub_height = win->scr_height / (double)win->map_height;
 	win->cub_width = win->scr_width / (double)win->map_width;
+	win->dist = 1 / tan(win->pov * M_PI / 180 / 2) * win->scr_width / 2;
 	if (win->cub_height > win->cub_width)
-		win->sprite_size = win->cub_width;
+		win->sprite_size = win->cub_width * 2;
 	else
-		win->sprite_size = win->cub_height;
+		win->sprite_size = win->cub_height * 2;
 	win->player_x = win->player_x * win->cub_width + win->cub_width / 2.0;
 	win->player_y = win->player_y * win->cub_height + win->cub_height / 2.0;
 	win->player_dir = win->player_dir * M_PI / 180;

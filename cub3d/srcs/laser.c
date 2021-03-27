@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/26 12:13:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 11:30:35 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void				put_laser(t_win *win)
 	double			w_i;
 
 	w_i = ((win->scr_width - 1) / -2) - 1;
-	win->dist = 1 / tan(win->pov * M_PI / 180 / 2) * win->scr_width / 2;
 	win->i = 0;
 	while (++w_i < (int)win->scr_width / 2)
 	{
@@ -73,9 +72,9 @@ void				draw_wall(t_win *win, int i, double dis)
 		else
 		{
 			if (win->j < win->scr_height / 2)
-				win->color = 0x87ceeb;
+				win->color = win->ceiling_color;
 			else
-				win->color = 0xffd700;
+				win->color = win->floor_color;
 		}
 		draw_pixel(win, i, win->j, win->color);
 	}

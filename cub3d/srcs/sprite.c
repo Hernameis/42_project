@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:08:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/23 10:38:57 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 10:23:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void		sprite_start(t_win *win, int num)
 	win->center = (within_degree_double(win->sprite[num].degree
 				- win->player_dir) + (win->pov * M_PI / 180) / 2)
 		/ (win->pov * M_PI / 180) * win->scr_width;
-	win->half = win->scr_height / win->sprite[num].distance * 10;
+	win->half = win->scr_height / win->sprite[num].distance
+		* win->sprite_size / 2;
 	win->start = (int)(win->scr_height / 2 - win->half);
 	win->end = (int)(win->scr_height / 2 + win->half);
 	win->start_w = (int)(win->center - win->half);

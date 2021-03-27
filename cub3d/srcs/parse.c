@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 08:04:04 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/27 10:14:54 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	check_resolution(t_win *win)
 		printf("Resolution error\n");
 		exit(0);
 	}
+	if (win->scr_width < 300)
+		win->scr_width = 300;
+	if (win->scr_height < 300)
+		win->scr_height = 300;
 	if (win->scr_width > win->size_x)
-	{
 		win->scr_width = win->size_x;
-	}
 	if (win->scr_height > win->size_y)
-	{
 		win->scr_height = win->size_y;
-	}
 }
 
 void	get_word(char *line, t_win *win)
