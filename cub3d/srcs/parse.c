@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/27 10:14:54 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/28 12:01:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_cubfile(t_win *win, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		printf("map file error\n");
+		printf("error\nmap file\n");
 		return ;
 	}
 	parse_gnl(win, fd);
@@ -38,7 +38,7 @@ void	check_resolution(t_win *win)
 	mlx_get_screen_size(win->mlx, &win->size_x, &win->size_y);
 	if (win->scr_width < 1 || win->scr_height < 1)
 	{
-		printf("Resolution error\n");
+		printf("error\nResolution\n");
 		exit(0);
 	}
 	if (win->scr_width < 300)

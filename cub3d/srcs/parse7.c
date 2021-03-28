@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 07:32:19 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/28 12:03:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		invalid_map1(t_win *win, int i, int j, int check)
 	}
 	if (check == 0)
 	{
-		printf("invalid map1\n");
+		printf("error\ninvalid map1\n");
 		exit(0);
 	}
 }
@@ -77,7 +77,7 @@ void		invalid_map2(t_win *win, int i, int j, int check)
 	}
 	if (check == 0)
 	{
-		printf("invalid map2\n");
+		printf("error\ninvalid map2\n");
 		exit(0);
 	}
 }
@@ -98,7 +98,7 @@ void		invalid_map3(t_win *win, int i, int j, int check)
 	}
 	if (check == 0)
 	{
-		printf("invalid map3\n");
+		printf("error\ninvalid map3\n");
 		exit(0);
 	}
 }
@@ -119,7 +119,7 @@ void		invalid_map4(t_win *win, int i, int j, int check)
 	}
 	if (check == 0)
 	{
-		printf("invalid map4\n");
+		printf("error\ninvalid map4\n");
 		exit(0);
 	}
 }
