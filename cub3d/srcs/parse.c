@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 12:01:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/28 17:37:46 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	get_cubfile(t_win *win, char **argv)
 	int		check;
 
 	check = 0;
-	fd = open(argv[1], O_RDONLY);
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+	{
+		printf("error\ncub file doesn't exist\n");
+		exit(0);
+	}
 	if (fd < 0)
 	{
 		printf("error\nmap file\n");
