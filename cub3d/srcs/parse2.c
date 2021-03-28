@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 12:02:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/28 18:03:11 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 		get_floor_color(win, split, split2, num);
 	else if (line[0] == 'C')
 	{
+//		win->ceiling_color = 0;
 		if (num != 3 || split[0][1] != '\0' || win->c_check == 1)
 		{
 			printf("error\nceiling\n");
@@ -55,6 +56,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 void	get_floor_color(t_win *win, char **split, char **split2, int num)
 {
+//	win->floor_color = 0;
 	if (num != 3 || split[0][1] != '\0' || win->f_check == 1)
 	{
 		printf("error\nfloor\n");
