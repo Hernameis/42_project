@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 12:03:28 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 10:02:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,34 @@ void		parse_gnl(t_win *win, int fd)
 
 	while ((a = get_next_line(fd, &line)) > 0)
 	{
-		if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
-				|| line[0] == 'E' || line[0] == 'S')
+		if (win->all_flags == 0)
 		{
-			get_word(line, win);
-		}
-		else if (line[0] == 'F' || line[0] == 'C')
-		{
-			get_floor_ceiling_color(line, win);
-		}
+			if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
+					|| line[0] == 'E' || line[0] == 'S')
+			{
+				get_word(line, win);
+			}
+			else if (line[0] == 'F' || line[0] == 'C')
+			{
+				get_floor_ceiling_color(line, win);
+			}
+			else
+			{
+				if (get_map(line, win) == 0)
+				{
+					break ;
+				}
+			}
+			free(line);
+			}
 		else
 		{
-			if (get_map(line, win) == 0)
-			{
-				break ;
-			}
+			printf("error\ntoo many arguments\n");
+			exit(0);
 		}
-		free(line);
 	}
 	free(line);
+
 }
 
 void		invalid_map1(t_win *win, int i, int j, int check)

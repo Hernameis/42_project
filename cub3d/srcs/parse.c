@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 17:37:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 10:02:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	get_cubfile(t_win *win, char **argv)
 	init_map(win);
 	make_map(win);
 	check_map_effect(win);
+	check_all_flags(win);
 	free(win->parse_map);
 	close(fd);
 }

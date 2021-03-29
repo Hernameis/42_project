@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 14:22:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 11:16:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void		key_pressed_ad(t_win *win)
 	}
 }
 
+/*
 void		ceiling(t_win *win)
 {
 	int		i;
@@ -92,3 +93,4 @@ void		ceiling(t_win *win)
 		i++;
 	}
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:38:16 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/25 07:51:56 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 09:55:03 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,5 @@ void		invalid_map8(t_win *win, int i, int j, int check)
 		printf("error\ninvalid map8\n");
 		exit(0);
 	}
+	win->map_check = 1;
 }

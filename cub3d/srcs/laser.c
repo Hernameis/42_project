@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 12:00:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 12:13:26 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void				put_laser(t_win *win)
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 	}
-	draw_sprite(win);
+//	draw_sprite(win);
 }
 
 void				move_laser(t_win *win)
@@ -61,10 +61,29 @@ void				draw_wall(t_win *win, int i, double dis)
 	double			start;
 	double			end;
 
-	win->color = 0x000000;
 	win->half_height = 1 / dis * win->cub_height / 5 * win->dist;
 	start = win->scr_height / 2 - win->half_height;
 	end = win->scr_height / 2 + win->half_height;
+	win->j = -1;
+	win->k = 0;
+
+	while (++win->j < win->scr_height)
+	{
+		if (win->j > start && win->j < end)
+		{
+			wall_pixel(win, start, end, i);
+			draw_pixel(win, i, win->j, win->color);
+
+		}
+//		else
+//		{
+//			if (win->j < win->scr_height / 2)
+//				win->color = win->ceiling_color;
+//			else
+//				win->color = win->floor_color;
+//		}
+	}
+/*
 	win->j = -1;
 	win->k = 0;
 	while (++win->j < win->scr_height)
@@ -80,18 +99,23 @@ void				draw_wall(t_win *win, int i, double dis)
 		}
 		draw_pixel(win, i, win->j, win->color);
 	}
+*/
+	i = 0;
 }
 
 void				wall_pixel(t_win *win, double start, double end, int i)
 {
 	if (start < 0)
 	{
-		win->color = if_wall(win->k - start / (end - start)
-				* win->half_height * 2, win->half_height * 2, win);
+		win->color = if_wall(win->k - start / (end - start) * win->half_height * 2, win->half_height * 2, win);
 	}
 	else
 		win->color = if_wall(win->k, win->half_height * 2, win);
-	if (check_pixel(win, i, win->j, 0xffff00) == 0)
-		draw_pixel(win, i, win->j, win->color);
 	win->k++;
+
+	t_win a;	//
+	a = *win;//
+	start = 1;//
+	end = 1;//
+	i = 1;//
 }

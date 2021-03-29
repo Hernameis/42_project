@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 18:03:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 10:13:39 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 	check_comma(win, line);
 	split = ft_split(line, ' ');
-	split2 = ft_split(split[1], ',');
+	if (!(split2 = ft_split(split[1], ',')))
+	{
+		printf("error\nceiling_floor error\n");
+		exit(0);
+	}
 	num = get_word_num(split2);
 	if (line[0] == 'F')
 		get_floor_color(win, split, split2, num);
@@ -69,6 +73,7 @@ void	get_floor_color(t_win *win, char **split, char **split2, int num)
 
 int		get_map(char *line, t_win *win)
 {
+	win->map_check = 0;
 	win->index = ft_strdup("a");
 	if ((int)ft_strlen(line) > win->map_width)
 		win->map_width = ft_strlen(line);

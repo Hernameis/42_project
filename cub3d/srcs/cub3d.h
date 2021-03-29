@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/27 10:31:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 12:24:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,10 @@ typedef struct			s_win
 	int					s_check;
 	int					f_check;
 	int					c_check;
+	int					com_check;
+	int					map_check;
+	int					all_flags;
+
 	char				*temp_map;
 	char				*index;
 	double				k;
@@ -338,5 +342,8 @@ void					wall_n_location_fix(t_win *win);
 void					wall_s_location_fix(t_win *win);
 void					wall_w_location_fix(t_win *win);
 void					wall_e_location_fix(t_win *win);
+
+void					check_all_flags(t_win *win);
+void					abcde(t_win *win);	//
 
 #endif
