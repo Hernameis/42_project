@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:07:55 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/22 12:38:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:56:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,21 @@ void	swap_map(t_win *win, char *line)
 			(const char *)win->index);
 	free(win->temp_map);
 	free(win->index);
+}
+
+void	check_contain_number(char *str)
+{
+	int		len;
+	int		i;
+
+	len = ft_strlen(str);
+	i = -1;
+	while (++i < len)
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+		{
+			printf("error\nnot number\n");
+			exit(0);
+		}
+	}
 }

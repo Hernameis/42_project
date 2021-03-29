@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
-#    Updated: 2021/03/25 08:40:19 by sunmin           ###   ########.fr        #
+#    Updated: 2021/03/29 13:41:03 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME = cub3D
 SRCS = srcs/bitmap.c		\
 	   srcs/calc.c			\
 	   srcs/calc2.c			\
-	   srcs/calc3.c			\
 	   srcs/cub3d.c			\
 	   srcs/ft_atoi.c		\
 	   srcs/ft_split.c		\

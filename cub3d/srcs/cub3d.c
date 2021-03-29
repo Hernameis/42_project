@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 12:28:18 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 12:59:09 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,7 @@ int					ft_exit(int key)
 
 int					ft_loop(t_win *win)
 {
-	abcde(win);
 	if_key_pressed(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
+//	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
-}
-
-void	abcde(t_win *win)
-{
-	int i;
-	int j;
-	i = 0;
-	while (i < win->scr_height)
-	{
-		j = 0;
-		while (j < win->scr_width)
-		{
-			win->data[win->size_l / (win->bpp / 8) * i + j] = 0;
-			j++;
-		}
-		i++;
-	}
 }

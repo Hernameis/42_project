@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 12:13:26 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:39:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ void				put_laser(t_win *win)
 					win->player_y - (win->laser_y)))
 			* cos(degree_from_xy(win->player_x, win->laser_x,
 						win->player_y, win->laser_y) - win->player_dir);
-		win->dis_for_check[win->i] = win->wall_dis;
+//		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
 	}
 //	draw_sprite(win);
+}
+
+void	draw_sprite_col(t_win *win)
+{
+
+	t_win a;
+	a = *win;
+
 }
 
 void				move_laser(t_win *win)
@@ -66,22 +74,22 @@ void				draw_wall(t_win *win, int i, double dis)
 	end = win->scr_height / 2 + win->half_height;
 	win->j = -1;
 	win->k = 0;
-
 	while (++win->j < win->scr_height)
 	{
+
 		if (win->j > start && win->j < end)
 		{
-			wall_pixel(win, start, end, i);
-			draw_pixel(win, i, win->j, win->color);
-
+		//	wall_pixel(win, start, end, i);
+			win->color = 0x111111;
 		}
-//		else
-//		{
-//			if (win->j < win->scr_height / 2)
-//				win->color = win->ceiling_color;
-//			else
-//				win->color = win->floor_color;
-//		}
+		else
+		{
+			if (win->j < win->scr_height / 2)
+				win->color = win->ceiling_color;
+			else
+				win->color = win->floor_color;
+		}
+			draw_pixel(win, i, win->j, win->color);
 	}
 /*
 	win->j = -1;

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:32:09 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/26 12:28:48 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:44:41 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		draw_pixel(t_win *win, int x, int y, int color)
 {
-	win->data[win->size_l / (win->bpp / 8) * y + x] = color;
+	win->data[win->size_l / (int)(win->bpp / 8) * y + x] = color;
 	return (color);
 }
 

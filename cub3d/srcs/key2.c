@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 11:16:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:42:14 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,3 @@ void		key_pressed_ad(t_win *win)
 		win->player_dir -= 0.08;
 	}
 }
-
-/*
-void		ceiling(t_win *win)
-{
-	int		i;
-	int		j;
-	int		color;
-
-	i = 0;
-	while (i < (int)win->scr_height)
-	{
-		if (i < win->scr_height / 2)
-			color = 0x87ceeb;
-		else
-			color = 0x111111;
-		j = 0;
-		while (j < win->scr_width)
-		{
-			draw_pixel(win, j, i, color);
-			j++;
-		}
-		i++;
-	}
-}
-*/

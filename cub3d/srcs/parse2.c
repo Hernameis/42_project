@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 10:13:39 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 14:01:52 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 		get_floor_color(win, split, split2, num);
 	else if (line[0] == 'C')
 	{
-//		win->ceiling_color = 0;
 		if (num != 3 || split[0][1] != '\0' || win->c_check == 1)
 		{
 			printf("error\nceiling\n");
 			exit(0);
 		}
+		check_contain_number(split2[0]);
+		check_contain_number(split2[1]);
+		check_contain_number(split2[2]);
 		win->ceiling_color = ft_atoi(split2[0]) * 256 * 256
 			+ ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 		win->c_check = 1;
@@ -60,12 +62,14 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 
 void	get_floor_color(t_win *win, char **split, char **split2, int num)
 {
-//	win->floor_color = 0;
 	if (num != 3 || split[0][1] != '\0' || win->f_check == 1)
 	{
 		printf("error\nfloor\n");
 		exit(0);
 	}
+	check_contain_number(split2[0]);
+	check_contain_number(split2[1]);
+	check_contain_number(split2[2]);
 	win->floor_color = ft_atoi(split2[0]) * 256 * 256
 		+ ft_atoi(split2[1]) * 256 + ft_atoi(split2[2]);
 	win->f_check = 1;

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 10:15:35 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:56:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void		parse_r(t_win *win, char **split, int num)
 		printf("error\nresolution\n");
 		exit(0);
 	}
+	check_contain_number(split[1]);
+	check_contain_number(split[2]);
 	win->scr_width = (double)ft_atoi(split[1]);
 	win->scr_height = (double)ft_atoi(split[2]);
 	win->r_check = 1;

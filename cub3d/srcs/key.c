@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 13:18:10 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 11:59:04 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 12:54:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int		if_key_pressed(t_win *win)
 	key_pressed_qe(win);
 	key_pressed_ad(win);
 	put_laser(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->img_ptr, 0, 0);
 	return (0);
 }
