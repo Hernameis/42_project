@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 13:55:47 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/31 10:05:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ typedef struct			s_win
 
 	char				*temp_map;
 	char				*index;
-	double				k;
+	int					k;
 	int					j;
 	int					color;
 	double				half_height;

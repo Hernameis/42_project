@@ -1,4 +1,4 @@
-R 1500 1500
+R 1300 5000
 
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
@@ -10,7 +10,7 @@ S ./wall/sprite.xpm
 C 135,206,235
 F 135,206,235
 
-
-1111
-1E01
-1111
+11111
+1E011
+10021
+11111

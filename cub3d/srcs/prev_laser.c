@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/31 14:23:42 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/03/29 13:39:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ void				put_laser(t_win *win)
 {
 	double			w_i;
 
-//	w_i = ((win->scr_width - 1) / -2) - 1;
-	w_i = -1;	//		이 인덱스 문제는 아님
+	w_i = ((win->scr_width - 1) / -2) - 1;
 	win->i = 0;
-//	while (++w_i < (int)win->scr_width / 2)
-	while (w_i < (int)win->scr_width)
+	while (++w_i < (int)win->scr_width / 2)
 	{
-		win->laser_dir = atan2(w_i - (int)win->scr_width / 2, win->dist);
+		win->laser_dir = atan2(w_i, win->dist);
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
 		move_laser(win);
@@ -30,12 +28,11 @@ void				put_laser(t_win *win)
 					win->player_y - (win->laser_y)))
 			* cos(degree_from_xy(win->player_x, win->laser_x,
 						win->player_y, win->laser_y) - win->player_dir);
-		win->dis_for_check[win->i] = win->wall_dis;
+//		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
-		w_i = w_i + 1;
 	}
-	draw_sprite(win);
+//	draw_sprite(win);
 }
 
 void	draw_sprite_col(t_win *win)
@@ -54,7 +51,6 @@ void				move_laser(t_win *win)
 	{
 		win->laser_x += 0.3 * cos(win->player_dir + win->laser_dir);
 		win->laser_y += 0.3 * sin(win->player_dir + win->laser_dir);
-	draw_pixel(win, (int)win->laser_x, (int)win->laser_y, 0x111111);	//	레이저 출력해보기
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
 	}
@@ -66,7 +62,6 @@ void				move_laser(t_win *win)
 		wall_n_location_fix(win);
 	else if (which_wall2(win) == 4)
 		wall_s_location_fix(win);
-
 }
 
 void				draw_wall(t_win *win, int i, double dis)
@@ -77,11 +72,30 @@ void				draw_wall(t_win *win, int i, double dis)
 	win->half_height = 1 / dis * win->cub_height / 5 * win->dist;
 	start = win->scr_height / 2 - win->half_height;
 	end = win->scr_height / 2 + win->half_height;
-	win->j = -1;		// int
-	win->k = 0;		// k 인덱스의 double, int 문제 아님, now int.
+	win->j = -1;
+	win->k = 0;
 	while (++win->j < win->scr_height)
 	{
-		win->color = 0;
+
+		if (win->j > start && win->j < end)
+		{
+		//	wall_pixel(win, start, end, i);
+			win->color = 0x111111;
+		}
+		else
+		{
+			if (win->j < win->scr_height / 2)
+				win->color = win->ceiling_color;
+			else
+				win->color = win->floor_color;
+		}
+			draw_pixel(win, i, win->j, win->color);
+	}
+/*
+	win->j = -1;
+	win->k = 0;
+	while (++win->j < win->scr_height)
+	{
 		if (win->j > start && win->j < end)
 			wall_pixel(win, start, end, i);
 		else
@@ -93,6 +107,8 @@ void				draw_wall(t_win *win, int i, double dis)
 		}
 		draw_pixel(win, i, win->j, win->color);
 	}
+*/
+	i = 0;
 }
 
 void				wall_pixel(t_win *win, double start, double end, int i)
