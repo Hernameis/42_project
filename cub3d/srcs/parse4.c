@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:33:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 13:57:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/01 14:15:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	check_comma(t_win *win, char *line)
 
 void	check_all_flags(t_win *win)
 {
-	if (!win->r_check || !win->no_check || !win->so_check || !win->we_check || !win->ea_check || !win->s_check || !win->f_check || !win->c_check || !win->map_check)
+	if (!win->r_check || !win->no_check || !win->so_check || !win->we_check
+			|| !win->ea_check || !win->s_check || !win->f_check
+			|| !win->c_check || !win->map_check)
 	{
 		win->all_flags = 0;
 		printf("error\nnot all arguments\n");

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 14:08:02 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/01 14:15:55 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,16 @@ void		parse_gnl(t_win *win, int fd)
 		{
 			if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
 					|| line[0] == 'E' || line[0] == 'S')
-			{
 				get_word(line, win);
-			}
 			else if (line[0] == 'F' || line[0] == 'C')
-			{
 				get_floor_ceiling_color(line, win);
-			}
 			else
 			{
 				if (get_map(line, win) == 0)
-				{
 					break ;
-				}
 			}
 			free(line);
-			}
+		}
 		else
 		{
 			printf("error\ntoo many arguments\n");
@@ -46,7 +40,6 @@ void		parse_gnl(t_win *win, int fd)
 		}
 	}
 	free(line);
-
 }
 
 void		invalid_map1(t_win *win, int i, int j, int check)

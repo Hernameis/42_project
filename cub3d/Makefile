@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
-#    Updated: 2021/03/29 13:41:03 by sunmin           ###   ########.fr        #
+#    Updated: 2021/04/01 14:24:23 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(NAME) : $(SRCS)
 	make -C	minilibx_opengl
 	cp minilibx_mms/libmlx.dylib ./
 	cp minilibx_opengl/libmlx.a ./
-	gcc $(FLAGS) -L ./minilibx_mms -lmlx -framework openGL -framework Appkit	$(SRCS) -o $(NAME) -O3 -O2
+	gcc $(FLAGS) -L ./minilibx_opengl -lmlx -framework openGL -framework Appkit	$(SRCS) -o $(NAME) -O3 -O2 libmlx.dylib
 
 clean : 
 	make -C minilibx_mms clean
