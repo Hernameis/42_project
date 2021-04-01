@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/01 14:13:59 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/01 14:52:47 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,5 +345,6 @@ void					wall_e_location_fix(t_win *win);
 
 void					check_all_flags(t_win *win);
 void					check_contain_number(char *str);
+int						if_unknown_key(char key);
 
 #endif

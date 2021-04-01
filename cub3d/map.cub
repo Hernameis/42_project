@@ -4,7 +4,6 @@ NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
 WE ./wall/wall_wst.xpm
 EA ./wall/wall_est.xpm
-
 S ./wall/sprite.xpm
 
 C 135,206,235

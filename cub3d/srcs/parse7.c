@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/01 14:15:55 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/01 14:54:28 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void		parse_gnl(t_win *win, int fd)
 
 	while ((a = get_next_line(fd, &line)) > 0)
 	{
+		if (if_unknown_key(line[0]) == 1)
+		{
+			printf("error\nunknown key\n");
+			exit(0);
+		}
 		if (win->all_flags == 0)
 		{
 			if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'

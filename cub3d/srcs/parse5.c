@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:07:55 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 13:56:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/01 14:36:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,12 @@ void	check_contain_number(char *str)
 			exit(0);
 		}
 	}
+}
+
+int		if_unknown_key(char key)
+{
+	if (key == 'R' || key == 'N' || key == 'S' || key == 'W' || key == 'E'
+			|| key == 'F' || key == ' ' || key == '	' || key == '1')
+		return (0);
+	return (1);
 }
