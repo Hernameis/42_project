@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/01 14:13:36 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/02 12:04:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void				move_laser(t_win *win)
 			&& win->laser_x <= win->scr_width
 			&& win->laser_y <= win->scr_height)
 	{
-		win->laser_x += 0.3 * cos(win->player_dir + win->laser_dir);
-		win->laser_y += 0.3 * sin(win->player_dir + win->laser_dir);
+		win->laser_x += 0.5 * cos(win->player_dir + win->laser_dir);
+		win->laser_y += 0.5 * sin(win->player_dir + win->laser_dir);
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
 	}

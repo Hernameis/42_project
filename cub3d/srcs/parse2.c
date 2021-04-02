@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 14:01:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/02 11:22:06 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 		printf("error\nceiling_floor error\n");
 		exit(0);
 	}
+	check_cf_color(split2);
 	num = get_word_num(split2);
 	if (line[0] == 'F')
 		get_floor_color(win, split, split2, num);

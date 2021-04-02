@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:57 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/01 14:54:28 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/02 10:41:00 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		parse_gnl(t_win *win, int fd)
 	{
 		if (if_unknown_key(line[0]) == 1)
 		{
+			printf("%c\n", line[0]);
 			printf("error\nunknown key\n");
 			exit(0);
 		}
