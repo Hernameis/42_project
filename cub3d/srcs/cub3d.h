@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/03 09:02:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/03 11:50:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ void					sprite_init2(t_win *win);
 void					put_laser(t_win *win);
 void					draw_wall(t_win *win, int i, double dis);
 void					move_laser(t_win *win);
+void					move_laser2(t_win *win);
 
 int						check_sprite(t_win *win, int num);
 void					put_sprite(t_win *win);

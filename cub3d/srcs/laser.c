@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/03 11:08:29 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/03 12:06:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void				put_laser(t_win *win)
 		win->laser_x = win->player_x;
 		win->laser_y = win->player_y;
 		move_laser(win);
+		move_laser2(win);
 		win->wall_dis = (distance(win->player_x - win->laser_x,
 					win->player_y - (win->laser_y)))
 			* cos(degree_from_xy(win->player_x, win->laser_x,
@@ -35,7 +36,14 @@ void				put_laser(t_win *win)
 	draw_sprite(win);
 }
 
-void				move_laser(t_win *win)
+void				move_laser(t_win *win)		// 첫 번째 타일만큼
+{
+	return ;
+	t_win a;		//
+	a = *win;		//	
+}
+
+void				move_laser2(t_win *win)		// 첫 번째 타일에서 삼각비를 이용
 {
 	while (win->laser_x >= 0 && win->laser_y >= 0
 			&& win->laser_x <= win->scr_width
