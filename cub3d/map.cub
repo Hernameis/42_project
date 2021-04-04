@@ -1,4 +1,4 @@
-R 1080 720
+R 11080 7120
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
 WE ./wall/wall_wst.xpm
