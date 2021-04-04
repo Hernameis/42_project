@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 11:05:18 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/03 11:13:24 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/04 12:41:22 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,14 @@ int		which_wall2(t_win *win)
 			return (3);
 		}
 	}
+	return (0);
+}
+
+int		wall_corner(t_win *win)
+{
+	if (check_map(win, win->laser_x - 1, win->laser_y) == '1')
+		return (1);
+	else if (check_map(win, win->laser_x + 1, win->laser_y) == '1')
+		return (2);
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/03 14:41:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/04 09:27:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		key_pressed_ws(t_win *win)		// 여기서 뚫리는 거 잡아야 함
+void		key_pressed_ws(t_win *win)
 {
 	if (win->press_w)
 	{
