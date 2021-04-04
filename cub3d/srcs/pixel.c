@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:32:09 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/29 13:44:41 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 07:39:44 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_image_data2(t_win *win)
 	if ((win->sprite_ptr = mlx_xpm_file_to_image(win->mlx, win->sprite_addr,
 			&win->sprite_width, &win->sprite_height)) == 0)
 	{
-		printf("error\nnorth wall_file\n");
+		printf("error\nsprite_file\n");
 		exit(0);
 	}
 	win->sprite_data = (int *)mlx_get_data_addr(win->sprite_ptr,

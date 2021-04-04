@@ -4,8 +4,8 @@ SO ./wall/wall_sou.xpm
 WE ./wall/wall_wst.xpm
 EA ./wall/wall_est.xpm
 S ./wall/sprite.xpm
-C 200,200,200
-F 100,100,100
+C 3,20,0
+F 10,13,10
 
 
 
