@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:07:55 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/02 12:03:14 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 08:09:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ int		if_unknown_key(char key)
 
 void	check_cf_color(char **split)
 {
+	if (!split[0] || !split[1] || !split[2])
+	{
+		printf("error\ncf_color\n");
+		exit(0);
+	}
 	if (ft_atoi((const char *)split[0]) > 255
 			|| ft_atoi((const char *)split[1]) > 255
 			|| ft_atoi((const char *)split[2]) > 255)
