@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:33:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/01 14:15:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 07:44:20 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_comma(t_win *win, char *line)
 		if (line[i] == ',')
 			win->com_check++;
 	}
-	if (win->com_check > 2)
+	if (win->com_check != 2)
 	{
 		printf("error\nceiling floor\n");
 		exit(0);
