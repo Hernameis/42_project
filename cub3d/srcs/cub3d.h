@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 18:28:45 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 20:03:23 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ double					distance(double a, double b);
 double					degree_from_xy(double x1, double x2,
 		double y1, double y2);
 int						if_pass_wall(t_win *win, int key);
+int						if_pass_sprite(t_win *win, int key);
 void					within_degree(t_win *win);
 double					within_degree_double(double degree);
 
