@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 08:04:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 18:28:45 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct			s_win
 	int					check_height;
 	int					check_width;
 	int					check;
+	int					hor_ver;
 
 	int					sprite_num;
 	double				sprite_size;

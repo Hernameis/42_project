@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 18:12:59 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 18:29:34 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,20 @@ void				put_laser(t_win *win)
 
 void				move_laser(t_win *win)
 {
+	win->hor_ver = 0;
 	while (win->laser_x >= 0 && win->laser_y >= 0
 			&& win->laser_x <= win->scr_width
 			&& win->laser_y <= win->scr_height)
 	{
-		win->laser_x += 0.3 * cos(win->player_dir + win->laser_dir);
-		win->laser_y += 0.3 * sin(win->player_dir + win->laser_dir);
+		if (win->hor_ver % 2 == 0)			
+			win->laser_x += 0.3 * cos(win->player_dir + win->laser_dir);
+		else
+			win->laser_y += 0.3 * sin(win->player_dir + win->laser_dir);
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
+		win->hor_ver++;
 	}
-/*
+
 	if (which_wall2(win) == 1)
 		wall_e_location_fix(win);
 	else if (which_wall2(win) == 2)
@@ -56,7 +60,6 @@ void				move_laser(t_win *win)
 		wall_n_location_fix(win);
 	else if (which_wall2(win) == 4)
 		wall_s_location_fix(win);
-*/
 }
 
 void				draw_wall(t_win *win, int i, double dis)
@@ -92,8 +95,7 @@ void				wall_pixel(t_win *win, double start, double end, int i)
 				* win->half_height * 2, win->half_height * 2, win);
 	}
 	else
-		win->color = 0x123111;	///
-//		win->color = if_wall(win->k, win->half_height * 2, win);
+		win->color = if_wall(win->k, win->half_height * 2, win);
 	win->k++;
 	i = 1;
 }
