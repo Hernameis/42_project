@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:41:20 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/04 12:40:58 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 13:58:13 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		which_wall(t_win *win)
 
 int		wall_e_color(int k, double height, t_win *win)
 {
+	return (0xff5ee);	//////////
 	double		x;
 	double		y;
 	int			color;
@@ -52,6 +53,7 @@ int		wall_e_color(int k, double height, t_win *win)
 
 int		wall_w_color(double k, double height, t_win *win)
 {
+	return (0xff0000);		//////////
 	double		x;
 	double		y;
 	int			color;
@@ -65,6 +67,7 @@ int		wall_w_color(double k, double height, t_win *win)
 
 int		wall_s_color(int k, double height, t_win *win)
 {
+	return (0x00ff00);		////////////
 	double		x;
 	double		y;
 	int			color;
@@ -78,6 +81,7 @@ int		wall_s_color(int k, double height, t_win *win)
 
 int		wall_n_color(int k, double height, t_win *win)
 {
+	return (0x0000ff);//		//////////
 	double		x;
 	double		y;
 	int			color;

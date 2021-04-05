@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/04 12:39:52 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 14:02:49 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void				put_laser(t_win *win)
 					win->player_y - (win->laser_y)))
 			* cos(degree_from_xy(win->player_x, win->laser_x,
 						win->player_y, win->laser_y) - win->player_dir);
+		printf("(xy %f,%f) (i %d wall_dis) %f (width %f res %f) (height %f res %f)\n", win->laser_x, win->laser_y, win->i, win->wall_dis, win->cub_width, res_double(win->cub_width, win->laser_x), win->cub_height, res_double(win->cub_height, win->laser_y));
 		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
@@ -46,6 +47,8 @@ void				move_laser(t_win *win)
 		if (check_map(win, win->laser_x, win->laser_y) == '1')
 			break ;
 	}
+
+	
 	if (which_wall2(win) == 1)
 		wall_e_location_fix(win);
 	else if (which_wall2(win) == 2)
@@ -54,6 +57,7 @@ void				move_laser(t_win *win)
 		wall_n_location_fix(win);
 	else if (which_wall2(win) == 4)
 		wall_s_location_fix(win);
+	
 }
 
 void				draw_wall(t_win *win, int i, double dis)

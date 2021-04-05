@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:38:16 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/03 09:01:13 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 10:07:22 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,24 @@ void	map_end_error(t_win *win)
 			|| !win->ea_check || !win->s_check || !win->f_check
 			|| !win->c_check)
 	{
-		printf("error\nmap must be at the end\n");
+		printf("error\n");
 		exit(0);
 	}
 }
 
 int		set_parse(t_win *win, char *line)
 {
-	if (line[0] == 'R' || line[0] == 'N' || line[0] == 'W'
-			|| line[0] == 'E' || line[0] == 'S')
+	int		len;
+	int		i;
+
+	len = ft_strlen(line);
+	i = 0;
+	while (line[i] == ' ' || (line[i] >= 8 && line[i] <= 13))
+		i++;
+	if (line[i] == 'R' || (line[i] == 'N' && line[i + 1] == 'O') || (line[i] == 'W' && line[i + 1] == 'E')
+			|| (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'S' && (line[i + 1] == ' ' || line[i + 1] == 'O')))
 		get_word(line, win);
-	else if (line[0] == 'F' || line[0] == 'C')
+	else if (line[i] == 'F' || line[i] == 'C')
 		get_floor_ceiling_color(line, win);
 	else
 	{
