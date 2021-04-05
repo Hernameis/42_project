@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 12:01:04 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/04 12:40:25 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:26:09 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ int		if_pass_wall(t_win *win, int key)
 {
 	if (key == KEY_W || key == KEY_Q)
 	{
-		return (check_map(win, win->player_x + 15 * cos(win->player_dir),
-					win->player_y + 15 * sin(win->player_dir)));
+		if (check_map(win, win->player_x + win->player_move_speed * 2 * cos(win->player_dir),
+					win->player_y) == '1' || check_map(win, win->player_x, win->player_y + win->player_move_speed * 2 * sin(win->player_dir)) == '1')
+			return (0);
 	}
 	else if (key == KEY_S || key == KEY_E)
 	{
-		return (check_map(win, win->player_x - 15 * cos(win->player_dir),
-					win->player_y - 15 * sin(win->player_dir)));
+		if (check_map(win, win->player_x - win->player_move_speed * 2 * cos(win->player_dir),
+					win->player_y) == '1' || check_map(win, win->player_x, win->player_y - win->player_move_speed * 2 * sin(win->player_dir)) == '1')
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 void	within_degree(t_win *win)

@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 10:08:49 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 18:43:07 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:24:02 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void		key_pressed_ws(t_win *win)
 {
 	if (win->press_w)
 	{
-		if (if_pass_wall(win, KEY_W) != '1' && if_pass_wall(win, KEY_W) != '2')
+		if (if_pass_wall(win, KEY_W) == 1)
 			win->player_x += cos(win->player_dir) * win->player_move_speed;
-		if (if_pass_wall(win, KEY_W) != '1' && if_pass_wall(win, KEY_W) != '2')
+		if (if_pass_wall(win, KEY_W) == 1)
 			win->player_y += sin(win->player_dir) * win->player_move_speed;
 	}
-	else if (win->press_s)
+	if (win->press_s)
 	{
-		if (if_pass_wall(win, KEY_S) != '1' && if_pass_wall(win, KEY_S) != '2')
+		if (if_pass_wall(win, KEY_S) == 1)
 			win->player_x -= cos(win->player_dir) * win->player_move_speed;
-		if (if_pass_wall(win, KEY_S) != '1' && if_pass_wall(win, KEY_S) != '2')
+		if (if_pass_wall(win, KEY_S) == 1)
 			win->player_y -= sin(win->player_dir) * win->player_move_speed;
 	}
 }
@@ -36,9 +36,9 @@ void		key_pressed_qe(t_win *win)
 	{
 		win->temp = win->player_dir;
 		win->player_dir -= M_PI / 2;
-		if (if_pass_wall(win, KEY_Q) != '1')
+		if (if_pass_wall(win, KEY_Q) == 1)
 			win->player_x += cos(win->player_dir) * win->player_move_speed;
-		if (if_pass_wall(win, KEY_Q) != '1')
+		if (if_pass_wall(win, KEY_Q) == 1)
 			win->player_y += sin(win->player_dir) * win->player_move_speed;
 		win->player_dir = win->temp;
 	}
@@ -46,9 +46,9 @@ void		key_pressed_qe(t_win *win)
 	{
 		win->temp = win->player_dir;
 		win->player_dir -= M_PI / 2;
-		if (if_pass_wall(win, KEY_E) != '1')
+		if (if_pass_wall(win, KEY_E) == 1)
 			win->player_x -= cos(win->player_dir) * win->player_move_speed;
-		if (if_pass_wall(win, KEY_E) != '1')
+		if (if_pass_wall(win, KEY_E) == 1)
 			win->player_y -= sin(win->player_dir) * win->player_move_speed;
 		win->player_dir = win->temp;
 	}
