@@ -1,4 +1,4 @@
-R 1000 1000
+R 1500 1500
 
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm

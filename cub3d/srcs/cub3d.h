@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:15:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 20:03:23 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/06 07:28:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ void					swap_map(t_win *win, char *line);
 int						ft_atoi(const char *str);
 void					sprite_start(t_win *win, int num);
 
-void					wall_pixel(t_win *win, double start, double end, int i);
+void					wall_pixel(t_win *win, double start, double end);
 double					res_double(double a, double b);
 void					parse_gnl(t_win *win, int fd);
 int						ft_exit(int key);

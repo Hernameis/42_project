@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:36:53 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 18:29:34 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/06 07:57:07 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void				put_laser(t_win *win)
 					win->player_y - (win->laser_y)))
 			* cos(degree_from_xy(win->player_x, win->laser_x,
 						win->player_y, win->laser_y) - win->player_dir);
-//		printf("(xy %f,%f) (i %d wall_dis) %f (width %f res %f) (height %f res %f)\n", win->laser_x, win->laser_y, win->i, win->wall_dis, win->cub_width, res_double(win->cub_width, win->laser_x), win->cub_height, res_double(win->cub_height, win->laser_y));
 		win->dis_for_check[win->i] = win->wall_dis;
 		draw_wall(win, win->i, win->wall_dis);
 		win->i++;
@@ -43,7 +42,7 @@ void				move_laser(t_win *win)
 			&& win->laser_x <= win->scr_width
 			&& win->laser_y <= win->scr_height)
 	{
-		if (win->hor_ver % 2 == 0)			
+		if (win->hor_ver % 2 == 0)
 			win->laser_x += 0.3 * cos(win->player_dir + win->laser_dir);
 		else
 			win->laser_y += 0.3 * sin(win->player_dir + win->laser_dir);
@@ -51,7 +50,6 @@ void				move_laser(t_win *win)
 			break ;
 		win->hor_ver++;
 	}
-
 	if (which_wall2(win) == 1)
 		wall_e_location_fix(win);
 	else if (which_wall2(win) == 2)
@@ -74,8 +72,8 @@ void				draw_wall(t_win *win, int i, double dis)
 	win->k = 0;
 	while (++win->j < win->scr_height)
 	{
-		if (win->j > start && win->j < end)
-			wall_pixel(win, start, end, i);
+		if (win->j >= start && win->j <= end)
+			wall_pixel(win, start, end);
 		else
 		{
 			if (win->j < win->scr_height / 2)
@@ -87,15 +85,12 @@ void				draw_wall(t_win *win, int i, double dis)
 	}
 }
 
-void				wall_pixel(t_win *win, double start, double end, int i)
+void				wall_pixel(t_win *win, double start, double end)
 {
 	if (start < 0)
-	{
 		win->color = if_wall(win->k - start / (end - start)
 				* win->half_height * 2, win->half_height * 2, win);
-	}
 	else
 		win->color = if_wall(win->k, win->half_height * 2, win);
 	win->k++;
-	i = 1;
 }

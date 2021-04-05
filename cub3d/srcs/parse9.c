@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:38:16 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 10:07:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/06 07:57:29 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int		set_parse(t_win *win, char *line)
 	i = 0;
 	while (line[i] == ' ' || (line[i] >= 8 && line[i] <= 13))
 		i++;
-	if (line[i] == 'R' || (line[i] == 'N' && line[i + 1] == 'O') || (line[i] == 'W' && line[i + 1] == 'E')
-			|| (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'S' && (line[i + 1] == ' ' || line[i + 1] == 'O')))
+	if (line[i] == 'R' || (line[i] == 'N' && line[i + 1] == 'O')
+			|| (line[i] == 'W' && line[i + 1] == 'E')
+			|| (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'S'
+				&& (line[i + 1] == ' ' || line[i + 1] == 'O')))
 		get_word(line, win);
 	else if (line[i] == 'F' || line[i] == 'C')
 		get_floor_ceiling_color(line, win);
