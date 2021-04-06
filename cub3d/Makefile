@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 10:32:58 by sunmin            #+#    #+#              #
-#    Updated: 2021/04/03 08:39:56 by sunmin           ###   ########.fr        #
+#    Updated: 2021/04/06 10:08:42 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,10 +57,10 @@ $(NAME) : $(SRCS)
 clean : 
 	make -C minilibx_mms clean
 	make -C minilibx_opengl clean
-
-fclean : clean
 	rm -f libmlx.dylib
 	rm -f libmlx.a
+
+fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
