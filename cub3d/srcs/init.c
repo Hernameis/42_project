@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/02 11:26:40 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/07 11:05:32 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void			struct_init(t_win *win)
 	win->press_m = 0;
 	win->key_ad = 0;
 	win->key_ws = 0;
+	win->all_flags = 0;
 	struct_init3(win);
 }
 
