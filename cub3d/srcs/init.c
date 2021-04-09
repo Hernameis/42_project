@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 07:30:11 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/07 11:05:32 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/09 15:29:05 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			struct_init3(t_win *win)
 	win->laser_x = 0;
 	win->laser_y = 0;
 	win->laser_dir = 0;
-	win->pov = 66;
+	win->pov = 60;
 	win->minimap_size = 3;
 	win->i = 0;
 	win->r_check = 0;
@@ -55,9 +55,9 @@ void			struct_init2(t_win *win)
 	win->cub_width = win->scr_width / (double)win->map_width;
 	win->dist = 1 / tan(win->pov * M_PI / 180 / 2) * win->scr_width / 2;
 	if (win->cub_height > win->cub_width)
-		win->sprite_size = win->cub_width * 2;
+		win->sprite_size = win->cub_width;
 	else
-		win->sprite_size = win->cub_height * 2;
+		win->sprite_size = win->cub_height;
 	win->player_x = win->player_x * win->cub_width + win->cub_width / 2.0;
 	win->player_y = win->player_y * win->cub_height + win->cub_height / 2.0;
 	win->player_dir = win->player_dir * M_PI / 180;
