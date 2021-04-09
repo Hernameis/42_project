@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 12:33:08 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/24 09:33:31 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/09 12:30:19 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	put_bitmap(t_win *win)
 		j = -1;
 		while (++j < (int)win->scr_width)
 			write(fd, &win->data[win->size_l / (win->bpp / 8) * i + j], 3);
+		write(fd, "\0", win->pad_size);
 	}
 }
 
