@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:08:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/09 19:24:05 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/10 08:47:01 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		sprite_pixel(t_win *win, int num)
 {
 	int		i;
 	int		j;
-
 
 	sprite_start(win, num);
 	i = win->start;
@@ -77,7 +76,7 @@ void		compare_sprite(t_win *win, int num)
 	double	temp_degree;
 
 	while (num > 0)
-	{	
+	{
 		j = 0;
 		while (j < num - 1)
 		{

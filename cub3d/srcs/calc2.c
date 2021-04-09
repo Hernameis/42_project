@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 09:00:42 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/09 17:15:44 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/10 08:47:21 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			if_pass_sprite(t_win *win, int key)
 	return (1);
 }
 
-int within_degree2(double degree)
+int			within_degree2(double degree)
 {
 	while (degree < -1 * M_PI || degree > M_PI)
 	{
