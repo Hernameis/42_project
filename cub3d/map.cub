@@ -3,10 +3,11 @@ R 1003 1003
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
 EA ./wall/wall_est.xpm
+WE ./wall/wall_wst.xpm
+
 S ./wall/sprite2.xpm
 C 24,24,24
 F 123,123,123
-WE ./wall/wall_wst.xpm
 
 
 11111111111111111
@@ -19,3 +20,9 @@ WE ./wall/wall_wst.xpm
 10000000000000001
 10000000000000001
 11111111111111111
+
+
+
+11111111111
+10000000001
+11111111111
