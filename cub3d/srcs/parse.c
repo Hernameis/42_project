@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/02 11:25:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/11 20:43:37 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	get_cubfile(t_win *win, char **argv)
 void	check_resolution(t_win *win)
 {
 	mlx_get_screen_size(win->mlx, &win->size_x, &win->size_y);
+	if (win->scr_width == -1)
+		win->scr_width = win->size_x;
+	if (win->scr_height == -1)
+		win->scr_height = win->size_y;
 	if (win->scr_width < 1 || win->scr_height < 1)
 	{
 		printf("error\nResolution\n");
