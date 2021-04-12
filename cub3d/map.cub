@@ -1,4 +1,4 @@
-R 1111 1111
+R 1001 1001
 
 NO ./wall/wall_nor.xpm
 SO ./wall/wall_sou.xpm
