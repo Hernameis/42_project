@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:33:15 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 07:44:20 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/12 13:52:12 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_comma(t_win *win, char *line)
 	}
 	if (win->com_check != 2)
 	{
-		printf("error\nceiling floor\n");
+		printf("error\n");
 		exit(0);
 	}
 }
@@ -46,7 +46,7 @@ void	check_all_flags(t_win *win)
 			|| !win->c_check || !win->map_check)
 	{
 		win->all_flags = 0;
-		printf("error\nnot all arguments\n");
+		printf("error\n");
 		exit(0);
 	}
 	win->all_flags = 1;

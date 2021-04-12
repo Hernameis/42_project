@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:04:37 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/11 20:43:37 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/12 13:44:40 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_resolution(t_win *win)
 		win->scr_width = win->size_x;
 	if (win->scr_height == -1)
 		win->scr_height = win->size_y;
-	if (win->scr_width < 1 || win->scr_height < 1)
+	if (win->scr_width < 2 || win->scr_height < 2)
 	{
 		printf("error\nResolution\n");
 		exit(0);

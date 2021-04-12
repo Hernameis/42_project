@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:35:40 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/05 08:18:46 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/12 13:48:25 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	get_floor_ceiling_color(char *line, t_win *win)
 	split = ft_split(line, ' ');
 	if (!split[1] || split[2])
 	{
-		printf("cf_error\n");
+		printf("error\n");
 		exit(0);
 	}
 	check_comma(win, split[1]);
 	if (!(split2 = ft_split(split[1], ',')))
 	{
-		printf("error\nceiling_floor error\n");
+		printf("error\n");
 		exit(0);
 	}
 	check_cf_color(split2);
@@ -56,7 +56,7 @@ void	get_floor_color(t_win *win, char **split, char **split2, int num)
 {
 	if (num != 3 || split[0][1] != '\0' || win->f_check == 1)
 	{
-		printf("error\nfloor\n");
+		printf("error\n");
 		exit(0);
 	}
 	check_contain_number(split2[0]);

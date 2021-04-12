@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:08:14 by sunmin            #+#    #+#             */
-/*   Updated: 2021/03/28 12:02:22 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/12 13:51:30 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			check_player2(t_win *win, int dir)
 {
 	if (win->check != 1)
 	{
-		printf("error\nplayer location\n");
+		printf("error\n");
 		exit(0);
 	}
 	else

@@ -6,9 +6,13 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 09:07:40 by sunmin            #+#    #+#              #
-#    Updated: 2021/04/12 12:23:39 by sunmin           ###   ########.fr        #
+#    Updated: 2021/04/12 13:40:26 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
+# 모든 함수 완성시키고 makefile 다시 만들기
+# 현재 make도 제대로 안됨 (.o 파일만 만들어지는 정도)
 
 NAME = libasm.a
 
@@ -26,13 +30,13 @@ SRCS = srcs/ft_strlen.s\
 
 OBJS = $(SRCS:.s=.o)
 
+%.o : %.s
+	$(NA) $(NA_FLAGS) $<
+
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	ar rcs $(NAME) $(OBJS)
-
-$(OBJS) : $(SRCS)
-	$(NA) $(NA_FLAGS) $(SRCS)
 
 clean :
 	rm -rf (OBJS)
