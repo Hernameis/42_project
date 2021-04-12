@@ -6,7 +6,7 @@
 #    By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 09:07:40 by sunmin            #+#    #+#              #
-#    Updated: 2021/04/12 13:40:26 by sunmin           ###   ########.fr        #
+#    Updated: 2021/04/12 13:54:02 by sunmin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME) : $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 clean :
-	rm -rf (OBJS)
+	rm -rf $(OBJS)
 
 fclean : clean
 	rm -rf $(NAME)
