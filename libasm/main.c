@@ -6,20 +6,23 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:07:34 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/13 08:46:11 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/13 11:32:50 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int		ft_strlen(char *s);
 char	*ft_strcpy(char *dst, char *src);
 int		ft_strcmp(char *dst, char *src);
+char	*ft_strdup(char *s);
 
 int		main(void)
 {
 	char *a;
+	char *b;
 
 	char s1[10] = "1234567890";
 	char s2[10] = "1234567899";
@@ -45,6 +48,16 @@ int		main(void)
 	printf("ft_strcmp(11 , 12) = %d\n", ft_strcmp(s5 ,s6));
 	printf("ft_strcmp(13 , 12) = %d\n", ft_strcmp(s7 ,s6));
 	printf("ft_strcmp(13 , 123) = %d\n", ft_strcmp(s7 ,s8));
+	printf("ft_strcmp(123 , 13) = %d\n", ft_strcmp(s8 ,s7));
+	printf("ft_strcmp(12, 12) = %d\n", ft_strcmp(s2, s2));
+	printf("ft_strcmp(12, 12) = %d\n", ft_strcmp("12", "12"));
+//	printf("%d %d\n", ft_strcmp("\xfe", "\xff"), strcmp("\xfe", "\xff"));
+//	char *s = "\xfe";
+//	char *ss = "\xff";
+//	printf("strcmp : %d\n xfe = %d , xff = %d", strcmp("\xfe", ""), *s, *ss);
+
+	b = ft_strdup("123");
+	printf("ft_strdup(123) = %s\n", b);
 
 	return (0);
 }
