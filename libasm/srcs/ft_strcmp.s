@@ -1,42 +1,42 @@
-	section .text
-global _ft_strcmp
+section .text
+	global _ft_strcmp
 
-ft_strcmp :
+_ft_strcmp :						// 길이가 다른 문자열 두개 비교하면 반대로 나옴
 	xor rax, rax
-	start :
-	cmp byte [rsi + rax], 0
-	je src_null
+	_start :
 	cmp byte [rdi + rax], 0
-	je dst_null
+	je _src_null
+	cmp byte [rsi + rax], 0
+	je _dst_null
 	mov [rdi + rax], di
 	mov [rsi + rax], si
-	cmp di, si
-	je equal
-	ja above
-	jb below
+	cmp si, di
+	je _equal
+	ja _above
+	jb _below
 
-equal :
-	jmp start
+_equal :
 	inc rax
+	jmp _start
 
-above :
+_above :
 	mov rax, 1
 	ret
 
-below :
+_below :
 	mov rax, -1
 	ret
 
-src_null :
-	cmp byte [rdi + rax], 0
-	jne above
-	je	ret_zero
-	
-dst_null :
+_src_null :
 	cmp byte [rsi + rax], 0
-	jne below
-	je	ret_zero
+	jne _above
+	je	_ret_zero
+	
+_dst_null :
+	cmp byte [rdi + rax], 0
+	jne _below
+	je	_ret_zero
 
-ret_zero :
+_ret_zero :
 	xor rax,rax
 	ret
