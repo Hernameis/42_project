@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:07:34 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/14 10:22:43 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/14 12:55:38 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,5 @@ int		main(void)
 	b = ft_strdup("123");
 	printf("ft_strdup(123) = %s\n", b);
 
-	int fd;
-	char *buf;
-	fd = open("./test.txt", O_RDONLY);
-	printf("fd %d\n", ft_read(fd, buf, 3));
 	return (0);
 }
