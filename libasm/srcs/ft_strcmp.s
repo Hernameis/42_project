@@ -10,7 +10,7 @@ _ft_strcmp :
 	je _rsi_null
 	mov dl, byte [rdi + rax]
 	mov cl, byte [rsi + rax]
-	cmp cl, dl
+	cmp dl, cl
 	je _equal
 	ja _below
 	jb _above

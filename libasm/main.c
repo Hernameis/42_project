@@ -6,18 +6,20 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:07:34 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/13 11:32:50 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/14 10:22:43 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 int		ft_strlen(char *s);
 char	*ft_strcpy(char *dst, char *src);
 int		ft_strcmp(char *dst, char *src);
 char	*ft_strdup(char *s);
+int		ft_read(int fd, char *buff, size_t	count);
 
 int		main(void)
 {
@@ -59,5 +61,9 @@ int		main(void)
 	b = ft_strdup("123");
 	printf("ft_strdup(123) = %s\n", b);
 
+	int fd;
+	char *buf;
+	fd = open("./test.txt", O_RDONLY);
+	printf("fd %d\n", ft_read(fd, buf, 3));
 	return (0);
 }
