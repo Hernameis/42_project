@@ -6,7 +6,7 @@
 /*   By: sunmin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:08:43 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/10 08:47:01 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/14 14:25:53 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			sprite_color(t_win *win, int i, int j, int width)
 	int		color;
 	int		height;
 
+	return (0x333445);
 	height = win->end - win->start;
 	x = i / (double)height;
 	y = j / (double)width;
