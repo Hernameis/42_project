@@ -28,7 +28,7 @@ int		ft_numlen(int n, int base_num)		// long long n, int base_len
 int		ft_putnum(int n, char *base, int num)	//	(long long n, int base_len, char *base)  이 함수 다시 보기
 {
 	if (n >= base_len)
-		ft_putnum(n / base_len, base_len, char);
+		ft_putnum(n / base_len, base_len, base);
 	write(1, &base[n % base_len], 1);
 }
 
@@ -118,12 +118,3 @@ int		ft_printf(char *format, ...)
 			leng += n;
 			str++;
 		}
-		else
-		{
-			write(1, str, n);
-			leng += n;
-			str++;		// str++; 꼭 해야함
-		}
-	}
-	return (leng);
-}
