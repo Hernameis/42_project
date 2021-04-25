@@ -6,7 +6,7 @@
 /*   By: sunmin <msh4287@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:07:34 by sunmin            #+#    #+#             */
-/*   Updated: 2021/04/24 08:59:12 by sunmin           ###   ########.fr       */
+/*   Updated: 2021/04/24 09:43:36 by sunmin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_strcpy(char *dst, char *src);
 int		ft_strcmp(char *dst, char *src);
 char	*ft_strdup(char *s);
 int		ft_read(int fd, char *buff, size_t	count);
+ssize_t	ft_write(int fd, void *buf, size_t nbytes);
 
 int		main(void)
 {
@@ -61,6 +62,8 @@ int		main(void)
 	printf("\n");
 	b = ft_strdup("123");
 	printf("ft_strdup(123) = %s\n", b);
+
+	ft_write(1, "1234a\n", 6);
 
 	return (0);
 }

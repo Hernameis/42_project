@@ -1,4 +1,4 @@
-section .text
+section .text					;	ssize_t ft_write(int fd, void *buf, size_t nbytes)
 	global _ft_write
 	extern ___error
 
