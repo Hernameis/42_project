@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 
-int			ft_putstr(char *s)
+int		ft_putstr(char *s)
 {
 	int		i;
 
@@ -17,34 +17,34 @@ int			ft_putstr(char *s)
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	FILE		*file;
-	
-	int			b_width;
-	int			b_height;
-	char		b_char;
+	FILE	*file;
 
-	int			read;
-	char		*image;
+	int		read;
 
-	char		type;
-	float		center_x;
-	float		center_y;
-	float		r;
-	char		c_char;
+	char	*image;
 
-	int			x;
-	int			y;
+	int		b_width;
+	int		b_height;
+	char	b_char;
 
-	float		distance;
+	char	type;
+	float	center_x;
+	float	center_y;
+	float	r;
+	char	c_char;
 
+	float	distance;
+
+	int		x;
+	int		y;
 
 	if (argc != 2)
 		return (ft_putstr("Error: argument\n"));
-	if (!((file = fopen(argv[1], "r"))))
-		return (ft_putstr("Error: Operation file corrupted\n"));
-	if (!(fscanf(file, "%d %d %c\n", &b_width, &b_height, &b_char)))
+	if (!(file = fopen(argv[1], "r")))						/////////////////// ㅂㅏ보바보
+			return (ft_putstr("Error: Operation file corrupted\n"));
+	if ((fscanf(file, "%d %d %c\n", &b_width, &b_height, &b_char)) != 3)
 		return (ft_putstr("Error: Operation file corrupted\n"));
 	if (!(b_width > 0 && b_width <= 300 && b_height > 0 && b_height <= 300))
 		return (ft_putstr("Error: Operation file corrupted\n"));
@@ -56,7 +56,7 @@ int		main(int argc, char **argv)
 		if (!(r > 0) || !(type == 'c' || type == 'C'))
 		{
 			free(image);
-			ft_putstr("Error: Operation file corrupted\n");
+			return (ft_putstr("Error: Operation file corrupted\n"));
 		}
 		y = 0;
 		while (y < b_height)
@@ -70,10 +70,10 @@ int		main(int argc, char **argv)
 					if (type == 'c')
 					{
 						if (r - distance < 1.0000000)
-							image[b_width * y + x] = c_char;
+							image[y * b_width + x] = c_char;
 					}
 					else if (type == 'C')
-						image[b_width * y + x] = c_char;
+						image[y * b_width + x] = c_char;
 				}
 				x++;
 			}
@@ -84,7 +84,7 @@ int		main(int argc, char **argv)
 	if (read != -1)
 	{
 		free(image);
-		ft_putstr("Error: Operation file corrupted\n");
+		return (ft_putstr("Error: Operation file corrupted\n"));
 	}
 	y = 0;
 	while (y < b_height)
